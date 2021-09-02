@@ -1,9 +1,8 @@
-import './App.css';
-import Posts from './components/posts/Posts';
-import CurrentUser from './components/users/CurrentUser';
+import "./App.css";
+import Posts from "./components/posts/Posts";
+import CurrentUser from "./components/users/CurrentUser";
 
 function App() {
-
   /*
   const defaultPosts = [
     {
@@ -29,34 +28,36 @@ function App() {
         {
           id: "1",
           title: "post title",
-          content: "this is a test"
+          content: "this is a test",
         },
         {
           id: "2",
           title: "post title 2",
-          content: "this is also a test"
-        }
-      ]
+          content: "this is also a test",
+        },
+      ],
     },
     {
-      id:"2",
+      id: "2",
       name: "arts",
       posts: [
         {
-          id:"3",
+          id: "1",
           title: "art title",
-          content: "this is an art post"
-        }
-      ]
-    }
-  ]
+          content: "this is an art post",
+        },
+      ],
+    },
+  ];
 
-  const posts = defaultTopics.map(topic => <Posts key={topic.id} posts={topic.posts} />)
+  const posts = defaultTopics.map((topic) => (
+    <Posts key={topic.id} posts={topic.posts} />
+  ));
 
   return (
     <div className="App">
-       <CurrentUser/>
-     
+      <CurrentUser style={{ border: "1px solid blue" }} />
+
       {posts}
     </div>
   );
