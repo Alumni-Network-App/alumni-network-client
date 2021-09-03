@@ -1,5 +1,6 @@
 import "./App.css";
-import Posts from "./components/posts/Posts";
+
+import Topics from "./components/topics/Topics";
 import CurrentUser from "./components/users/CurrentUser";
 
 function App() {
@@ -18,7 +19,7 @@ function App() {
         "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Perferendis suscipit repellendus modi unde cumque, fugit in ad necessitatibus eos sed quasi et! Commodi repudiandae tempora ipsum fugiat. Quam, officia excepturi!"
     }
   ];
-  */
+  
 
   const defaultTopics = [
     {
@@ -49,16 +50,18 @@ function App() {
       ],
     },
   ];
-
   const posts = defaultTopics.map((topic) => (
     <Posts key={topic.id} posts={topic.posts} />
-  ));
+  ));*/
 
   return (
     <div className="App">
       <CurrentUser style={{ border: "1px solid blue" }} />
 
-      {posts}
+      <hr />
+
+      {/* <Posts /> */}
+      <Topics />
     </div>
   );
 }
