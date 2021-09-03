@@ -1,24 +1,10 @@
 import "./App.css";
-import Posts from "./components/posts/Posts";
-import CurrentUser from "./components/users/CurrentUser";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import Posts from "./components/Posts/Posts";
+import CurrentUser from "./components/Users/CurrentUser";
+import PageNotFound from "./components/PageNotFound/PageNotFound";
 
 function App() {
-  /*
-  const defaultPosts = [
-    {
-      id: "1",
-      title: "A Very Hot Take",
-      content:
-        "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Perferendis suscipit repellendus modi unde cumque, fugit in ad necessitatibus eos sed quasi et! Commodi repudiandae tempora ipsum fugiat. Quam, officia excepturi!"
-    },
-    {
-      id: "2",
-      title: "The Sauciest of Opinions",
-      content:
-        "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Perferendis suscipit repellendus modi unde cumque, fugit in ad necessitatibus eos sed quasi et! Commodi repudiandae tempora ipsum fugiat. Quam, officia excepturi!"
-    }
-  ];
-  */
 
   const defaultTopics = [
     {
@@ -50,16 +36,27 @@ function App() {
     },
   ];
 
+
+
   const posts = defaultTopics.map((topic) => (
     <Posts key={topic.id} posts={topic.posts} />
   ));
 
-  return (
-    <div className="App">
-      <CurrentUser style={{ border: "1px solid blue" }} />
+ 
+  <div className="App">
+    <CurrentUser style={{ border: "1px solid blue" }} />
 
-      {posts}
-    </div>
+   {posts}
+  </div>
+  
+
+  return (
+    <BrowserRouter>
+      <Switch>
+        <Route path="/" exact component = { CurrentUser } />
+        <Route path="*" component = {PageNotFound} />
+      </Switch>
+    </BrowserRouter> 
   );
 }
 
