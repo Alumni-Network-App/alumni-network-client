@@ -1,3 +1,9 @@
+/**
+ * We are not using this component at the moment.
+ * @param {*} param0
+ * @returns
+ */
+
 const Topic = ({ description, name }) => {
   return (
     <section>

@@ -1,4 +1,9 @@
 import moment from "moment";
+/**
+ * We are not using this component at the moment
+ * @param {*} param0
+ * @returns
+ */
 const Post = ({ postTitle, content, comments, createdAt }) => {
   return (
     <section style={{ border: "1px solid black" }}>

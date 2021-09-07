@@ -7,9 +7,11 @@ const Topics = () => {
     async function fetchData() {
       // You can await here
 
-      const result = await fetch("http://localhost:8080/api/v1/post/");
+      const result = await fetch(
+        "https://alumni-network-backend.herokuapp.com/api/v1/post"
+      );
       const response = await result.json();
-      console.log(response);
+      //console.log(response);
       setPosts(response);
     }
     fetchData();

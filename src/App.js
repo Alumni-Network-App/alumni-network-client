@@ -1,67 +1,31 @@
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
+import Dashboard from "./components/auth/Dashboard";
+import Login from "./components/auth/Login";
+import Register from "./components/auth/Register";
+import Reset from "./components/auth/Reset";
 
-import Topics from "./components/topics/Topics";
-import CurrentUser from "./components/users/CurrentUser";
+// import Topics from "./components/topics/Topics";
+// import CurrentUser from "./components/users/CurrentUser";
 
 function App() {
-  /*
-  const defaultPosts = [
-    {
-      id: "1",
-      title: "A Very Hot Take",
-      content:
-        "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Perferendis suscipit repellendus modi unde cumque, fugit in ad necessitatibus eos sed quasi et! Commodi repudiandae tempora ipsum fugiat. Quam, officia excepturi!"
-    },
-    {
-      id: "2",
-      title: "The Sauciest of Opinions",
-      content:
-        "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Perferendis suscipit repellendus modi unde cumque, fugit in ad necessitatibus eos sed quasi et! Commodi repudiandae tempora ipsum fugiat. Quam, officia excepturi!"
-    }
-  ];
-  
-
-  const defaultTopics = [
-    {
-      id: "1",
-      name: "sports",
-      posts: [
-        {
-          id: "1",
-          title: "post title",
-          content: "this is a test",
-        },
-        {
-          id: "2",
-          title: "post title 2",
-          content: "this is also a test",
-        },
-      ],
-    },
-    {
-      id: "2",
-      name: "arts",
-      posts: [
-        {
-          id: "1",
-          title: "art title",
-          content: "this is an art post",
-        },
-      ],
-    },
-  ];
-  const posts = defaultTopics.map((topic) => (
-    <Posts key={topic.id} posts={topic.posts} />
-  ));*/
-
   return (
     <div className="App">
-      <CurrentUser style={{ border: "1px solid blue" }} />
+      <Router>
+        <Switch>
+          <Route exact path="/" component={Login} />
+          <Route path="/register" component={Register} />
+          <Route path="/reset" component={Reset} />
+          <Route path="/dashboard" component={Dashboard} />
+        </Switch>
+      </Router>
+
+      {/* <CurrentUser style={{ border: "1px solid blue" }} />
 
       <hr />
 
-      {/* <Posts /> */}
-      <Topics />
+      <Posts /> 
+      <Topics />*/}
     </div>
   );
 }
