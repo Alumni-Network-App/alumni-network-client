@@ -6,14 +6,16 @@ const Topics = () => {
   useEffect(() => {
     async function fetchData() {
       // You can await here
-      const result = await fetch("http://localhost:8080/api/v1/post");
+
+      const result = await fetch("http://localhost:8080/api/v1/post/");
       const response = await result.json();
+      console.log(response);
       setPosts(response);
     }
     fetchData();
   }, []);
 
-  const topicPosts = posts.map((post) => {
+  const topicPosts = posts.map(({ content, title, id, date }) => {
     return (
       <div
         style={{
@@ -22,16 +24,16 @@ const Topics = () => {
           padding: "1rem",
           cursor: "pointer",
         }}
-        key={post.topic.id}
+        key={id}
       >
-        <h3> {post.topic.name} </h3>
-        <p> {post.topic.description} </p>
-        <p style={{ fontWeight: "bold" }}>
+        <h3> {title} </h3>
+        <p> {content} </p>
+        {/* <p style={{ fontWeight: "bold" }}>
           Author
           <span style={{ fontWeight: "normal" }}> {post.user.name} </span>
-        </p>
+        </p> */}
         <p style={{ fontWeight: "bold" }}>
-          createdAt <span style={{ fontWeight: "normal" }}>{post.date}</span>
+          createdAt <span style={{ fontWeight: "normal" }}>{date}</span>
         </p>
       </div>
     );
@@ -39,7 +41,15 @@ const Topics = () => {
 
   return (
     <section>
-      <h1>List of topics</h1>
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <h1>List of topics</h1>
+        <input
+          style={{ padding: "10px", height: "1.5rem", alignSelf: "center" }}
+          type="search"
+          placeholder="search post or events"
+        />
+      </div>
+
       {posts && topicPosts}
     </section>
   );

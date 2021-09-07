@@ -12,20 +12,20 @@ const Post = ({ postTitle, content, comments, createdAt }) => {
     </section>
   );
 };
-Post.defaultProps = {
-  postTitle: "Bill Murray first post",
-  content: "I am learning react today",
-  comments: 0,
-  //   comments: [
-  //     {
-  //       id: 1,
-  //       content: "this is the best post",
-  //     },
-  //     {
-  //       id: 2,
-  //       content: "i agree that this is the best post",
-  //     },
-  //   ],
-  createdAt: new Date(),
-};
+// Post.defaultProps = {
+//   postTitle: "Bill Murray first post",
+//   content: "I am learning react today",
+//   comments: 0,
+//   //   comments: [
+//   //     {
+//   //       id: 1,
+//   //       content: "this is the best post",
+//   //     },
+//   //     {
+//   //       id: 2,
+//   //       content: "i agree that this is the best post",
+//   //     },
+//   //   ],
+//   createdAt: new Date(),
+// };
 export default Post;
