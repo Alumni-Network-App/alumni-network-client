@@ -2,6 +2,8 @@ import "./App.css";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Posts from "./components/Posts/Posts";
 import CurrentUser from "./components/Users/CurrentUser";
+import GroupList from "./components/Groups/GroupList";
+import GroupDetail from "./components/Groups/GroupDetail";
 import PageNotFound from "./components/PageNotFound/PageNotFound";
 
 function App() {
@@ -54,6 +56,8 @@ function App() {
     <BrowserRouter>
       <Switch>
         <Route path="/" exact component = { CurrentUser } />
+        <Route path="/groups/all" component = { GroupList } />
+        <Route path="/groups/:id" component = { GroupDetail } />
         <Route path="*" component = {PageNotFound} />
       </Switch>
     </BrowserRouter> 
