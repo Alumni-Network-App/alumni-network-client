@@ -7,6 +7,7 @@ import {
   registerWithEmailAndPassword,
   signInWithGoogle,
 } from "../../firebase";
+import { service } from "../../services/api-services";
 import "./Register.css";
 
 const Register = () => {
@@ -26,8 +27,11 @@ const Register = () => {
     if (error) {
       return <> Error: {error} </>;
     }
-    if (user) history.replace("/dashboard");
-  }, [user, loading, error, history]);
+    if (user) {
+      history.replace("/dashboard");
+      service.createUser(user.uid, name, user.photoURL);
+    }
+  }, [user, loading, error, history, name]);
   return (
     <section className="register">
       <div className="register__container">

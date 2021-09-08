@@ -1,6 +1,7 @@
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
+import { service } from "./services/api-services";
 
 // App's Firebase configuration
 const firebaseConfig = {
@@ -37,6 +38,7 @@ const signInWithGoogle = async () => {
         email: user.email,
         photoURL: user.photoURL,
       });
+      service.createUser(user.uid, user.displayName, user.photoURL);
     }
   } catch (err) {
     console.error(err);
@@ -63,6 +65,7 @@ const registerWithEmailAndPassword = async (name, email, password) => {
       authProvider: "local",
       email,
     });
+    service.createUser(user.uid, name);
   } catch (err) {
     console.error(err);
     alert(err.message);
