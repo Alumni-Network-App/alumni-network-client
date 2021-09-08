@@ -18,11 +18,11 @@ const GroupDetail = () => {
      * then fetch groups
      */
         useEffect(() =>{
-            if(checkGroupInDatabase()){
+            if(!checkGroupInDatabase()){ 
+                history.push('/groups/all');
+            }else{
                 getPostList(id);
                 getGroupDetails();
-            }else{
-                history.push('/groups/all');
             }     
         }, [id, history])
 

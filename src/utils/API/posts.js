@@ -9,7 +9,6 @@ export const getGroupPosts = async (groupId) => {
     const POST_URL = BASE_URL + "/post/group/" + groupId;
     const response = await fetch(POST_URL);
     const data = await response.json();
-    console.log(data);
     return data;
 }
 

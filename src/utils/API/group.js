@@ -41,12 +41,18 @@ export const getPublicGroups = async () => {
 // check if group exists 
 // todo: check if page can be visited from current user
 export const isGroupInDatabase = async (group) => {
-    const TEST_URL = "https://alumni-network-backend.herokuapp.com/api/v1/post/group/" + group;
+    const TEST_URL = "https://alumni-network-backend.herokuapp.com/api/v1/group/" + group;
+    console.log("The group number is: " + group);
     const response = await fetch(TEST_URL);
-    const names = await response.json();
-    console.log(names);
-    if(names.length === 0){          
+    if(response.status !== 200){
+        console.log("this should return false");
+        return false;
+    }else{
+        const result = await response.json();
+        if(result){
+            console.log("this resulted in treu");
+            return true;
+        }
         return false;
     }
-    return true;
 }
