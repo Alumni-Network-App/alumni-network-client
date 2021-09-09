@@ -33,11 +33,19 @@ const GroupDetail = () => {
         <section>
             <h1>{data.name}</h1>
             <p>{data.description}</p>
-            <h6> Search for posts </h6>   
-            <input type="text" placeholder="Search bar"></input>
+            <h6> Search for posts </h6>
+            <div className="searchBar">
+                <input className="prompt" type="text" placeholder="Search posts"/>
+
+
+            </div>
+            
             <h5>Top level posts</h5>
             {posts && posts.map((posts) =>
-                <div key={posts.id} style={{ border: "1px solid black" }} > {posts.title} {posts.content}) </div> 
+                <div key={posts.id} style={{ border: "1px solid black" , padding:"20px" }} > 
+                    <h3>{posts.title}</h3>
+                    <p>{posts.content}</p> 
+                </div> 
             )}             
         </section>
     )
