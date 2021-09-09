@@ -9,7 +9,6 @@ const PageExists = () => {
     
     useEffect(() =>{
         doesGroupExist();  
-        console.log("group exist was loaded ")
     })
 
     const doesGroupExist = async () => {
