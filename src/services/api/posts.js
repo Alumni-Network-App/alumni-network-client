@@ -1,15 +1,14 @@
 const BASE_URL = "https://alumni-network-backend.herokuapp.com/api/v1/";
 
-
 /**
  * Get posts for a specific group 
  * @returns The group id for the specfic group
  */
 export const getGroupPosts = async (groupId) => {
-    const POST_URL = BASE_URL + "/post/group/" + groupId;
+    const POST_URL = BASE_URL + "post/";
     const response = await fetch(POST_URL);
     const data = await response.json();
-    return data;
+    return data.filter(x => x.receiverType === "group" && x.receiverId === groupId); 
 }
 
 /*

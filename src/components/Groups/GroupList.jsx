@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getPublicGroups } from "../../utils/API/group";
+import { getPublicGroups } from "../../services/api/group";
 import GroupPreview from "./GroupPreview";
 
 const GroupList = () => {
