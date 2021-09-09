@@ -27,7 +27,6 @@ const GroupList = () => {
         }
     }
 
-
     return (
         <section>
             <h3> Groups and stuff</h3>

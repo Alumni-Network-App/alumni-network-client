@@ -27,15 +27,10 @@ export const getPublicGroups = async () => {
 export const isGroupInDatabase = async (groupId) => {
     const response = await fetch(BASE_URL+"group");   
     const data = await response.json();
-    console.log("The value of groupId, the parameter you pass from PageExists: " + groupId);
-
-    const exists = data.find(x => x.id === groupId); // why can't i use groupId
-    //const exists = data.find(x => x.id === 2); // why can't i use groupId
+    const exists = data.find(x => x.id === parseInt(groupId));
     if(exists){
-        console.log("Object exists, return true");
         return true;
     }else{
-        console.log("Object is undefined, return false");
         return false;
     }
 }
