@@ -30,23 +30,21 @@ const GroupList = () => {
         }
     }
     
+    /**
+     * Filter group searches 
+     */
+    const filterGroups = data.filter(val => (
+        val.name.toLowerCase().includes(searchData.toLowerCase()) ||
+        val.description.toLowerCase().includes(searchData.toLowerCase())
+        )).map((group) =>
+        <GroupPreview key={group.id} groupId={group.id} groupTitle={group.name} groupDescription={group.description} />
+    )  
+
     return (
         <section>
             <h3> Groups and stuff</h3>
             <SearchBar onChange={(value) => setSearchData(value)}/>
-            {data.filter(val => {
-                if (searchData === ''){
-                    return val;
-                }else if(
-                    val.name.toLowerCase().includes(searchData.toLowerCase()) ||
-                    val.description.toLowerCase().includes(searchData.toLowerCase())
-                ){
-                    return val
-                }
-                return null // update 
-            }).map((group) =>
-                <GroupPreview key={group.id} groupId={group.id} groupTitle={group.name} groupDescription={group.description} />
-            )}           
+            {filterGroups}
         </section>
     )
 }

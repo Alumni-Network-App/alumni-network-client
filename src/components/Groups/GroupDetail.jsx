@@ -31,6 +31,7 @@ const GroupDetail = () => {
         fetchGroupAndPosts(id);
     }, [id])
 
+    
     return (
         <section>
             <h1>{data.name}</h1>
