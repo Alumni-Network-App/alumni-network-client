@@ -3,6 +3,8 @@ import "./App.css";
 import GroupList from "./components/Groups/GroupList";
 import PageNotFound from "./components/PageNotFound/PageNotFound";
 import GroupPageExists from "./components/PageNotFound/GroupPageExists";
+import TopicList from "./components/Topics/TopicList";
+import TopicPageExists from "./components/PageNotFound/TopicPageExists";
 
 /*
 import Dashboard from "./components/auth/Dashboard";
@@ -27,6 +29,8 @@ function App() {
         <Route path="/" exact component = { DefaultHomePage } /> 
         <Route path="/groups/all" component = { GroupList } />
         <Route path="/groups/:id" component = { GroupPageExists } />
+        <Route path="/topics/all" component= { TopicList } />
+        <Route path="/topics/:id" component = { TopicPageExists } />
         <Route path={["/page-not-found", "*"]} component = {PageNotFound} />
         </Switch>
       </Router>
