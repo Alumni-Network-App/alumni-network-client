@@ -31,7 +31,7 @@ const GroupDetail = () => {
         fetchGroupAndPosts(id);
     }, [id])
 
-    
+    console.log(data);
     return (
         <section>
             <h1>{data.name}</h1>
@@ -39,6 +39,7 @@ const GroupDetail = () => {
             <h5>Top level posts</h5>
             <SearchBar onChange={(value) => setSearchData(value)}/>
             
+            <h5> Calendar </h5>
             {posts && posts.filter(val => {
                 if (searchData === '') {
                     return val;
