@@ -1,10 +1,16 @@
-const Topic = () => {
-    return (
-        <section>
-            <p>Title</p>
-            <p>Content</p>
-        </section>
-    )
-}
+/**
+ * We are not using this component at the moment.
+ * @param {*} param0
+ * @returns
+ */
 
-export default Topic
+const Topic = ({ description, name }) => {
+  return (
+    <section>
+      <h2> {name} </h2>
+      <p> {description} </p>
+    </section>
+  );
+};
+
+export default Topic;
