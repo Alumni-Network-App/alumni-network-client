@@ -1,9 +1,9 @@
-import { isGroupInDatabase } from "../../services/api/group"
+import { isTopicInDatabase } from "../../services/api/topic"
 import { Route, useHistory, useParams } from "react-router-dom";
-import GroupDetail from "../Groups/GroupDetail";
+import TopicDetail from "../Topics/TopicDetail";
 import { useEffect } from "react";
 
-const GroupPageExists = () => {
+const TopicPageExists = () => {
     const { id } = useParams();
     const history = useHistory();
     
@@ -12,15 +12,15 @@ const GroupPageExists = () => {
     })
 
     const doesGroupExist = async () => {
-        const response = await isGroupInDatabase(id);
+        const response = await isTopicInDatabase(id);
         if(!response){
             history.push('/page-not-found');
         }
     }
     
     return (
-        <Route path="/groups/:id" component = { GroupDetail } />
+        <Route path="/topics/:id" component = { TopicDetail } />
     )
 }
 
-export default GroupPageExists
+export default TopicPageExists
