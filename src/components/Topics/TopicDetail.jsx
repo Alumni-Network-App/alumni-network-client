@@ -32,7 +32,7 @@ const TopicDetail = () => {
     }, [id])
 
     // filter topic searches 
-    const filterTopics = posts.filter(val => (
+    const filteredPosts = posts.filter(val => (
         val.title.toLowerCase().includes(searchData.toLowerCase()) ||
         val.content.toLowerCase().includes(searchData.toLowerCase())
         )).map((posts) =>
@@ -49,7 +49,7 @@ const TopicDetail = () => {
             <h5>Top level posts</h5>
             <SearchBar onChange={(value) => setSearchData(value)}/>
             <h5> Add calendar component here </h5>
-            {filterTopics}         
+            {filteredPosts}         
         </section>
     )
 }
