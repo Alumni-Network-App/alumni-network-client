@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { getPublicGroups } from "../../services/api/group";
 import GroupPreview from "./GroupPreview";
 import SearchBar from "../SearchBar/SearchBar";
+import NavBar from "../../hoc/NavBar";
 
 const GroupList = () => {
 
@@ -24,7 +25,6 @@ const GroupList = () => {
         try {
             const data = await getPublicGroups();
             setData(data);
-            console.log(data)
         } catch (error) {
             console.error('Error:', error);
         }
@@ -41,11 +41,12 @@ const GroupList = () => {
     )  
 
     return (
-        <section>
-            <h3> Groups and stuff</h3>
-            <SearchBar onChange={(value) => setSearchData(value)}/>
-            {filterGroups}
-        </section>
+        <main>
+            <NavBar/>
+                <h3> Groups and stuff</h3>
+                <SearchBar onChange={(value) => setSearchData(value)}/>
+                {filterGroups}
+        </main>
     )
 }
 
