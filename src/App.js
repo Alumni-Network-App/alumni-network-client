@@ -5,6 +5,7 @@ import PageNotFound from "./components/PageNotFound/PageNotFound";
 import GroupPageExists from "./components/PageNotFound/GroupPageExists";
 import TopicList from "./components/Topics/TopicList";
 import TopicPageExists from "./components/PageNotFound/TopicPageExists";
+import Dashboard from "./components/auth/Dashboard";
 
 /*
 import Dashboard from "./components/auth/Dashboard";
@@ -14,6 +15,7 @@ import Reset from "./components/auth/Reset";
 */
 
 import DefaultHomePage from "./components/PageNotFound/DefaultHomePage";
+import Login from "./components/auth/Login";
 
 function App() {
   return (
@@ -21,17 +23,19 @@ function App() {
       <Router>
         <Switch>
           {/*
-          <Route exact path="/" component={Login} />
+         
           <Route path="/register" component={Register} />
           <Route path="/reset" component={Reset} />
-          <Route path="/dashboard" component={Dashboard} />
+         
           */}
-        <Route path="/" exact component = { DefaultHomePage } /> 
-        <Route path="/groups/all" component = { GroupList } />
-        <Route path="/groups/:id" component = { GroupPageExists } />
-        <Route path="/topics/all" component= { TopicList } />
-        <Route path="/topics/:id" component = { TopicPageExists } />
-        <Route path={["/page-not-found", "*"]} component = {PageNotFound} />
+          <Route exact path="/" component={Login} />
+          <Route path="/dashboard" component={Dashboard} />
+          <Route path="/" exact component={DefaultHomePage} />
+          <Route path="/groups/all" component={GroupList} />
+          <Route path="/groups/:id" component={GroupPageExists} />
+          <Route path="/topics/all" component={TopicList} />
+          <Route path="/topics/:id" component={TopicPageExists} />
+          <Route path={["/page-not-found", "*"]} component={PageNotFound} />
         </Switch>
       </Router>
     </div>

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: `http://localhost:8080/api/v1/firebase/user`,
+  baseURL: `http://localhost:8080/api/v1/user`,
 });
 
 const getUsers = async () => {
@@ -22,8 +22,7 @@ const createUser = async (
     name: username,
     picture: photoURL,
   });
-  //console.log({ res });
-  return res;
+  console.log(res);
 };
 
 export const service = {
