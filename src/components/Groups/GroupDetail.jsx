@@ -43,7 +43,7 @@ const GroupDetail = () => {
                 <p>{posts.content}</p> 
             </div> 
         )
-    
+        
     return (
         <section>
             <h1>{data.name}</h1>
