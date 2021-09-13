@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useHistory } from "react-router";
 import { auth, logout } from "../../firebase";
+import Timeline from "../timeline/Timeline";
 
 function Dashboard() {
   const [user, loading, error] = useAuthState(auth);
@@ -48,12 +49,18 @@ function Dashboard() {
     <div className="dashboard">
       {currentUserData && (
         <div className="dashboard__container">
-          Logged in as Dashboard
-          <h2> {currentUserData.name} </h2>
-          <p> {currentUserData.id} </p>
+          <p>
+            Logged in as
+            <span style={{ paddingLeft: "1rem", fontWeight: "bold" }}>
+              {currentUserData.name}
+            </span>
+          </p>
+
+          <img src={`${currentUserData.picture}`} alt="user profile pic" />
           <button className="dashboard__btn" onClick={logout}>
             Logout
           </button>
+          <Timeline />
         </div>
       )}
     </div>
