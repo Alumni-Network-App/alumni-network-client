@@ -1,33 +1,32 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-//import { updateSettings } from "../../services/api/user";
+import { updateSettings } from "../../services/api/user";
 
 const Settings = ( props ) => {
 
     // TODO: change fakeProps to props when able to access user information.
 
     const fakeProps = {
-        userId: 2,
-        displayName: "John Doe",
+        id: 2,
+        name: "Future",
         picture: "https://robohash.org/inventoreomnispossimus.png?size=50x50&set=set1",
-        workStatus: "active",
-        shortBio: "I love work",
+        status: "active",
+        bio: "I love work",
         funFact: "I love Burgers"
     }
 
     const {register, handleSubmit, formState: { errors }} = useForm({
         defaultValues: {
-            displayName: fakeProps.displayName, 
-            workStatus: fakeProps.workStatus,
-            shortBio: fakeProps.shortBio,
+            name: fakeProps.name, 
+            status: fakeProps.status,
+            bio: fakeProps.bio,
             funFact: fakeProps.funFact,
         }
     });
 
     const onSubmit = async (data) => {
-        data.userId = fakeProps.userId;
-        console.log(data);
-        //updateSettings(data);
+        data.picture = fakeProps.picture;
+        updateSettings(data, fakeProps.id);
     }
 
     return(
@@ -36,21 +35,21 @@ const Settings = ( props ) => {
             <div className="container">
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <input type="text" placeholder="Display name"
-                        {...register("displayName")} 
+                        {...register("name")} 
                     />
-                    <select {...register("workStatus")}>
+                    <select {...register("status")}>
                         <option value="active">Active</option>
                         <option value="inactive">Inactive</option>
                         <option value="other">Other</option>
                     </select>
                     <input
                         type="text" placeholder="Short Bio" 
-                        {...register("shortBio", {
+                        {...register("bio", {
                             maxLength: 140,
                             message: "maximum 140 character in bio"
                             })} 
                     />
-                    {errors.shortBio && <p>{errors.shortBio.message}</p>}
+                    {errors.bio && <p>{errors.bio.message}</p>}
                     <input type="text" placeholder="Fun fact"
                         {...register("funFact", {
                             maxLength: {

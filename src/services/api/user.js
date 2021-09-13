@@ -1,22 +1,15 @@
 const BASE_URL = "https://alumni-network-backend.herokuapp.com/api/v1/";
 
-// update user settings 
-export const updateSettings = async (settings) => {
-    console.log("this is settings")
+
+export const updateSettings = async (settings, userId) => {
     console.log(settings);
-    await fetch(BASE_URL + "user/" + settings.userId, {
+    const response = await fetch(BASE_URL + "user/update/" + userId, {
         method: 'PATCH',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-type': 'application/json'
         },
-        body: JSON.stringify({
-            name: settings.displayName,
-            picture: settings.picture,
-            status: settings.workStatus,
-            bio: settings.shortBio, 
-            funFact: settings.funFact
-        })
-    }).then(() => {
-        console.log('User settings should be updated')
+        body: JSON.stringify(settings)
     })
+    const data = await response.json()
+    return data;
 }
