@@ -1,17 +1,7 @@
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
-import { service } from "./services/api-services";
 
-// App's Firebase configuration
-// const firebaseConfig = {
-//   apiKey: "AIzaSyC7afxWe_u-17-dzDx1ecAc8Z--ZIPKp2w",
-//   authDomain: "alumni-network-f6a3a.firebaseapp.com",
-//   projectId: "alumni-network-f6a3a",
-//   storageBucket: "alumni-network-f6a3a.appspot.com",
-//   messagingSenderId: "949461843310",
-//   appId: "1:949461843310:web:bb0e7dd96fb489288fd57f",
-// };
 const firebaseConfig = {
   apiKey: "AIzaSyAftIa5-QflBvQ9udoLWXGSB12n5a5jkAQ",
   authDomain: "alumni-network-experis-54ed8.firebaseapp.com",
@@ -33,49 +23,53 @@ const googleProvider = new firebase.auth.GoogleAuthProvider();
 /**
  * * Using this function to sign in with google.
  */
+
+async function addUser(
+  uid,
+  username,
+  photoURL = `https://robohash.org/nostrumoditesse.png?size=150x150&set=set1`
+) {
+  const userData = {
+    id: uid,
+    name: username,
+    picture: photoURL,
+  };
+  let accessToken = await auth.currentUser
+    .getIdToken(true)
+    .then((idToken) => idToken);
+
+  const response = await fetch("http://localhost:8080/api/v1/user", {
+    method: "POST",
+    body: JSON.stringify(userData),
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  });
+  const data = await response.json();
+  console.log(data);
+}
+
 const signInWithGoogle = async () => {
   const response = await auth.signInWithPopup(googleProvider);
   const user = response.user;
 
-  console.log(user);
-
-  service.createUser(user.uid, user.displayName, user.photoURL);
-  getIdToken();
+  addUser(user.uid, user.displayName, user.photoURL);
 };
 
-const getIdToken = () => {
-  auth.currentUser.getIdToken(true).then((idToken) => console.log(idToken));
+const registerWithEmailAndPassword = async (name, email, password) => {
+  try {
+    const res = await auth.createUserWithEmailAndPassword(email, password);
+    const user = res.user;
+    addUser(user.uid, name, user.photoURL);
+  } catch (err) {
+    console.error(err);
+    alert(err.message);
+  }
 };
-
-/**
- * * This function is working but i creates a users collection in firestore.
- * *
- * @param {*} email
- * @param {*} password
- */
-// const signInWithGoogle = async () => {
-//   try {
-//     const res = await auth.signInWithPopup(googleProvider);
-//     const user = res.user;
-//     const query = await db
-//       .collection("users")
-//       .where("uid", "==", user.uid)
-//       .get();
-//     if (query.docs.length === 0) {
-//       await db.collection("users").add({
-//         uid: user.uid,
-//         name: user.displayName,
-//         authProvider: "google",
-//         email: user.email,
-//         photoURL: user.photoURL,
-//       });
-//       service.createUser(user.uid, user.displayName, user.photoURL);
-//       getIdToken();
-//     }
-//   } catch (err) {
-//     console.error(err);
-//     alert(err.message);
-//   }
+// const getIdToken = () => {
+//   auth.currentUser.getIdToken(true).then((idToken) => console.log(idToken));
 // };
 
 //This needs to be fixed
@@ -87,22 +81,7 @@ const signInWithEmailAndPassword = async (email, password) => {
     console.log("hello world");
   }
 };
-const registerWithEmailAndPassword = async (name, email, password) => {
-  try {
-    const res = await auth.createUserWithEmailAndPassword(email, password);
-    const user = res.user;
-    await db.collection("users").add({
-      uid: user.uid,
-      name,
-      authProvider: "local",
-      email,
-    });
-    service.createUser(user.uid, name);
-  } catch (err) {
-    console.error(err);
-    alert(err.message);
-  }
-};
+
 const sendPasswordResetEmail = async (email) => {
   try {
     await auth.sendPasswordResetEmail(email);
