@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { getTopicPosts } from "../../services/api/posts"; 
 import { getTopic } from "../../services/api/topic";
 import SearchBar from "../SearchBar/SearchBar";
+import Post from "../Posts/Post";
 
 const TopicDetail = () => {
 
@@ -22,7 +23,7 @@ const TopicDetail = () => {
             try {
                 const posts = await getTopicPosts(id);
                 const data =  await getTopic(id);
-                setPosts(posts);
+                setPosts(posts.reverse());
                 setData(data);
             } catch (error) {
                 console.error('Error:', error);
@@ -36,10 +37,9 @@ const TopicDetail = () => {
         val.title.toLowerCase().includes(searchData.toLowerCase()) ||
         val.content.toLowerCase().includes(searchData.toLowerCase())
         )).map((posts) =>
-            <div key={posts.id} style={{ border: "1px solid black" , padding:"20px" }} > 
-                <h3>{posts.title}</h3>
-                <p>{posts.content}</p> 
-            </div> 
+           <div key={posts.id} style={{ padding:"20px" }} > 
+                <Post postTitle = {posts.title} content ={posts.content} comments={posts.comments} createdAt = {posts.date}/>
+            </div>
         )
 
     return (
