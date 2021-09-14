@@ -7,12 +7,8 @@ import TopicList from "./components/Topics/TopicList";
 import TopicPageExists from "./components/PageNotFound/TopicPageExists";
 import Dashboard from "./components/auth/Dashboard";
 import Register from "./components/auth/Register";
-/*
-import Dashboard from "./components/auth/Dashboard";
-import Login from "./components/auth/Login";
 
 import Reset from "./components/auth/Reset";
-*/
 
 import DefaultHomePage from "./components/PageNotFound/DefaultHomePage";
 import Login from "./components/auth/Login";
@@ -22,11 +18,7 @@ function App() {
     <div className="App">
       <Router>
         <Switch>
-          {/*
           <Route path="/reset" component={Reset} />
-         
-          */}
-
           <Route exact path="/" component={Login} />
           <Route path="/dashboard" component={Dashboard} />
           <Route path="/register" component={Register} />

@@ -1,31 +1,38 @@
-import axios from "axios";
+import { auth } from "../firebase";
 
-const api = axios.create({
-  baseURL: `http://localhost:8080/api/v1/user`,
-});
-
-const getUsers = async () => {
-  //   await api.get("/").then((res) => {
-  //     //console.log(res.data)
-  //   });
-  let data = await api.get("/").then(({ data }) => data);
-  return await data;
+const getIdToken = () => {
+  auth.currentUser.getIdToken(true).then((idToken) => idToken);
 };
 
-const createUser = async (
+const addUserToPostgres = async (
   uid,
   username,
   photoURL = `https://robohash.org/nostrumoditesse.png?size=150x150&set=set1`
 ) => {
-  const res = await api.post("/", {
+  const userData = {
     id: uid,
     name: username,
     picture: photoURL,
+  };
+  let accessToken = await auth.currentUser
+    .getIdToken(true)
+    .then((idToken) => idToken);
+
+  console.log(accessToken);
+  const response = await fetch("http://localhost:8080/api/v1/user", {
+    method: "POST",
+    body: JSON.stringify(userData),
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
   });
-  console.log(res);
+  const data = await response.json();
+  console.log(data);
 };
 
-export const service = {
-  getUsers,
-  createUser,
+export const apiServices = {
+  addUserToPostgres,
+  getIdToken,
 };

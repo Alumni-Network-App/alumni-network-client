@@ -1,6 +1,7 @@
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
+import { apiServices } from "./services/api-services";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAftIa5-QflBvQ9udoLWXGSB12n5a5jkAQ",
@@ -20,57 +21,22 @@ const auth = firebase.auth();
 
 const googleProvider = new firebase.auth.GoogleAuthProvider();
 
-/**
- * * Using this function to sign in with google.
- */
-
-async function addUser(
-  uid,
-  username,
-  photoURL = `https://robohash.org/nostrumoditesse.png?size=150x150&set=set1`
-) {
-  const userData = {
-    id: uid,
-    name: username,
-    picture: photoURL,
-  };
-  let accessToken = await auth.currentUser
-    .getIdToken(true)
-    .then((idToken) => idToken);
-
-  const response = await fetch("http://localhost:8080/api/v1/user", {
-    method: "POST",
-    body: JSON.stringify(userData),
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-  });
-  const data = await response.json();
-  console.log(data);
-}
-
 const signInWithGoogle = async () => {
   const response = await auth.signInWithPopup(googleProvider);
   const user = response.user;
-
-  addUser(user.uid, user.displayName, user.photoURL);
+  apiServices.addUserToPostgres(user.uid, user.displayName, user.photoURL);
 };
 
 const registerWithEmailAndPassword = async (name, email, password) => {
   try {
     const res = await auth.createUserWithEmailAndPassword(email, password);
     const user = res.user;
-    addUser(user.uid, name, user.photoURL);
+    apiServices.addUserToPostgres(user.uid, name, user.photoURL);
   } catch (err) {
     console.error(err);
     alert(err.message);
   }
 };
-// const getIdToken = () => {
-//   auth.currentUser.getIdToken(true).then((idToken) => console.log(idToken));
-// };
 
 //This needs to be fixed
 const signInWithEmailAndPassword = async (email, password) => {

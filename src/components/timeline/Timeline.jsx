@@ -1,19 +1,24 @@
 import GroupList from "../Groups/GroupList";
 import TopicList from "../Topics/TopicList";
+import CurrentUser from "../users/CurrentUser";
+import styled from "styled-components";
 
-const Timeline = () => {
+const Timeline = ({ currentUser }) => {
   return (
-    <section
-      style={{
-        display: "grid",
-        gap: "1rem",
-        gridTemplateColumns: "repeat(2, 1fr)",
-      }}
-    >
-      <GroupList />
+    <Section>
+      <CurrentUser currentUser={currentUser} />
       <TopicList />
-    </section>
+      <GroupList />
+    </Section>
   );
 };
+
+const Section = styled.section`
+  display: grid;
+  grid-template-columns: 0.5fr 2fr 1fr;
+
+  gap: 3rem;
+  margin: 2rem;
+`;
 
 export default Timeline;

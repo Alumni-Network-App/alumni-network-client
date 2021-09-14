@@ -1,13 +1,23 @@
-import React from 'react';
+import styled from "styled-components";
 
 const SearchBar = (props) => {
   return (
     <div>
-      <input className="searchBar" type="text" placeholder="Search"
+      <Input
+        className="searchBar"
+        type="text"
+        placeholder="Search here..."
         onChange={(event) => props.onChange(event.target.value)}
       />
     </div>
-  )
-}
+  );
+};
 
-export default SearchBar 
+const Input = styled.input`
+  border: none;
+  border-bottom: 1px solid black;
+  padding: 13px;
+  background-color: inherit;
+`;
+
+export default SearchBar;
