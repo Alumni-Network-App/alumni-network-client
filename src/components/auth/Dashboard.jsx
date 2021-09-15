@@ -62,7 +62,7 @@ function Dashboard() {
       >
         Alumni Network
       </h1>
-      {!loading ? (
+      {!isLoading ? (
         <Timeline currentUser={currentUserData} />
       ) : (
         <SpinnerDiv>
