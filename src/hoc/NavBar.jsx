@@ -1,4 +1,4 @@
-import { Nav, Navbar } from "react-bootstrap";
+/*import { Nav, Navbar } from "react-bootstrap";
 
 const NavBar = ({ children }) => {
     return (
@@ -18,3 +18,5 @@ const NavBar = ({ children }) => {
     )
 }
 export default NavBar;
+
+*/

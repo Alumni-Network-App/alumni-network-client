@@ -1,6 +1,6 @@
 import GroupList from "../Groups/GroupList";
 import TopicList from "../Topics/TopicList";
-import CurrentUser from "../users/CurrentUser";
+import CurrentUser from "../Users/CurrentUser";
 import styled from "styled-components";
 
 const Timeline = ({ currentUser }) => {
