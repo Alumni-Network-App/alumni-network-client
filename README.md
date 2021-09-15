@@ -7,12 +7,25 @@ The Experis Academy fullstack developer course with Noroff Accelerate has been r
 many times and in many different locations since the programme first began. Both Experis and Noroff have experienced difficulty in maintaining contact with past candidates
 to notify them of social events and gather data for quality assurance purposes. With that in mind, This application is developed to facilitate this kind of communication.
 
+## Most recent deployment 
+This project can be reached here [Alumni-network](https://alumni-network-deluxe.herokuapp.com/)
+
+## Product Set up
+*The App has the following minimum requirements* ⬇️
+* A static, single-page, front-end using a modern web framework (React.js).
+* A RESTful API service, through which the front end interacts with the
+database.
+* A suitable database (PostgreSQL) 
+
+
 ## Technologies 
 - ReactJS 
 - React-router-dom
 - Styled-Components 💅
 - Firebase for Authentication 
-- Postgres and Spring boot in the backend
+- PostgreSQL <img src="https://user-images.githubusercontent.com/43278171/133431035-b76e4aef-d72c-4e52-8215-f3d3028b8d0b.png"  width="30" height="30">
+
+
 
 ## Available Scripts
 
