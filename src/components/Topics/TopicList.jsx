@@ -3,19 +3,33 @@ import styled from "styled-components";
 import { getTopics } from "../../services/api/topic";
 import TopicPreview from "./TopicPreview";
 import SearchBar from "../SearchBar/SearchBar";
+import { useHistory } from "react-router";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../firebase";
 
 const TopicList = () => {
+  const [user, loading, error] = useAuthState(auth);
   const [data, setData] = useState([]);
   const [searchData, setSearchData] = useState("");
+
+  const history = useHistory();
 
   /**
    * TODO:
    * Add check for login / authenticated in if else block
    * then fetch group list
+   *
+   * --> This task is done
    */
   useEffect(() => {
+    if (loading) return;
+    if (error) {
+      return <>Error: {error} </>;
+    }
+    if (!user) return history.replace("/");
+
     getTopicList();
-  }, []);
+  }, [user, loading, error, history]);
 
   /*
    * A function used to get a list pf topics

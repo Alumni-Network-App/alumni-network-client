@@ -1,12 +1,15 @@
 import { useState, useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useHistory } from "react-router";
-import { auth, logout } from "../../firebase";
+import { auth } from "../../firebase";
 import Timeline from "../timeline/Timeline";
+import Loader from "react-loader-spinner";
+import styled from "styled-components";
 
 function Dashboard() {
   const [user, loading, error] = useAuthState(auth);
   const [currentUserData, setCurrentUserData] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
 
   const history = useHistory();
 
@@ -18,6 +21,7 @@ function Dashboard() {
     if (!user) return history.replace("/");
 
     fetchUserData();
+    setIsLoading(false);
   }, [user, loading, error, history]);
 
   const fetchUserData = async () => {
@@ -58,8 +62,23 @@ function Dashboard() {
       >
         Alumni Network
       </h1>
-      {currentUserData && <Timeline currentUser={currentUserData} />}
+      {!loading ? (
+        <Timeline currentUser={currentUserData} />
+      ) : (
+        <SpinnerDiv>
+          <Loader type="ThreeDots" color="#2bad60" height="100" width="100" />
+        </SpinnerDiv>
+      )}
     </div>
   );
 }
+
+const SpinnerDiv = styled.div`
+  width: 100%;
+  height: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 export default Dashboard;
