@@ -5,12 +5,11 @@ import PageNotFound from "./components/PageNotFound/PageNotFound";
 import GroupPageExists from "./components/PageNotFound/GroupPageExists";
 import TopicList from "./components/Topics/TopicList";
 import TopicPageExists from "./components/PageNotFound/TopicPageExists";
+import Settings from "./components/Users/Settings";
+import CreatePost from "./components/Posts/CreatePost";
 import Dashboard from "./components/auth/Dashboard";
 import Register from "./components/auth/Register";
-
 import Reset from "./components/auth/Reset";
-
-import DefaultHomePage from "./components/PageNotFound/DefaultHomePage";
 import Login from "./components/auth/Login";
 
 function App() {
@@ -18,16 +17,17 @@ function App() {
     <div className="App">
       <Router>
         <Switch>
-          <Route path="/reset" component={Reset} />
-          <Route exact path="/" component={Login} />
-          <Route path="/dashboard" component={Dashboard} />
-          <Route path="/register" component={Register} />
-          <Route path="/" exact component={DefaultHomePage} />
-          <Route path="/groups/all" component={GroupList} />
-          <Route path="/groups/:id" component={GroupPageExists} />
-          <Route path="/topics/all" component={TopicList} />
-          <Route path="/topics/:id" component={TopicPageExists} />
-          <Route path={["/page-not-found", "*"]} component={PageNotFound} />
+        <Route path="/" exact component = { Login } /> 
+        <Route path="/reset" component={Reset} />
+        <Route path="/dashboard" component={Dashboard} />
+        <Route path="/register" component={Register} />
+        <Route path="/groups/all" component = { GroupList } />
+        <Route path="/groups/:id" component = { GroupPageExists } />
+        <Route path="/topics/all" component= { TopicList } />
+        <Route path="/topics/:id" component = { TopicPageExists } />
+        <Route path="/profile/settings" component = { Settings } />
+        <Route path="/profile/create-post" component = { CreatePost } />
+        <Route path={["/page-not-found", "*"]} component = {PageNotFound} />
         </Switch>
       </Router>
     </div>

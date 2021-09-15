@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { getGroupPosts } from "../../services/api/posts"; 
 import { getGroup } from "../../services/api/group";
 import SearchBar from "../SearchBar/SearchBar";
+import Post from "../Posts/Post";
 
 const GroupDetail = () => {
 
@@ -22,7 +23,7 @@ const GroupDetail = () => {
             try {
                 const posts = await getGroupPosts(id);
                 const data =  await getGroup(id);
-                setPosts(posts);
+                setPosts(posts.reverse());
                 setData(data);
             } catch (error) {
                 console.error('Error:', error);
@@ -38,12 +39,11 @@ const GroupDetail = () => {
         val.title.toLowerCase().includes(searchData.toLowerCase()) ||
         val.content.toLowerCase().includes(searchData.toLowerCase())
         )).map((posts) =>
-            <div key={posts.id} style={{ border: "1px solid black" , padding:"20px" }} > 
-                <h3>{posts.title}</h3>
-                <p>{posts.content}</p> 
+            <div key={posts.id} style={{ padding:"20px" }} > 
+                <Post postTitle = {posts.title} content ={posts.content} comments={posts.comments} createdAt = {posts.date}/>
             </div> 
         )
-    
+        
     return (
         <section>
             <h1>{data.name}</h1>

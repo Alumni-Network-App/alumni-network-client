@@ -30,3 +30,30 @@ button {
 img {
   max-width: 100%;
 }
+.textarea {
+    border: 2px solid #000;
+    height: 300px;
+    width: 400px;
+}
+
+.markdown {
+   border: 2px solid #000;
+   height: 300px;
+   width: 400px;
+   margin-left: 50px;
+}
+
+.postPage {
+    max-width: 600px;
+    border: 2px solid pink;
+    padding: 20px;
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.postPageSubmit {
+    margin-top: 20px;
+    display: inline-block;
+    border: 2px solid green;
+}

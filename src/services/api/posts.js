@@ -26,17 +26,13 @@ export const getGroupPosts = async (groupId) => {
 }
 
 
-/*
-export const addPost = async () => {
-    await fetch("https://alumni-network-backend.herokuapp.com/api/v1/post", {
+export const addPost = async (post) => {
+    await fetch(BASE_URL + "post/", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-            
-            })
+        body: JSON.stringify(post)
     })
 }
 
-*/
