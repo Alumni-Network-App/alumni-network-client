@@ -5,14 +5,15 @@ import { useForm } from "react-hook-form";
 import { addPost } from "../../services/api/posts";
 import { useHistory } from 'react-router-dom'
 import { getUsersGroups } from "../../services/api/group";
+import { getUsersTopics } from "../../services/api/topic";
 
 const CreatePost = () => {
-    const [groupObjects, setGroupObjects] = useState([]);   
-    /**
-     * TODO: Check if user is logged in 
-     */
+    const [groupObjects, setGroupObjects] = useState([]);
+    const [topicObjects, setTopicObjects] = useState([]);     
+
     useEffect(() => {
         getGroupList();
+        getTopicList();
     }, []);
 
     const [input, setInput] = useState();
@@ -24,13 +25,21 @@ const CreatePost = () => {
 
     const getGroupList = async () => {
         try {
-          const data = await getUsersGroups(2); // set this to user id 
+          const data = await getUsersGroups(4); // set this to user id 
           setGroupObjects(data);
         } catch (error) {
           console.error("Error:", error);
         }
     };
 
+    const getTopicList = async () => {
+        try {
+          const data = await getUsersTopics(4); // set this to user id 
+          setTopicObjects(data);
+        } catch (error) {
+          console.error("Error:", error);
+        }
+    };
 
     const onSubmit = (data) => {
         data.topic = {
@@ -48,13 +57,16 @@ const CreatePost = () => {
     }
 
 
-    const getListOptions = groupObjects
-    .map((listOption) => (
-      <option key={listOption.id} value={listOption.id}>{listOption.name}</option>
+    const getGroupListOptions = groupObjects
+    .map((group) => (
+      <option key={group.id} value={group.id}>{group.name}</option>
     ));
 
-
-
+   const getTopicListOptions = topicObjects
+    .map((topic) => (
+      <option key={topic.id} value={topic.id}>{topic.name}</option>
+    ));
+    
    return (
 
         <div className="postPage">
@@ -66,15 +78,11 @@ const CreatePost = () => {
                         />
 
                 <select {...register("topic")}>
-                    <option value="1">Sports</option>
-                    <option value="2">Lifestyle</option>
-                    <option value="3">Food</option>
-                    <option value="4">Movies</option>
-                    <option value="5">Other</option>
+                    {getTopicListOptions}
                 </select>
                 
                 <select {...register("receiverId")}>
-                    {getListOptions}
+                    {getGroupListOptions}
                 </select>
 
                 <textarea autoFocus className="textarea" value={input} {...register("content")} 

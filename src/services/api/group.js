@@ -18,8 +18,8 @@ export const getPublicGroups = async () => {
  */
 export const getUsersGroups = async (userId) => {
     const group_urls = await getUserGroupsList(userId);
-    const fake_group_urls = ['/api/v1/group/2', '/api/v1/group/7']  // while api is down 
-    return fetchAll(fake_group_urls);
+    //const fake_group_urls = ['/api/v1/group/2', '/api/v1/group/7']  // while api is down 
+    return fetchAll(group_urls);
 }
 
 /**
