@@ -25,7 +25,10 @@ export const getGroupPosts = async (groupId) => {
     return data.filter(x => x.topic === topicUrl); 
 }
 
-
+/**
+ * Add a post 
+ * @param post - The post sent to the database 
+ */
 export const addPost = async (post) => {
     await fetch(BASE_URL + "post/", {
         method: 'POST',
