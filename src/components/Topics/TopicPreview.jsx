@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { RiArticleLine } from "react-icons/ri";
 
 const TopicPreview = (props) => {
   const TOPIC_URL = "/topics/" + props.topicId;

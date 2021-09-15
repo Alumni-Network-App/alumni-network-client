@@ -1,3 +1,4 @@
+import { ImUser } from "react-icons/im";
 import styled from "styled-components";
 import { logout } from "../../firebase";
 
@@ -5,13 +6,18 @@ const CurrentUser = ({ currentUser }) => {
   return (
     <Section>
       <div className="user-info">
-        <img src={currentUser.picture} alt="profilepicture" />
+        {currentUser.picture ? (
+          <ProfilePicture src={currentUser.picture} alt="profilepicture" />
+        ) : (
+          <ImUser style={UserPic} />
+        )}
+
         <p style={{ fontWeight: "bold" }}>
-          name:{" "}
+          name:
           <span style={{ fontWeight: "normal" }}> {currentUser.name}</span>
         </p>
         <p style={{ fontWeight: "bold" }}>
-          staus:{" "}
+          staus:
           <span style={{ fontWeight: "normal" }}> {currentUser.status} </span>
         </p>
         <p style={{ fontWeight: "bold" }}>
@@ -27,6 +33,18 @@ const CurrentUser = ({ currentUser }) => {
   );
 };
 
+const UserPic = {
+  border: "1px solid black",
+  borderRadius: "50%",
+  padding: "1rem",
+  fontSize: "5rem",
+};
+const ProfilePicture = styled.img`
+  width: 5rem;
+  border-radius: 50%;
+  border: 1px solid black;
+  padding: 1rem;
+`;
 const Button = styled.button`
   background-color: #3a10e5;
   color: #fff;
@@ -51,14 +69,5 @@ const Section = styled.section`
 
   max-height: 70vh;
 `;
-
-// CurrentUser.defaultProps = {
-//   id: 1,
-//   name: "Joe Doe",
-//   picture: "https://robohash.org/blanditiissedillo.png?size=50x50&set=set1",
-//   status: "Integer ac leo nulla.",
-//   bio: "Tet magnis dis parturient montes, nascetur ridiculus mus.",
-//   funFact: "sapien urna pretium nisl, ut volutpat sapien arcu sed augue.",
-// };
 
 export default CurrentUser;
