@@ -1,17 +1,39 @@
 import styled from "styled-components";
 import { logout } from "../../firebase";
+import { ImUser } from "react-icons/im";
 
 const CurrentUser = ({ currentUser }) => {
   return (
     <Section>
       <div className="user-info">
-        <img src={currentUser.picture} alt="profilepicture" />
+        {currentUser.picture ? (
+          <img
+            style={{
+              border: "1px solid black",
+              borderRadius: "50%",
+              padding: "1rem",
+              width: "5rem",
+            }}
+            src={currentUser.picture}
+            alt="profilepicture"
+          />
+        ) : (
+          <ImUser
+            style={{
+              fontSize: "5rem",
+              border: "1px solid black",
+              borderRadius: "50%",
+              padding: "1rem",
+            }}
+          />
+        )}
+
         <p style={{ fontWeight: "bold" }}>
-          name:{" "}
+          Logged in as:
           <span style={{ fontWeight: "normal" }}> {currentUser.name}</span>
         </p>
         <p style={{ fontWeight: "bold" }}>
-          staus:{" "}
+          staus:
           <span style={{ fontWeight: "normal" }}> {currentUser.status} </span>
         </p>
         <p style={{ fontWeight: "bold" }}>

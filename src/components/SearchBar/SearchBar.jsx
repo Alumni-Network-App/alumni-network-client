@@ -18,6 +18,7 @@ const Input = styled.input`
   border-bottom: 1px solid black;
   padding: 13px;
   background-color: inherit;
+  width: 14rem;
 `;
 
 export default SearchBar;

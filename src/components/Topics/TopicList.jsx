@@ -1,12 +1,18 @@
 import { useState, useEffect } from "react";
+import { trackPromise } from "react-promise-tracker";
 import styled from "styled-components";
 import { getTopics } from "../../services/api/topic";
 import TopicPreview from "./TopicPreview";
 import SearchBar from "../SearchBar/SearchBar";
+import { useHistory } from "react-router";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../firebase";
 
 const TopicList = () => {
   const [data, setData] = useState([]);
   const [searchData, setSearchData] = useState("");
+  const history = useHistory();
+  const [user, loading, error] = useAuthState(auth);
 
   /**
    * TODO:
@@ -14,8 +20,13 @@ const TopicList = () => {
    * then fetch group list
    */
   useEffect(() => {
-    getTopicList();
-  }, []);
+    if (loading) return;
+    if (error) {
+      return <>Error: {error} </>;
+    }
+    if (!user) return history.replace("/");
+    trackPromise(getTopicList());
+  }, [user, loading, error, history]);
 
   /*
    * A function used to get a list pf topics

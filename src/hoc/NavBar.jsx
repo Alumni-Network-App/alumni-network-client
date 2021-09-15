@@ -1,20 +1,16 @@
-import { Nav, Navbar } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const NavBar = ({ children }) => {
-    return (
-        <>
-            <Navbar>
-                <div className="container">
-                    <Nav>
-                        <Nav.Link href="/">Home</Nav.Link>
-                        <Nav.Link href="/groups/all">Groups</Nav.Link>
-                        <Nav.Link href="/topics/all">Topics</Nav.Link>
-                        <Nav.Link href="/">Profile</Nav.Link>
-                        <Nav.Link href="/">Sign out</Nav.Link>
-                    </Nav>
-                </div>
-            </Navbar>
-        </>
-    )
-}
+  return (
+    <>
+      <nav className="nav-container">
+        <Link href="/">Home</Link>
+        <Link href="/groups/all">Groups</Link>
+        <Link href="/topics/all">Topics</Link>
+        <Link href="/">Profile</Link>
+        <Link href="/">Sign out</Link>
+      </nav>
+    </>
+  );
+};
 export default NavBar;

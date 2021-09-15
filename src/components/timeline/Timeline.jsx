@@ -1,7 +1,28 @@
+import { usePromiseTracker } from "react-promise-tracker";
+import Loader from "react-loader-spinner";
 import GroupList from "../Groups/GroupList";
 import TopicList from "../Topics/TopicList";
 import CurrentUser from "../users/CurrentUser";
 import styled from "styled-components";
+
+const LoadingIndicator = () => {
+  const { promiseInProgress } = usePromiseTracker();
+  return (
+    promiseInProgress && (
+      <div
+        style={{
+          width: "100%",
+          height: "100",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Loader type="ThreeDots" color="#2bad60" height="100" width="100" />
+      </div>
+    )
+  );
+};
 
 const Timeline = ({ currentUser }) => {
   return (
@@ -9,6 +30,7 @@ const Timeline = ({ currentUser }) => {
       <CurrentUser currentUser={currentUser} />
       <TopicList />
       <GroupList />
+      <LoadingIndicator />
     </Section>
   );
 };

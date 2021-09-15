@@ -1,21 +1,33 @@
 import { useState, useEffect } from "react";
+import { trackPromise } from "react-promise-tracker";
 import { getPublicGroups } from "../../services/api/group";
 import GroupPreview from "./GroupPreview";
 import SearchBar from "../SearchBar/SearchBar";
 import styled from "styled-components";
+import { useHistory } from "react-router";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../firebase";
 
 const GroupList = () => {
   const [data, setData] = useState([]);
   const [searchData, setSearchData] = useState("");
-
+  const history = useHistory();
+  const [user, loading, error] = useAuthState(auth);
   /**
    * TODO:
    * Add check for login / authenticated in if else block
    * then fetch group list
+   *
+   * ---> Added the check in so you can delete the comments.
    */
   useEffect(() => {
-    getGroupList();
-  }, []);
+    if (loading) return;
+    if (error) {
+      return <>Error: {error} </>;
+    }
+    if (!user) return history.replace("/");
+    trackPromise(getGroupList());
+  }, [user, loading, error, history]);
 
   /*
    * A function used to get group list

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useHistory } from "react-router";
-import { auth, logout } from "../../firebase";
+import { auth } from "../../firebase";
 import Timeline from "../timeline/Timeline";
 
 function Dashboard() {
