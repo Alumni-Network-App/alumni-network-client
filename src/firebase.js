@@ -1,16 +1,15 @@
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
-import { service } from "./services/api-services";
+import { apiServices } from "./services/api-services";
 
-// App's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyC7afxWe_u-17-dzDx1ecAc8Z--ZIPKp2w",
-  authDomain: "alumni-network-f6a3a.firebaseapp.com",
-  projectId: "alumni-network-f6a3a",
-  storageBucket: "alumni-network-f6a3a.appspot.com",
-  messagingSenderId: "949461843310",
-  appId: "1:949461843310:web:bb0e7dd96fb489288fd57f",
+  apiKey: "AIzaSyAftIa5-QflBvQ9udoLWXGSB12n5a5jkAQ",
+  authDomain: "alumni-network-experis-54ed8.firebaseapp.com",
+  projectId: "alumni-network-experis-54ed8",
+  storageBucket: "alumni-network-experis-54ed8.appspot.com",
+  messagingSenderId: "798737045784",
+  appId: "1:798737045784:web:e8b8599513b2797174a66d",
 };
 
 // Initialize Firebase
@@ -23,23 +22,16 @@ const auth = firebase.auth();
 const googleProvider = new firebase.auth.GoogleAuthProvider();
 
 const signInWithGoogle = async () => {
+  const response = await auth.signInWithPopup(googleProvider);
+  const user = response.user;
+  apiServices.addUserToPostgres(user.uid, user.displayName, user.photoURL);
+};
+
+const registerWithEmailAndPassword = async (name, email, password) => {
   try {
-    const res = await auth.signInWithPopup(googleProvider);
+    const res = await auth.createUserWithEmailAndPassword(email, password);
     const user = res.user;
-    const query = await db
-      .collection("users")
-      .where("uid", "==", user.uid)
-      .get();
-    if (query.docs.length === 0) {
-      await db.collection("users").add({
-        uid: user.uid,
-        name: user.displayName,
-        authProvider: "google",
-        email: user.email,
-        photoURL: user.photoURL,
-      });
-      service.createUser(user.uid, user.displayName, user.photoURL);
-    }
+    apiServices.addUserToPostgres(user.uid, name, user.photoURL);
   } catch (err) {
     console.error(err);
     alert(err.message);
@@ -55,22 +47,7 @@ const signInWithEmailAndPassword = async (email, password) => {
     console.log("hello world");
   }
 };
-const registerWithEmailAndPassword = async (name, email, password) => {
-  try {
-    const res = await auth.createUserWithEmailAndPassword(email, password);
-    const user = res.user;
-    await db.collection("users").add({
-      uid: user.uid,
-      name,
-      authProvider: "local",
-      email,
-    });
-    service.createUser(user.uid, name);
-  } catch (err) {
-    console.error(err);
-    alert(err.message);
-  }
-};
+
 const sendPasswordResetEmail = async (email) => {
   try {
     await auth.sendPasswordResetEmail(email);

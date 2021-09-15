@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useHistory } from "react-router";
-import { auth, db, logout } from "../../firebase";
-import { service } from "../../services/api-services";
+import { auth, logout } from "../../firebase";
+import Timeline from "../timeline/Timeline";
 
 function Dashboard() {
   const [user, loading, error] = useAuthState(auth);
-  const [data, setData] = useState("");
+  const [currentUserData, setCurrentUserData] = useState({});
 
   const history = useHistory();
 
@@ -17,38 +17,48 @@ function Dashboard() {
     }
     if (!user) return history.replace("/");
 
-    (async () => {
-      try {
-        const query = await db
-          .collection("users")
-          .where("uid", "==", user?.uid)
-          .get();
-        const data = query.docs[0].data();
-        const postgresUsers = await service.getUsers();
-        postgresUsers.forEach((user) => {
-          if (data.uid === user.id) {
-            setData(user);
-          }
-        });
-      } catch (err) {
-        console.error(err);
-        //alert("An error occured while fetching user data");
+    fetchUserData();
+  }, [user, loading, error, history]);
+
+  const fetchUserData = async () => {
+    const accessToken = await auth.currentUser
+      .getIdToken(true)
+      .then((idToken) => idToken);
+    try {
+      const response = await fetch(`http://localhost:8080/api/v1/user/`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          // Accept: "application/json",
+          // "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Something went wrong....!");
       }
-    })(data);
-  }, [user, loading, error, data, history]);
+      const data = await response.json();
+      //console.log(data, "coming from dashboard");
+      setCurrentUserData(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="dashboard">
-      {data && (
-        <div className="dashboard__container">
-          Logged in as
-          <div>{data.name}</div>
-          <img src={`${data.picture}`} alt="user profile img" />
-          <button className="dashboard__btn" onClick={logout}>
-            Logout
-          </button>
-        </div>
-      )}
+      <h1
+        style={{
+          textAlign: "center",
+          margin: "3rem 0",
+          fontFamily: "Inter, serif",
+          fontSize: "4rem",
+          borderBottom: "1px solid black",
+        }}
+      >
+        Alumni Network
+      </h1>
+      {currentUserData && <Timeline currentUser={currentUserData} />}
     </div>
   );
 }

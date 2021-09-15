@@ -7,7 +7,7 @@ import {
   registerWithEmailAndPassword,
   signInWithGoogle,
 } from "../../firebase";
-import { service } from "../../services/api-services";
+
 import "./Register.css";
 
 const Register = () => {
@@ -29,7 +29,7 @@ const Register = () => {
     }
     if (user) {
       history.replace("/dashboard");
-      service.createUser(user.uid, name, user.photoURL);
+      //service.createUser(user.uid, name, user.photoURL);
     }
   }, [user, loading, error, history, name]);
   return (

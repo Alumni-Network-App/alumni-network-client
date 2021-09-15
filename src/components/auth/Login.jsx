@@ -12,6 +12,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [user, loading, error] = useAuthState(auth);
+
   const history = useHistory();
 
   useEffect(() => {
@@ -29,39 +30,44 @@ const Login = () => {
   };
 
   return (
-    <section className="login">
-      <div className="login__container">
-        <input
-          className="login__textBox"
-          type="text"
-          placeholder="Your email"
-          onChange={(e) => setEmail(e.target.value)}
-          value={email}
-        />
-        <input
-          className="login__textBox"
-          type="password"
-          placeholder="Your Password"
-          onChange={(e) => setPassword(e.target.value)}
-          value={password}
-        />
-        <button
-          onClick={handleLoginWithEmailAndPassword}
-          className="login__btn"
-        >
-          Login
-        </button>
-        <button onClick={signInWithGoogle} className="login__btn login__google">
-          Login with Google
-        </button>
-        <div>
-          <Link to="/reset"> Forgot Password</Link>
+    <>
+      <section className="login">
+        <div className="login__container">
+          <input
+            className="login__textBox"
+            type="text"
+            placeholder="Your email"
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
+          />
+          <input
+            className="login__textBox"
+            type="password"
+            placeholder="Your Password"
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
+          />
+          <button
+            onClick={handleLoginWithEmailAndPassword}
+            className="login__btn"
+          >
+            Login
+          </button>
+          <button
+            onClick={signInWithGoogle}
+            className="login__btn login__google"
+          >
+            Login with Google
+          </button>
+          <div>
+            <Link to="/reset"> Forgot Password</Link>
+          </div>
+          <div>
+            Don't have an account? <Link to="register">Register</Link> now.
+          </div>
         </div>
-        <div>
-          Don't have an account? <Link to="register">Register</Link> now.
-        </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 };
 
