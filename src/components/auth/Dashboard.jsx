@@ -21,6 +21,7 @@ function Dashboard() {
     if (!user) return history.replace("/");
 
     fetchUserData();
+
     setIsLoading(false);
   }, [user, loading, error, history]);
 
