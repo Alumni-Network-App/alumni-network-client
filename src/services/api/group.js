@@ -1,3 +1,4 @@
+import { auth } from "../../firebase";
 const BASE_URL = "https://alumni-network-backend.herokuapp.com/api/v1/";
 const BASE_USER_URL = "https://alumni-network-backend.herokuapp.com/api/v1/user/";
 
@@ -6,30 +7,60 @@ const BASE_USER_URL = "https://alumni-network-backend.herokuapp.com/api/v1/user/
  * @returns A list of group objects in the database
  */
 export const getPublicGroups = async () => {
-    const GROUP_URL = BASE_URL + "group";
-    const response = await fetch(GROUP_URL);
-    const data = await response.json();
-    return data.filter(x => x.private === false);
+    const GROUP_URL = BASE_URL + "group/";
+    const accessToken = await auth.currentUser.getIdToken(true).then((idToken) => idToken);
+    try {
+        const response = await fetch(GROUP_URL, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            }
+        });
+        if (!response.ok) { 
+            throw new Error("Something went wrong");
+        } else {
+            const data = await response.json();
+            return data.filter(x => x.private === false);
+        }
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 
 /**
  * Get the groups that a user is in 
  */
-export const getUsersGroups = async (userId) => {
-    const group_urls = await getUserGroupsList(userId);
-    //const fake_group_urls = ['/api/v1/group/2', '/api/v1/group/7']  // while api is down 
-    return fetchAll(group_urls);
+export const getUsersGroups = async (user) => {
+    const group_urls = await getUserGroupsList(user); 
+    if(group_urls.length > 0){
+        return fetchAll(user, group_urls);
+    }
+    return []
 }
 
 /**
  * Get list of user groups 
  */
- export const getUserGroupsList = async (userId) => {
-    const USER_URL = BASE_USER_URL + userId;
-    const response = await fetch(USER_URL);
-    const data = await response.json();
-    return data.groups 
+ export const getUserGroupsList = async (user) => {
+    const USER_URL = BASE_USER_URL + user.uid;
+    const accessToken = await user.getIdToken(true).then((idToken) => idToken);
+    try {
+        const response = await fetch(USER_URL, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            }
+        });
+        if (!response.ok) {
+            throw new Error ("Something went horribly wrong");
+        }else {
+            const data = await response.json();
+            return data.groups
+        }
+    } catch (error) {
+        console.log(error);
+    } 
 }
 
 
@@ -51,10 +82,25 @@ const processGroupData = (data) => {
 
 // helper function to fetch multiple urls 
 
-const fetchAll = async (urls) => {
-    const response = await Promise.all(urls.map(u => fetch("https://alumni-network-backend.herokuapp.com"+u)));
-    const data = await Promise.all(response.map(r => r.json()));
-    return processGroupData(data);
+const fetchAll = async (user, urls) => {
+    const accessToken = await user.getIdToken(true).then((idToken) => idToken);
+    try {
+        const response = await Promise.all(urls.map(u => fetch("https://alumni-network-backend.herokuapp.com"+ u, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        })));
+
+        if (!response.ok) {
+            throw new Error("Something went wrong....!");
+          } else {
+            const data = await Promise.all(response.map(r => r.json()));
+            return processGroupData(data);
+          }
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 
