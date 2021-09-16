@@ -1,36 +1,55 @@
 import React from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { updateSettings } from "../../services/api/user";
+import { getUser, updateSettings } from "../../services/api/user";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../firebase";
+import { useHistory } from 'react-router-dom'
 
-const Settings = (props) => {
+
+const Settings = () => {
+  const [userData, setUserData] = useState([]);
+  const history = useHistory();
+  const [user, loading, error] = useAuthState(auth);
   // TODO: change fakeProps to props when able to access user information.
 
-  const fakeProps = {
-    id: 2,
-    name: "Future",
-    picture:
-      "https://robohash.org/inventoreomnispossimus.png?size=50x50&set=set1",
-    status: "active",
-    bio: "I love work",
-    funFact: "I love Burgers",
-  };
+  useEffect(() => {
+    if (loading) return;
+    if (error) {
+     return <>Error: {error}</>;
+    }
+    if (!user) return history.replace("/");
+    async function setUserInfo (user) {
+      const data = await getUser(user);
+      const userInfo = {
+        name: data.name,
+        picture: data.picture,
+        status: data.status,
+        bio: data.bio,
+        funFact: data.funFact
+      }
+      setUserData(userInfo);
+    }    
+    setUserInfo(user);
+}, [user, loading, error, history]);
 
+  
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
     defaultValues: {
-      name: fakeProps.name,
-      status: fakeProps.status,
-      bio: fakeProps.bio,
-      funFact: fakeProps.funFact,
+      name: userData.name,
+      status: userData.status,
+      bio: userData.bio,
+      funFact: userData.funFact,
     },
   });
 
   const onSubmit = async (data) => {
-    data.picture = fakeProps.picture;
-    updateSettings(data, fakeProps.id);
+    data.picture = "https://robohash.org/inventoreomnispossimus.png?size=50x50&set=set1";
+    updateSettings(data);
   };
 
   return (
