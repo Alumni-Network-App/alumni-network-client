@@ -40,22 +40,37 @@ export const getTopic = async (topicId) => {
 /**
  * Get the topics that a user is in 
  */
- export const getUsersTopics = async (userId) => {
-  const topic_urls = await getUserTopicsList(userId);
-  //const fake_topic_urls = ['/api/v1/topic/2', '/api/v1/topic/7']  // while api is down 
-  return fetchAll(topic_urls);
+ export const getUsersTopics = async (user) => {
+  const topic_urls = await getUserTopicsList(user);
+  if(topic_urls.length > 0){
+    return fetchAll(user, topic_urls);
+  }
+  return []
 }
 
 /**
 * Get list of user topics 
 */
-export const getUserTopicsList = async (userId) => {
-  const USER_URL = BASE_USER_URL + userId;
-  const response = await fetch(USER_URL);
-  const data = await response.json();
-  return data.topicSubscriptions 
+export const getUserTopicsList = async (user) => {
+  const USER_URL = BASE_USER_URL + user.uid;
+  const accessToken = await user.getIdToken(true).then((idToken) => idToken);
+  try {
+      const response = await fetch(USER_URL, {
+          method: "GET",
+          headers: {
+              Authorization: `Bearer ${accessToken}`,
+          }
+      });
+      if (!response.ok) {
+          throw new Error ("Something went horribly wrong");
+      }else {
+          const data = await response.json();
+          return data.topicSubscriptions
+      }
+  } catch (error) {
+      console.log(error);
+  } 
 }
-
 
 /**
 * Transform topic data in to objects with name and id
@@ -75,8 +90,23 @@ const processTopicData = (data) => {
 
 // helper function to fetch multiple urls 
 
-const fetchAll = async (urls) => {
-  const response = await Promise.all(urls.map(u => fetch("https://alumni-network-backend.herokuapp.com"+u)));
-  const data = await Promise.all(response.map(r => r.json()));
-  return processTopicData(data);
+const fetchAll = async (user, urls) => {
+  const accessToken = await user.getIdToken(true).then((idToken) => idToken);
+  try {
+      const response = await Promise.all(urls.map(u => fetch("https://alumni-network-backend.herokuapp.com"+ u, {
+          method: "GET",
+          headers: {
+              Authorization: `Bearer ${accessToken}`
+          }
+      })));
+
+      if (!response.ok) {
+          throw new Error("Something went wrong....!");
+        } else {
+          const data = await Promise.all(response.map(r => r.json()));
+          return processTopicData(data);
+        }
+  } catch (error) {
+      console.log(error)
+  }
 }
