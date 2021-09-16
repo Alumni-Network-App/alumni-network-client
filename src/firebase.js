@@ -19,10 +19,19 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 const auth = firebase.auth();
 
-const googleProvider = new firebase.auth.GoogleAuthProvider();
+/**
+ * * Todos: Needs to handle when the user canceled
+ * * the pop message
+ * *
+ */
+
+const provider = new firebase.auth.GoogleAuthProvider();
+provider.setCustomParameters({
+  prompt: "select_account",
+});
 
 const signInWithGoogle = async () => {
-  const response = await auth.signInWithPopup(googleProvider);
+  const response = await auth.signInWithPopup(provider);
   const user = response.user;
   apiServices.addUserToPostgres(user.uid, user.displayName, user.photoURL);
 };

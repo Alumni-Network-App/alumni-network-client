@@ -17,17 +17,17 @@ function App() {
     <div className="App">
       <Router>
         <Switch>
-        <Route path="/" exact component = { Login } /> 
-        <Route path="/reset" component={Reset} />
-        <Route path="/dashboard" component={Dashboard} />
-        <Route path="/register" component={Register} />
-        <Route path="/groups/all" component = { GroupList } />
-        <Route path="/groups/:id" component = { GroupPageExists } />
-        <Route path="/topics/all" component= { TopicList } />
-        <Route path="/topics/:id" component = { TopicPageExists } />
-        <Route path="/profile/settings" component = { Settings } />
-        <Route path="/profile/create-post" component = { CreatePost } />
-        <Route path={["/page-not-found", "*"]} component = {PageNotFound} />
+          <Route path="/" exact component={Login} />
+          <Route path="/reset" component={Reset} />
+          <Route path="/dashboard" component={Dashboard} />
+          <Route path="/register" component={Register} />
+          <Route path="/groups/all" component={GroupList} />
+          <Route path="/groups/:id" component={GroupPageExists} />
+          <Route path="/topics/all" component={TopicList} />
+          <Route path="/topics/:id" component={TopicPageExists} />
+          <Route path="/profile/settings" component={Settings} />
+          <Route path="/profile/create-post" component={CreatePost} />
+          <Route path={["/page-not-found", "*"]} component={PageNotFound} />
         </Switch>
       </Router>
     </div>
