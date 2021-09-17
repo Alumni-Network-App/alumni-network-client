@@ -1,9 +1,24 @@
 import React from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { updateSettings } from "../../services/api/user";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../firebase";
+import { useHistory } from 'react-router-dom'
 
-const Settings = (props) => {
-  // TODO: change fakeProps to props when able to access user information.
+
+const Settings = ( {currentUser} ) => {
+  const history = useHistory();
+  const [user, loading, error] = useAuthState(auth);
+  // TODO: change fakeProps to currentUser when the user profile component is complete
+
+  useEffect(() => {
+    if (loading) return;
+    if (error) {
+     return <>Error: {error}</>;
+    }
+    if (!user) return history.replace("/");
+}, [user, loading, error, history]);
 
   const fakeProps = {
     id: 2,
@@ -21,16 +36,16 @@ const Settings = (props) => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      name: fakeProps.name,
-      status: fakeProps.status,
-      bio: fakeProps.bio,
-      funFact: fakeProps.funFact,
+      name: fakeProps.name, // change to currentUser.name when integrated
+      status: fakeProps.status, // change to currentUser.status when integrated
+      bio: fakeProps.bio, // change to currentUser.bio when integrated
+      funFact: fakeProps.funFact, // change to currentUser.funFact when integrated
     },
   });
 
   const onSubmit = async (data) => {
-    data.picture = fakeProps.picture;
-    updateSettings(data, fakeProps.id);
+    fakeProps.picture = "https://robohash.org/inventoreomnispossimus.png?size=50x50&set=set1";
+    updateSettings(data);
   };
 
   return (

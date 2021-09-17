@@ -1,4 +1,5 @@
 import { auth } from "../../firebase";
+import { getUser } from "./user";
 const BASE_URL = "https://alumni-network-backend.herokuapp.com/api/v1/";
 const BASE_USER_URL = "https://alumni-network-backend.herokuapp.com/api/v1/user/";
 
@@ -32,11 +33,14 @@ export const getPublicGroups = async () => {
  * Get the groups that a user is in 
  */
 export const getUsersGroups = async (user) => {
-    const group_urls = await getUserGroupsList(user); 
-    if(group_urls.length > 0){
+    const data = await getUser(user);
+    if(data.groups.length < 1){
+        console.log("No groups so nothing will load check")
+        return []
+    }else{
+        const group_urls = await getUserGroupsList(user); 
         return fetchAll(user, group_urls);
     }
-    return []
 }
 
 /**

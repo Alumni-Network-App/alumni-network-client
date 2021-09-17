@@ -30,7 +30,7 @@ function Dashboard() {
       .getIdToken(true)
       .then((idToken) => idToken);
     try {
-      const response = await fetch(`http://localhost:8080/api/v1/user/`, {
+      const response = await fetch(`https://alumni-network-backend.herokuapp.com/api/v1/user/` + user.uid, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${accessToken}`,
