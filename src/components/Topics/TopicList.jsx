@@ -46,20 +46,25 @@ const TopicList = () => {
   /**
    * Filter topic searches
    */
-  const filterTopics = data
-    .filter(
-      (val) =>
-        val.name.toLowerCase().includes(searchData.toLowerCase()) ||
-        val.description.toLowerCase().includes(searchData.toLowerCase())
-    )
-    .map((topic) => (
-      <TopicPreview
-        key={topic.id}
-        topicId={topic.id}
-        topicTitle={topic.name}
-        topicDescription={topic.description}
-      />
-    ));
+
+  let filterTopics = data;
+
+  if(typeof data !== 'undefined'){
+    filterTopics = data
+      .filter(
+        (val) =>
+          val.name.toLowerCase().includes(searchData.toLowerCase()) ||
+          val.description.toLowerCase().includes(searchData.toLowerCase())
+      )
+      .map((topic) => (
+        <TopicPreview
+          key={topic.id}
+          topicId={topic.id}
+          topicTitle={topic.name}
+          topicDescription={topic.description}
+        />
+      ));
+  }
 
   return (
     <main>

@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase";
 import { useHistory } from "react-router";
+import { filter } from "dom-helpers";
 
 const GroupList = () => {
   const [user, loading, error] = useAuthState(auth);
@@ -45,7 +46,11 @@ const GroupList = () => {
   /**
    * Filter group searches
    */
-  const filterGroups = data
+
+  let filterGroups = data;
+
+  if(typeof data !== 'undefined'){
+    filterGroups = data
     .filter(
       (val) =>
         val.name.toLowerCase().includes(searchData.toLowerCase()) ||
@@ -60,6 +65,7 @@ const GroupList = () => {
         topicId={group.id}
       />
     ));
+  }
 
   return (
     <main>

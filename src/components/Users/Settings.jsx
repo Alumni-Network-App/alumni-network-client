@@ -1,17 +1,16 @@
 import React from "react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { getUser, updateSettings } from "../../services/api/user";
+import { updateSettings } from "../../services/api/user";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase";
 import { useHistory } from 'react-router-dom'
 
 
-const Settings = () => {
-  const [userData, setUserData] = useState([]);
+const Settings = ( {currentUser} ) => {
   const history = useHistory();
   const [user, loading, error] = useAuthState(auth);
-  // TODO: change fakeProps to props when able to access user information.
+  // TODO: change fakeProps to currentUser when the user profile component is complete
 
   useEffect(() => {
     if (loading) return;
@@ -19,36 +18,33 @@ const Settings = () => {
      return <>Error: {error}</>;
     }
     if (!user) return history.replace("/");
-    async function setUserInfo (user) {
-      const data = await getUser(user);
-      const userInfo = {
-        name: data.name,
-        picture: data.picture,
-        status: data.status,
-        bio: data.bio,
-        funFact: data.funFact
-      }
-      setUserData(userInfo);
-    }    
-    setUserInfo(user);
 }, [user, loading, error, history]);
 
-  
+  const fakeProps = {
+    id: 2,
+    name: "Future",
+    picture:
+      "https://robohash.org/inventoreomnispossimus.png?size=50x50&set=set1",
+    status: "active",
+    bio: "I love work",
+    funFact: "I love Burgers",
+  };
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
     defaultValues: {
-      name: userData.name,
-      status: userData.status,
-      bio: userData.bio,
-      funFact: userData.funFact,
+      name: fakeProps.name, // change to currentUser.name when integrated
+      status: fakeProps.status, // change to currentUser.status when integrated
+      bio: fakeProps.bio, // change to currentUser.bio when integrated
+      funFact: fakeProps.funFact, // change to currentUser.funFact when integrated
     },
   });
 
   const onSubmit = async (data) => {
-    data.picture = "https://robohash.org/inventoreomnispossimus.png?size=50x50&set=set1";
+    fakeProps.picture = "https://robohash.org/inventoreomnispossimus.png?size=50x50&set=set1";
     updateSettings(data);
   };
 
