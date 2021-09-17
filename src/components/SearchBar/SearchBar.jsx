@@ -4,7 +4,7 @@ const SearchBar = (props) => {
   return (
     <div>
       <Input
-        className="searchBarZ"
+        className="searchBar"
         type="text"
         placeholder="Search here..."
         onChange={(event) => props.onChange(event.target.value)}
