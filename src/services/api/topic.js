@@ -14,7 +14,7 @@ export const getTopics = async () => {
   return data;
 };
 
-// check if topic exists
+// check if topic id exists in the database
 export const isTopicInDatabase = async (topicId) => {
   const response = await fetch(BASE_URL + "topic");
   const data = await response.json();
@@ -112,5 +112,76 @@ const fetchAll = async (user, urls) => {
         }
   } catch (error) {
       console.log(error)
+  }
+}
+
+
+
+/**
+ * Check if topic exists using name 
+ */
+export const getTopicUsingName = async (name) => {
+    const TOPIC_URL = BASE_URL + "topic?name=" + name;
+    try {
+      const response = await fetch(TOPIC_URL);
+      if(!response.ok){
+        throw new Error("Something went horribly wrong");
+      }else {
+        const data = await response.json();
+        return data;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+}
+
+
+export const addUserToTopic = async (topicId) => {
+  const TOPIC_URL = BASE_URL + "topic/" + topicId + "/join";
+  try {
+    const response = await fetch(TOPIC_URL, 
+      {
+        method: "POST"
+      })
+      if(!response.ok){
+        throw new Error("Something went horribly wrong");
+      }
+  } catch (error) {
+    console.log(error);
+  } 
+}
+
+
+export const createNewTopic = async (topic) => {
+  const TOPIC_URL = BASE_URL + "topic";
+  try { 
+    const response = await fetch(TOPIC_URL, 
+      {
+        method: "POST",
+        body: JSON.stringify(topic),
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        },
+      })
+      if(!response.ok){
+        throw new Error("Something went horribly wrong");
+      }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+
+
+// add a new topic or subscribe to 
+export const addUsersTopic = async (data) => {
+  const topic = await getTopicUsingName(data.name);
+  if(topic.length>0){
+    addUserToTopic(topic[0].id);
+    console.log("topic found already so added exxisting")
+  }else {
+    createNewTopic(data);
+    console.log("the topic does not exist so created new")
   }
 }

@@ -8,17 +8,19 @@ import { getUsersGroups } from "../../services/api/group";
 import { getUsersTopics } from "../../services/api/topic";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase";
-
+import "./posts.css"
+import Modal from "./CreateTopic";
 
 const CreatePost = () => {
     const [user, loading, error] = useAuthState(auth);
     const [groupObjects, setGroupObjects] = useState([]);
     const [topicObjects, setTopicObjects] = useState([]);     
     const [input, setInput] = useState();
-    const [showPreview, setShowPreview] = useState(true);
-    const { register, handleSubmit /*,formState: { errors } */} = useForm();
+    const [showPreview, setShowPreview] = useState(false);
     const history = useHistory();
 
+    const { register, handleSubmit ,formState: { errors } } = useForm();
+   
 
     useEffect(() => {
         if (loading) return;
@@ -72,39 +74,59 @@ const CreatePost = () => {
       <option key={group.id} value={group.id}>{group.name}</option>
     ));
 
-   const getTopicListOptions = topicObjects
-    .map((topic) => (
-      <option key={topic.id} value={topic.id}>{topic.name}</option>
+
+    let topicOptions = [];
+    const getTopicListOptions = topicObjects
+        .map((topic) => (
+        <option key={topic.id} value={topic.id}>{topic.name}</option>
     ));
     
+
+    topicOptions.push(getTopicListOptions);
+    topicOptions.push(<Modal/>);
+
+    // fix validation form 
+
    return (
 
         <div className="postPage">
             <h1>Create post</h1>
-
-            <form onSubmit={handleSubmit(onSubmit)}>
+            {topicOptions[1]}
+            <form className="postForm" onSubmit={handleSubmit(onSubmit)}>
                 <input type="text" placeholder="Title"
                             {...register("title")} 
                         />
 
-                <select {...register("topic")}>
-                    {getTopicListOptions}
-                </select>
-                
-                <select {...register("receiverId")}>
+                <select className="groupSelect" {...register("receiverId")}>
+                    <option value="DEFAULT" disabled>Choose a group ...</option>
                     {getGroupListOptions}
                 </select>
-
-                <textarea autoFocus className="textarea" value={input} {...register("content")} 
-                    onChange= {(e) => setInput(e.target.value)}
-                />
-                <input className="postPageSubmit" type="submit" />
-            </form>
-
-            <button onClick= {() => setShowPreview(!showPreview)}>Toggle preview</button>
+                <div className="selectCreateTopic">
+                    <select className="topicSelect" {...register("topic")}>
+                    <option value="DEFAULT" disabled>Choose a topic ...</option>
+                        {topicOptions[0]}
+                    </select>
+                    
+                </div>
+                
+                <div className="textmarkdown">
+                    <textarea autoFocus className="textarea" value={input} {...register("content")} 
+                        onChange= {(e) => setInput(e.target.value)}
+                    />
+                    
+                
                     {
                         showPreview ? <ReactMarkdown remarkPlugins={[gfm]} className="markdown" children={input} />  : null  
                     }
+                
+                </div>
+                <div className="postButtons">
+                    <button className="previewText" type="button" onClick= {() => setShowPreview(!showPreview)}>Preview post</button>
+                    <input className="postPageSubmit" type="submit" />
+                </div>
+                
+            </form>
+                   
         </div>
     )
 }
