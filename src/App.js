@@ -7,6 +7,7 @@ import TopicList from "./components/Topics/TopicList";
 import TopicPageExists from "./components/PageNotFound/TopicPageExists";
 import Settings from "./components/Users/Settings";
 import CreatePost from "./components/Posts/CreatePost";
+import CreateEvent from "./components/Events/CreateEvent";
 import Dashboard from "./components/auth/Dashboard";
 import Register from "./components/auth/Register";
 import Reset from "./components/auth/Reset";
@@ -28,6 +29,7 @@ function App() {
           <Route path="/profile/settings" component={Settings} />
           <Route path="/profile/create-post" component={CreatePost} />
           <Route path={["/page-not-found", "*"]} component={PageNotFound} />
+          <Route path="/event/create-event" component={CreateEvent} />
         </Switch>
       </Router>
     </div>

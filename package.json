@@ -15,6 +15,7 @@
     "moment": "^2.29.1",
     "react": "^17.0.2",
     "react-bootstrap": "^1.6.3",
+    "react-datepicker": "^4.2.1",
     "react-dom": "^17.0.2",
     "react-firebase-hooks": "^3.0.4",
     "react-hook-form": "^7.15.3",
@@ -29,11 +30,9 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-   
-      "start": "craco start",
-     "build": "craco build",
-     "test": "craco test",
-    
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
