@@ -14,20 +14,21 @@ const addUserToPostgres = async (
     name: username,
     picture: photoURL,
   };
-  let accessToken = await auth.currentUser
-    .getIdToken(true)
-    .then((idToken) => idToken);
+  // let accessToken = await auth.currentUser.then((idToken) => idToken);
 
-  console.log(accessToken);
-  const response = await fetch("https://alumni-network-backend.herokuapp.com/api/v1/user", {
-    method: "POST",
-    body: JSON.stringify(userData),
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-  });
+  console.log(getIdToken);
+  const response = await fetch(
+    "https://alumni-network-backend.herokuapp.com/api/v1/user",
+    {
+      method: "POST",
+      body: JSON.stringify(userData),
+      headers: {
+        Authorization: `Bearer ${getIdToken}`,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    }
+  );
   const data = await response.json();
   console.log(data);
 };

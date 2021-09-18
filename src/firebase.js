@@ -1,7 +1,7 @@
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
-import "firebase/compat/firestore";
 import { apiServices } from "./services/api-services";
+import "firebase/compat/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAftIa5-QflBvQ9udoLWXGSB12n5a5jkAQ",
@@ -33,14 +33,16 @@ provider.setCustomParameters({
 const signInWithGoogle = async () => {
   const response = await auth.signInWithPopup(provider);
   const user = response.user;
-  apiServices.addUserToPostgres(user.uid, user.displayName, user.photoURL);
+  //apiServices.addUserToPostgres(user.uid, user.displayName, user.photoURL);
+  return user;
 };
 
 const registerWithEmailAndPassword = async (name, email, password) => {
   try {
     const res = await auth.createUserWithEmailAndPassword(email, password);
     const user = res.user;
-    apiServices.addUserToPostgres(user.uid, name, user.photoURL);
+    //apiServices.addUserToPostgres(user.uid, user.displayName, user.photoURL);
+    return user;
   } catch (err) {
     console.error(err);
     alert(err.message);
