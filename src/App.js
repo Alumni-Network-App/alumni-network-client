@@ -14,7 +14,7 @@ import Login from "./components/auth/Login";
 
 function App() {
   return (
-    <div className="App">
+    <>
       <Router>
         <Switch>
           <Route path="/" exact component={Login} />
@@ -30,7 +30,7 @@ function App() {
           <Route path={["/page-not-found", "*"]} component={PageNotFound} />
         </Switch>
       </Router>
-    </div>
+    </>
   );
 }
 

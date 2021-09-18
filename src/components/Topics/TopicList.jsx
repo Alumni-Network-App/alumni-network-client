@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import styled from "styled-components";
+
 import { getTopics } from "../../services/api/topic";
-import TopicPreview from "./TopicPreview";
 import SearchBar from "../SearchBar/SearchBar";
 import { useHistory } from "react-router";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase";
+import TopicPreview from "./TopicPreview";
 
 const TopicList = () => {
   const [user, loading, error] = useAuthState(auth);
@@ -49,48 +49,40 @@ const TopicList = () => {
 
   let filterTopics = data;
 
-  if(typeof data !== 'undefined'){
+  if (typeof data !== "undefined") {
     filterTopics = data
       .filter(
         (val) =>
           val.name.toLowerCase().includes(searchData.toLowerCase()) ||
           val.description.toLowerCase().includes(searchData.toLowerCase())
       )
-      .map((topic) => (
+      .map(({ id, name, description }) => (
+        // <TopicPreview
+        //   key={topic.id}
+        //   topicId={topic.id}
+        //   topicTitle={topic.name}
+        //   topicDescription={topic.description}
+        // />
         <TopicPreview
-          key={topic.id}
-          topicId={topic.id}
-          topicTitle={topic.name}
-          topicDescription={topic.description}
+          key={id}
+          description={description}
+          topicId={id}
+          title={name}
         />
       ));
   }
 
   return (
-    <main>
+    <>
       {/* <NavBar /> */}
-      <Div>
+      {/* <Div>
         <BlogGroupTitle> Topics </BlogGroupTitle>
-        <SearchBar onChange={(value) => setSearchData(value)} />
-      </Div>
-
+      
+      </Div> */}
+      <SearchBar onChange={(value) => setSearchData(value)} />
       {filterTopics}
-    </main>
+    </>
   );
 };
 
-const BlogGroupTitle = styled.h3`
-  font-size: 25px;
-  font-family: "Playfair Display", serif;
-  margin-left: 1rem;
-`;
-
-const Div = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding-bottom: 1rem;
-  margin-bottom: 1rem;
-  border-bottom: 1px solid black;
-  border-left: 1px solid black;
-`;
 export default TopicList;
