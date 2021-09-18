@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase";
 import { useHistory } from "react-router";
-import { filter } from "dom-helpers";
+//import { filter } from "dom-helpers";
 
 const GroupList = () => {
   const [user, loading, error] = useAuthState(auth);

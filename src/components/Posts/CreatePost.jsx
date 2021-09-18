@@ -32,7 +32,7 @@ const CreatePost = () => {
         getTopicList(user);
     }, [user, loading, error, history]);
 
-    
+    //console.log(auth.currentUser.uid)
 
    
     const getGroupList = async (user) => {
@@ -60,7 +60,7 @@ const CreatePost = () => {
         data.receiverType = "group"
         console.log(data);
         createPost(data);
-        history.push('/groups/2'); // change this to the actual post when view thread is complete
+        history.push('/dashboard'); // change this to the actual post when view thread is complete
     }
 
 
@@ -94,37 +94,44 @@ const CreatePost = () => {
             {topicOptions[1]}
             <form className="postForm" onSubmit={handleSubmit(onSubmit)}>
                 <input type="text" placeholder="Title"
-                            {...register("title")} 
+                            {...register("title", { required: true, maxLength: 20 })} 
                         />
+                
+                
 
                 <select className="groupSelect" {...register("receiverId")}>
-                    <option value="DEFAULT" disabled>Choose a group ...</option>
+                    {/*<option value="DEFAULT" disabled>Choose a group ...</option>*/}
+                    <option value="2" >GROUP 2 FOR TEST PURPOSES</option>
                     {getGroupListOptions}
                 </select>
+                
                 <div className="selectCreateTopic">
                     <select className="topicSelect" {...register("topic")}>
-                    <option value="DEFAULT" disabled>Choose a topic ...</option>
+                    {/*<option value="DEFAULT" disabled>Choose a topic ...</option>*/}
+                    <option value="3" >TOPIC 3 FOR TEST PURPOSES</option>
                         {topicOptions[0]}
                     </select>
                     
                 </div>
                 
                 <div className="textmarkdown">
-                    <textarea autoFocus className="textarea" value={input} {...register("content")} 
+                    <textarea autoFocus className="textarea" value={input} {...register("content", { required: true, maxLength: 140 })} 
                         onChange= {(e) => setInput(e.target.value)}
                     />
-                    
-                
+
                     {
                         showPreview ? <ReactMarkdown remarkPlugins={[gfm]} className="markdown" children={input} />  : null  
                     }
-                
+
                 </div>
+                <span style={{color: "red"}} role="alert">{errors.title?.type === 'required' && "Enter a title of maximum 20 characters"}</span>
+                <br></br> {/* real bad quick fix*/}
+                <span style={{color: "red"}} role="alert">{errors.content?.type === 'required' && "Enter a post body (max 140 characters)"}</span>
+
                 <div className="postButtons">
                     <button className="previewText" type="button" onClick= {() => setShowPreview(!showPreview)}>Preview post</button>
                     <input className="postPageSubmit" type="submit" />
                 </div>
-                
             </form>
                    
         </div>

@@ -1,5 +1,5 @@
 import { getUser } from "./user";
-
+import { auth } from "../../firebase";
 const BASE_URL = "https://alumni-network-backend.herokuapp.com/api/v1/";
 const BASE_USER_URL = "https://alumni-network-backend.herokuapp.com/api/v1/user/";
 
@@ -32,9 +32,19 @@ export const isTopicInDatabase = async (topicId) => {
  */
 export const getTopic = async (topicId) => {
   const TOPIC_URL = BASE_URL + "topic/" + topicId;
-  const response = await fetch(TOPIC_URL);
-  const data = await response.json();
-  return data;
+  try {
+    const response = await fetch(TOPIC_URL, {
+      method: "GET"
+    })
+    if(!response.ok){
+      throw new Error ("Something went horribly wrong");
+    } else {
+      const data = await response.json();
+      return data;
+    }
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 // get a users topic 
@@ -137,11 +147,18 @@ export const getTopicUsingName = async (name) => {
 
 
 export const addUserToTopic = async (topicId) => {
+  //const accessToken = await auth.currentUser.getIdToken(true).then((idToken) => idToken);
   const TOPIC_URL = BASE_URL + "topic/" + topicId + "/join";
+  console.log(TOPIC_URL);
   try {
     const response = await fetch(TOPIC_URL, 
       {
-        method: "POST"
+        method: "POST", 
+        headers: {
+          //Authorization: `Bearer ${accessToken}`,
+          "Accept": 'application/json',
+          "Content-Type": 'application/json'
+        }
       })
       if(!response.ok){
         throw new Error("Something went horribly wrong");
@@ -151,18 +168,23 @@ export const addUserToTopic = async (topicId) => {
   } 
 }
 
+// a function to create a new topic 
 
 export const createNewTopic = async (topic) => {
+  const accessToken = await auth.currentUser.getIdToken(true).then((idToken) => idToken);
   const TOPIC_URL = BASE_URL + "topic";
+  console.log(TOPIC_URL);
+  console.log(topic);
   try { 
     const response = await fetch(TOPIC_URL, 
       {
         method: "POST",
-        body: JSON.stringify(topic),
         headers: {
-          Accept: "application/json",
+          Authorization: `Bearer ${accessToken}`,
+          "Accept": "application/json",
           "Content-Type": "application/json"
         },
+        body: JSON.stringify(topic),
       })
       if(!response.ok){
         throw new Error("Something went horribly wrong");

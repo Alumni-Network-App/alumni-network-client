@@ -1,24 +1,32 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { getGroupPosts } from "../../services/api/posts"; 
 import { getGroup } from "../../services/api/group";
 import SearchBar from "../SearchBar/SearchBar";
 import Post from "../Posts/Post";
+import { auth } from "../../firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 const GroupDetail = () => {
-
+    const [user, loading, error] = useAuthState(auth);
     const [posts, setPosts] = useState([]);
     const [data, setData] = useState([]);
     const [searchData, setSearchData] = useState('');
     const { id } = useParams();
-    
-    
+    const history = useHistory();
+        
     /**
      * TODO:
      * Add check for login / authenticated in if else block
      * then fetch groups
      */
     useEffect(() =>{
+        if (loading) return;
+        if (error) {
+         return <>Error: {error}</>;
+        }
+        if (!user) return history.replace("/");
+        console.log(user);
         async function fetchGroupAndPosts(id){
             try {
                 const posts = await getGroupPosts(id);
@@ -30,7 +38,7 @@ const GroupDetail = () => {
             }     
         }
         fetchGroupAndPosts(id);
-    }, [id])
+    }, [id, user, loading, error, history])
 
     /**
      * TODO: refactor - reusability / duplicates

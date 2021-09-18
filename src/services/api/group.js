@@ -113,21 +113,50 @@ const fetchAll = async (user, urls) => {
  * @returns A group from the database 
  */
  export const getGroup = async (groupId) => {
+    const accessToken = await auth.currentUser.getIdToken(true).then((idToken) => idToken);
     const GROUP_URL = BASE_URL + "group/" + groupId;
-    const response = await fetch(GROUP_URL);
-    const data = await response.json();
-    return data;
+    try {
+        const response = await fetch(GROUP_URL, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            }
+        }); 
+        if (!response.ok) {
+            throw new Error ("Something went horribly wrong");
+        } else {
+            const data = await response.json();
+            return data;
+        }
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 // check if group exists 
 // todo: check if page can be visited from current user
-export const isGroupInDatabase = async (groupId) => {
-    const response = await fetch(BASE_URL+"group");   
-    const data = await response.json();
-    const exists = data.find(x => x.id === parseInt(groupId));
-    if(exists){
-        return true;
-    }else{
-        return false;
-    }
+export const isGroupInDatabase = async (groupId, user) => {
+    const accessToken = await user.getIdToken(true).then((idToken) => idToken);
+    const GROUP_URL = BASE_URL + "group";
+    try {
+        const response = await fetch(GROUP_URL, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        });  
+        if(!response.ok) {
+            throw new Error ("Something went horribly wrong");
+        } else {
+            const data = await response.json();
+            const exists = data.find(x => x.id === parseInt(groupId));
+            if(exists) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    } catch (error) {
+        console.log(error);
+    }    
 }
