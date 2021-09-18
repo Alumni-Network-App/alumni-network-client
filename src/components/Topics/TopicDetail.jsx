@@ -1,16 +1,19 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { getTopicPosts } from "../../services/api/posts"; 
 import { getTopic } from "../../services/api/topic";
 import SearchBar from "../SearchBar/SearchBar";
 import Post from "../Posts/Post";
+import { auth } from "../../firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 const TopicDetail = () => {
-
+    const [user, loading, error] = useAuthState(auth);
     const [posts, setPosts] = useState([]);
     const [data, setData] = useState([]);
     const [searchData, setSearchData] = useState('');
     const { id } = useParams();
+    const history = useHistory();
     
     
     /**
@@ -19,6 +22,12 @@ const TopicDetail = () => {
      * then fetch topics
      */
     useEffect(() =>{
+        if (loading) return;
+        if (error) {
+         return <>Error: {error}</>;
+        }
+        if (!user) return history.replace("/");
+
         async function fetchTopicAndPosts(id){
             try {
                 const posts = await getTopicPosts(id);
@@ -30,7 +39,7 @@ const TopicDetail = () => {
             }     
         }
         fetchTopicAndPosts(id);
-    }, [id])
+    }, [id, user, loading, error, history])
 
     // filter topic searches 
     const filteredPosts = posts.filter(val => (

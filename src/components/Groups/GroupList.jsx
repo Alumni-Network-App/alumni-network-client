@@ -5,9 +5,8 @@ import SearchBar from "../SearchBar/SearchBar";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase";
 import { useHistory } from "react-router";
-
-import Nav from "../nav/Nav";
 //import { filter } from "dom-helpers";
+import Nav from "../nav/Nav";
 
 const GroupList = () => {
   const [user, loading, error] = useAuthState(auth);
