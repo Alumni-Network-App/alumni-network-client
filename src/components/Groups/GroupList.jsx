@@ -6,7 +6,9 @@ import styled from "styled-components";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase";
 import { useHistory } from "react-router";
-import { filter } from "dom-helpers";
+import Template from "../templates/TopicTemplate";
+import Nav from "../nav/Nav";
+//import { filter } from "dom-helpers";
 
 const GroupList = () => {
   const [user, loading, error] = useAuthState(auth);
@@ -49,49 +51,31 @@ const GroupList = () => {
 
   let filterGroups = data;
 
-  if(typeof data !== 'undefined'){
+  if (typeof data !== "undefined") {
     filterGroups = data
-    .filter(
-      (val) =>
-        val.name.toLowerCase().includes(searchData.toLowerCase()) ||
-        val.description.toLowerCase().includes(searchData.toLowerCase())
-    )
-    .map((group) => (
-      <GroupPreview
-        key={group.id}
-        groupId={group.id}
-        groupTitle={group.name}
-        groupDescription={group.description}
-        topicId={group.id}
-      />
-    ));
+      .filter(
+        (val) =>
+          val.name.toLowerCase().includes(searchData.toLowerCase()) ||
+          val.description.toLowerCase().includes(searchData.toLowerCase())
+      )
+      .map(({ name, id, description }) => (
+        <GroupPreview
+          key={id}
+          groupId={id}
+          title={name}
+          description={description}
+          topicId={id}
+        />
+      ));
   }
 
   return (
-    <main>
-      <Div>
-        <BlogGroupTitle> Groups </BlogGroupTitle>
-        <SearchBar onChange={(value) => setSearchData(value)} />
-      </Div>
+    <>
+      <Nav />
+      <SearchBar onChange={(value) => setSearchData(value)} />
       {filterGroups}
-
-      {/* <NavBar/> */}
-    </main>
+    </>
   );
 };
-
-const BlogGroupTitle = styled.h3`
-  font-size: 25px;
-  font-family: "Playfair Display", serif;
-  margin-left: 1rem;
-`;
-const Div = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding-bottom: 1rem;
-  margin-bottom: 1rem;
-  border-bottom: 1px solid black;
-  border-left: 1px solid black;
-`;
 
 export default GroupList;
