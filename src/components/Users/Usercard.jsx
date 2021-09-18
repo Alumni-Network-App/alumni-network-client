@@ -25,10 +25,11 @@ const Usercard = ({ currentUser }) => {
                   href="s#"
                   className="mx-1 font-bold text-gray-700 hover:underline"
                 >
-                  {currentUser.name}
+                  Name:
                 </a>
                 <span className="text-sm font-light text-gray-700">
-                  Created 23 Posts
+
+                  {currentUser.name}
                 </span>
               </p>
 
@@ -40,7 +41,7 @@ const Usercard = ({ currentUser }) => {
                   Status:
                 </a>
                 <span className="text-sm font-light text-gray-700">
-                  {currentUser.status} Created 23 Posts
+                  {currentUser.status}
                 </span>
               </p>
               <p>
@@ -51,7 +52,7 @@ const Usercard = ({ currentUser }) => {
                   Bio:
                 </a>
                 <span className="text-sm font-light text-gray-700">
-                  {currentUser.bio} Created 23 Posts
+                  {currentUser.bio}
                 </span>
               </p>
               <p>
@@ -62,13 +63,16 @@ const Usercard = ({ currentUser }) => {
                   Fun fact:
                 </a>
                 <span className="text-sm font-light text-gray-700">
-                  {currentUser.fun_fact}Created 23 Posts Created 23 Posts
-                  Created 23 Posts
+                  {currentUser.fun_fact}
                 </span>
               </p>
+
             </div>
+
           </div>
+
         </div>
+        <button className='border border-indigo-500 bg-indigo-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-indigo-600 focus:outline-none focus:shadow-outline'>Update profile</button>
       </div>
     </div>
   );

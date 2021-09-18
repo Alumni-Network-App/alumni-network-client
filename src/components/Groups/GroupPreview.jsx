@@ -25,7 +25,7 @@ const GroupPreview = ({ description, title, groupId }) => {
         </div>{" "}
         <div className="flex items-center justify-between mt-4">
           <Link
-            className="text-blue-500 hover:underline"
+            className="text-blue-600 hover:underline"
             to={{ pathname: GROUP_URL, state: { groupId } }}
           >
             Read more

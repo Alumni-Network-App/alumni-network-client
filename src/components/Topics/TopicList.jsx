@@ -5,7 +5,7 @@ import SearchBar from "../SearchBar/SearchBar";
 import { useHistory } from "react-router";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase";
-import Template from "../templates/TopicTemplate";
+import TopicPreview from "./TopicPreview";
 
 const TopicList = () => {
   const [user, loading, error] = useAuthState(auth);
@@ -63,7 +63,7 @@ const TopicList = () => {
         //   topicTitle={topic.name}
         //   topicDescription={topic.description}
         // />
-        <Template
+        <TopicPreview
           key={id}
           description={description}
           topicId={id}

@@ -2,11 +2,10 @@ import { useState, useEffect } from "react";
 import { getPublicGroups } from "../../services/api/group";
 import GroupPreview from "./GroupPreview";
 import SearchBar from "../SearchBar/SearchBar";
-import styled from "styled-components";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase";
 import { useHistory } from "react-router";
-import Template from "../templates/TopicTemplate";
+
 import Nav from "../nav/Nav";
 //import { filter } from "dom-helpers";
 
