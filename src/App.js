@@ -11,6 +11,7 @@ import Dashboard from "./components/auth/Dashboard";
 import Register from "./components/auth/Register";
 import Reset from "./components/auth/Reset";
 import Login from "./components/auth/Login";
+import CreateEvent from "./components/Events/CreateEvent";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="/topics/:id" component={TopicPageExists} />
           <Route path="/profile/settings" component={Settings} />
           <Route path="/profile/create-post" component={CreatePost} />
+          <Route path='/profile/create-event' component={CreateEvent}/>
           <Route path={["/page-not-found", "*"]} component={PageNotFound} />
         </Switch>
       </Router>
