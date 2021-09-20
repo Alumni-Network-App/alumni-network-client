@@ -43,7 +43,7 @@ export const updateSettings = async (settings) => {
             throw new Error ("Something went horribly wrong");
         } else {
             const data = await response.json();
-            console.log("success")
+            console.log("Updated user settings")
             return data;
         }
     } catch (error) {

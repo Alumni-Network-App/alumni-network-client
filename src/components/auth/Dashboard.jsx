@@ -43,7 +43,8 @@ const Dashboard = () => {
       console.log(error);
     }
   };
-
+console.log(user)
+console.log(`object`, currentUserData)
   useEffect(() => {
     if (loading) return;
     if (error) {

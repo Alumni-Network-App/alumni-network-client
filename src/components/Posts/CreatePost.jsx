@@ -9,7 +9,9 @@ import { getUsersTopics } from "../../services/api/topic";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase";
 import "./posts.css"
-import Modal from "./CreateTopic";
+import TopicModal from "./CreateTopicModal";
+import AddGroup from "../Groups/AddGroup";
+
 
 const CreatePost = () => {
     const [user, loading, error] = useAuthState(auth);
@@ -17,6 +19,7 @@ const CreatePost = () => {
     const [topicObjects, setTopicObjects] = useState([]);     
     const [input, setInput] = useState();
     const [showPreview, setShowPreview] = useState(false);
+    const [showAddGroups, setShowAddGroups] = useState(false);
     const history = useHistory();
 
     const { register, handleSubmit ,formState: { errors } } = useForm();
@@ -58,7 +61,7 @@ const CreatePost = () => {
             id: data.topic
         }
         data.receiverType = "group"
-        console.log(data);
+        //console.log(data);
         createPost(data);
         history.push('/dashboard'); // change this to the actual post when view thread is complete
     }
@@ -83,7 +86,7 @@ const CreatePost = () => {
     
 
     topicOptions.push(getTopicListOptions);
-    topicOptions.push(<Modal/>);
+    topicOptions.push(<TopicModal/>);
 
     // fix validation form 
 
@@ -92,6 +95,10 @@ const CreatePost = () => {
         <div className="postPage">
             <h1>Create post</h1>
             {topicOptions[1]}
+            <button className="" type="button" onClick= {() => setShowAddGroups(!showAddGroups)}>Add groups</button>
+            {
+                showAddGroups ? <AddGroup/>  : null  
+            }
             <form className="postForm" onSubmit={handleSubmit(onSubmit)}>
                 <input type="text" placeholder="Title"
                             {...register("title", { required: true, maxLength: 20 })} 
@@ -100,15 +107,15 @@ const CreatePost = () => {
                 
 
                 <select className="groupSelect" {...register("receiverId")}>
-                    {/*<option value="DEFAULT" disabled>Choose a group ...</option>*/}
-                    <option value="2" >GROUP 2 FOR TEST PURPOSES</option>
+                    <option value="DEFAULT" disabled>Choose a group ...</option>
+                    <option value="2" >group 2 FOR TEST PURPOSES</option>
                     {getGroupListOptions}
                 </select>
                 
                 <div className="selectCreateTopic">
                     <select className="topicSelect" {...register("topic")}>
-                    {/*<option value="DEFAULT" disabled>Choose a topic ...</option>*/}
                     <option value="3" >TOPIC 3 FOR TEST PURPOSES</option>
+                        <option value="DEFAULT" disabled>Choose a topic ...</option>
                         {topicOptions[0]}
                     </select>
                     
