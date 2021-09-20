@@ -8,7 +8,7 @@ import {
   signInWithGoogle,
 } from "../../firebase";
 
-import LoginImage from "../../assets/login_1.svg";
+import Footer from "../footer/Footer";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -33,13 +33,7 @@ const Register = () => {
     }
   }, [user, loading, error, history, name]);
   return (
-    <div
-      className="bg-no-repeat bg-cover bg-center relative"
-      style={{
-        backgroundImage: `url(${LoginImage})`,
-      }}
-    >
-      <div className="absolute bg-gradient-to-b from-green-500 to-green-400 opacity-75 inset-0 z-0"></div>
+    <>
       <div className="min-h-screen sm:flex sm:flex-row mx-0 justify-center">
         <div className="flex-col flex  self-center p-10 sm:max-w-5xl xl:max-w-2xl  z-10">
           <div className="p-12 bg-white mx-auto rounded-2xl w-100 ">
@@ -128,7 +122,8 @@ const Register = () => {
           </div>
         </div>
       </div>
-    </div>
+      <Footer />
+    </>
   );
 };
 

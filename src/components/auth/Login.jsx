@@ -6,11 +6,12 @@ import {
   auth,
   signInWithEmailAndPassword,
 } from "../../firebase";
-import LoginImage from "../../assets/login_1.svg";
+import Footer from "../footer/Footer";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isSignedIn, setIsSigned] = useState(false);
   const [user, loading, error] = useAuthState(auth);
   const history = useHistory();
 
@@ -20,6 +21,12 @@ const Login = () => {
       return <> Error: {error} </>;
     }
     if (user) history.replace("/dashboard");
+    const unregisterAuthObserver = auth.onAuthStateChanged((firebase) => {
+      setIsSigned(!!firebase);
+    });
+    return () => {
+      unregisterAuthObserver();
+    };
   }, [user, history, error, loading]);
 
   const handleLoginWithEmailAndPassword = () => {
@@ -28,27 +35,19 @@ const Login = () => {
     signInWithEmailAndPassword(email, password);
   };
   return (
-    <div
-      className="bg-no-repeat bg-cover bg-center relative"
-      style={{
-        backgroundImage: `url(${LoginImage})`,
-      }}
-    >
-      <div className="absolute bg-gradient-to-b from-green-500 to-green-400 opacity-75 inset-0 z-0"></div>
-      <div className="min-h-screen sm:flex sm:flex-row mx-0 justify-center">
-        <div className="flex-col flex  self-center p-10 sm:max-w-5xl xl:max-w-2xl  z-10">
-          <div className="self-start hidden lg:flex flex-col  text-black">
-            <h1 className="mb-3 font-bold text-5xl">
-              Hi 👋 Welcome Back to Alumni-Network
-            </h1>
-            <p className="pr-3">
-              Lorem ipsum is placeholder text commonly used in the graphic,
-              print, and publishing industries for previewing layouts and visual
-              mockups
-            </p>
-          </div>
+    <>
+      <div className="min-h-screen flex flex-col items-center justify-center md:flex-row">
+        <div className="w-96 mt-12 mb-12">
+          <h1 className="mb-3 font-bold text-5xl">
+            Hi 👋 Welcome Back to Alumni-Network
+          </h1>
+          <p className="pr-3">
+            Lorem ipsum is placeholder text commonly used in the graphic, print,
+            and publishing industries for previewing layouts and visual mockups
+          </p>
         </div>
-        <div className="flex justify-center self-center  z-10">
+
+        <div className="flex justify-center self-center md:mt-14">
           <div className="p-12 bg-white mx-auto rounded-2xl w-100 mt-7 ">
             <div className="mb-4">
               <h3 className="font-semibold text-2xl text-gray-800">Sign In </h3>
@@ -138,7 +137,8 @@ const Login = () => {
           </div>
         </div>
       </div>
-    </div>
+      <Footer />
+    </>
   );
 };
 

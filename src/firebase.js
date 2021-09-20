@@ -34,15 +34,15 @@ const signInWithGoogle = async () => {
   const response = await auth.signInWithPopup(provider);
   const user = response.user;
   apiServices.addUserToPostgres(user.uid, user.displayName, user.photoURL);
-  return user;
+  //return user;
 };
 
 const registerWithEmailAndPassword = async (name, email, password) => {
   try {
     const res = await auth.createUserWithEmailAndPassword(email, password);
     const user = res.user;
-    apiServices.addUserToPostgres(user.uid, user.displayName, user.photoURL);
-    return user;
+    apiServices.addUserToPostgres(user.uid, name, user.photoURL);
+    //return user;
   } catch (err) {
     console.error(err);
     alert(err.message);
