@@ -5,6 +5,7 @@ import { auth } from "../../firebase";
 import Timeline from "../timeline/Timeline";
 import Loader from "react-loader-spinner";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 function Dashboard() {
   const [user, loading, error] = useAuthState(auth);
@@ -71,6 +72,7 @@ function Dashboard() {
         </SpinnerDiv>
       )}
     </div>
+
   );
 }
 

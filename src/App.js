@@ -7,11 +7,11 @@ import TopicList from "./components/Topics/TopicList";
 import TopicPageExists from "./components/PageNotFound/TopicPageExists";
 import Settings from "./components/Users/Settings";
 import CreatePost from "./components/Posts/CreatePost";
-import CreateEvent from "./components/Events/CreateEvent";
 import Dashboard from "./components/auth/Dashboard";
 import Register from "./components/auth/Register";
 import Reset from "./components/auth/Reset";
 import Login from "./components/auth/Login";
+import CreateEvent from "./components/Events/CreateEvents";
 
 function App() {
   return (
@@ -28,9 +28,13 @@ function App() {
           <Route path="/topics/:id" component={TopicPageExists} />
           <Route path="/profile/settings" component={Settings} />
           <Route path="/profile/create-post" component={CreatePost} />
+          <Route path='/profile/create-event' component={CreateEvent}/> 
           <Route path={["/page-not-found", "*"]} component={PageNotFound} />
-          <Route path="/event/create-event" component={CreateEvent} />
+          {/* <Route path="/event/create-event" component={CreateEvent}/> */}
+          
+        
         </Switch>
+        {/* <CreateEvent/> */}
       </Router>
     </div>
   );

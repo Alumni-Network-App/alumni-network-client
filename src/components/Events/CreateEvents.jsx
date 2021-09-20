@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { useHistory } from 'react-router-dom'
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase";
-import { addEvent } from "../../services/api/events";
+import { addEvent } from "../../services/api/event"
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -16,6 +16,8 @@ const CreateEvent = () => {
     const [showPreview, setShowPreview] = useState(true);
     const { register, handleSubmit } = useForm();
     const history = useHistory();
+    const [startDate] = useState(new Date());
+    const [endDate] = useState(new Date());
 
     useEffect(() => {
         if (loading) return;
@@ -23,8 +25,7 @@ const CreateEvent = () => {
          return <>Error: {error}</>;
         }
         if (!user) return history.replace("/");
-        getGroupList(user);
-        getTopicList(user);
+        
     }, [user, loading, error, history]);
 
     const createEvent = async (event) => {
@@ -42,16 +43,16 @@ const CreateEvent = () => {
     }
 
     const setStartDate = () => {
-        const [startDate, setStartDate] = useState(new Date());
+        
         return (
           <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
         );
     };
 
     const setEndDate = () => {
-        const [endDate, setendDate] = useState(new Date());
+        
         return (
-          <DatePicker selected={endDate} onChange={(date) => setendDate(date)} />
+          <DatePicker selected={endDate} onChange={(date) => setEndDate(date)} />
         );
     };
     
@@ -67,7 +68,7 @@ const CreateEvent = () => {
 
                 <label>
                     Start Date <br/>
-                    <DatePicker selected={startdate} onChange={(date) => setStartDate(date)} />
+                    <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
                 </label>
 
                 <label>
