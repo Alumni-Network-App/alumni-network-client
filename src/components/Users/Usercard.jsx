@@ -1,9 +1,11 @@
+import { Link } from "react-router-dom";
+
 const Usercard = ({ currentUser }) => {
   return (
     <div className="px-8">
       <h1 className="mb-4 text-xl font-bold text-gray-700">Logged in as</h1>
-      <div className="flex flex-col max-w-sm px-6 py-4 mx-auto bg-white rounded-lg shadow-md">
-        <div className="-mx-4">
+      <div className="flex flex-col px-6 py-4 mx-auto bg-white rounded-lg shadow-md">
+        <div className="-mx-4 mb-4">
           <div className="flex items-center">
             {currentUser.picture ? (
               <img
@@ -28,7 +30,6 @@ const Usercard = ({ currentUser }) => {
                   Name:
                 </a>
                 <span className="text-sm font-light text-gray-700">
-
                   {currentUser.name}
                 </span>
               </p>
@@ -63,16 +64,18 @@ const Usercard = ({ currentUser }) => {
                   Fun fact:
                 </a>
                 <span className="text-sm font-light text-gray-700">
-                  {currentUser.fun_fact}
+                  {currentUser.funFact}
                 </span>
               </p>
-
             </div>
-
           </div>
-
         </div>
-        <button className='border border-indigo-500 bg-indigo-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-indigo-600 focus:outline-none focus:shadow-outline'>Update profile</button>
+        <Link
+          to="/profile/settings"
+          className="border border-indigo-500 bg-indigo-500 self-end text-white rounded-md px-4 py-3  transition duration-500 ease select-none hover:bg-indigo-600 focus:outline-none focus:shadow-outline"
+        >
+          Update profile
+        </Link>
       </div>
     </div>
   );

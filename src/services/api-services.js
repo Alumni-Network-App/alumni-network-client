@@ -12,10 +12,10 @@ const addUserToPostgres = async (
   const userData = {
     id: uid,
     name: username,
-    picture: photoURL
+    picture: photoURL,
   };
-  const accessToken = await auth.currentUser.getIdToken(true).then((idToken) => idToken);
-
+  // const accessToken = await auth.currentUser.getIdToken(true).then((idToken) => idToken);
+  let accessToken = (await auth.currentUser.getIdTokenResult()).token;
   console.log(accessToken);
   const response = await fetch(
     "https://alumni-network-backend.herokuapp.com/api/v1/user",
@@ -23,7 +23,7 @@ const addUserToPostgres = async (
       method: "POST",
       body: JSON.stringify(userData),
       headers: {
-        "Authorization": `Bearer ${accessToken}`,
+        Authorization: `Bearer ${accessToken}`,
         Accept: "application/json",
         "Content-Type": "application/json",
       },
