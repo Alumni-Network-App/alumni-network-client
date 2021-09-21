@@ -50,6 +50,7 @@ const TopicDetail = () => {
     .map((posts) => (
       <div key={posts.id} style={{ padding: "20px" }}>
         <Post
+          id = {posts.id}
           postTitle={posts.title}
           content={posts.content}
           comments={posts.comments}

@@ -1,1 +1,1 @@
-export const DEFAULT_DOMAIN_URL = "https://https://alumni-network-deluxe.herokuapp.com";
+export const DEFAULT_DOMAIN_URL = "https://alumni-network-backend.herokuapp.com";
