@@ -30,6 +30,7 @@ function App() {
           <Route path="/post/replies" component={ReplyList} />
           <Route path="/profile/settings" component={Settings} />
           <Route path="/profile/create-post" component={CreatePost} />
+          <Route path="/profile/create-group" component={CreatePost} />
           <Route path={["/page-not-found", "*"]} component={PageNotFound} />
         </Switch>
       </Router>

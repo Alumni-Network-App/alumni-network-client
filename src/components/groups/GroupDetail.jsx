@@ -8,7 +8,6 @@ import { auth } from "../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import ReplyList from "../replies/ReplyList";
 
-
 const GroupDetail = () => {
   const [user, loading, error] = useAuthState(auth);
   const [posts, setPosts] = useState([]);
