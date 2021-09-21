@@ -11,6 +11,7 @@ import { auth } from "../../firebase";
 import "./posts.css";
 import TopicModal from "./CreateTopicModal";
 import AddGroup from "../groups/AddGroup";
+import Layout from "../layout/Layout";
 
 const CreatePost = () => {
   const [user, loading, error] = useAuthState(auth);
@@ -91,77 +92,79 @@ const CreatePost = () => {
   // fix validation form
 
   return (
-    <div className="postPage">
-      <h1>Create post</h1>
-      {topicOptions[1]}
-      <button
-        className=""
-        type="button"
-        onClick={() => setShowAddGroups(!showAddGroups)}
-      >
-        Add groups
-      </button>
-      {showAddGroups ? <AddGroup /> : null}
-      <form className="postForm" onSubmit={handleSubmit(onSubmit)}>
-        <input
-          type="text"
-          placeholder="Title"
-          {...register("title", { required: true, maxLength: 20 })}
-        />
-        <select className="groupSelect" {...register("receiverId")}>
-          <option value="DEFAULT" disabled>
-            Choose a group ...
-          </option>
-          <option value="2">group 2 FOR TEST PURPOSES</option>
-          {getGroupListOptions}
-        </select>
-        <div className="selectCreateTopic">
-          <select className="topicSelect" {...register("topic")}>
-            <option value="3">TOPIC 3 FOR TEST PURPOSES</option>
-            <option value="DEFAULT" disabled>
-              Choose a topic ...
-            </option>
-            {topicOptions[0]}
-          </select>
-        </div>
-        <div className="textmarkdown">
-          <textarea
-            autoFocus
-            className="textarea"
-            value={input}
-            {...register("content", { required: true, maxLength: 140 })}
-            onChange={(e) => setInput(e.target.value)}
+    <Layout>
+      <div className="postPage">
+        <h1>Create post</h1>
+        {topicOptions[1]}
+        <button
+          className=""
+          type="button"
+          onClick={() => setShowAddGroups(!showAddGroups)}
+        >
+          Add groups
+        </button>
+        {showAddGroups ? <AddGroup /> : null}
+        <form className="postForm" onSubmit={handleSubmit(onSubmit)}>
+          <input
+            type="text"
+            placeholder="Title"
+            {...register("title", { required: true, maxLength: 20 })}
           />
-
-          {showPreview ? (
-            <ReactMarkdown
-              remarkPlugins={[gfm]}
-              className="markdown"
-              children={input}
+          <select className="groupSelect" {...register("receiverId")}>
+            <option value="DEFAULT" disabled>
+              Choose a group ...
+            </option>
+            <option value="2">group 2 FOR TEST PURPOSES</option>
+            {getGroupListOptions}
+          </select>
+          <div className="selectCreateTopic">
+            <select className="topicSelect" {...register("topic")}>
+              <option value="3">TOPIC 3 FOR TEST PURPOSES</option>
+              <option value="DEFAULT" disabled>
+                Choose a topic ...
+              </option>
+              {topicOptions[0]}
+            </select>
+          </div>
+          <div className="textmarkdown">
+            <textarea
+              autoFocus
+              className="textarea"
+              value={input}
+              {...register("content", { required: true, maxLength: 140 })}
+              onChange={(e) => setInput(e.target.value)}
             />
-          ) : null}
-        </div>
-        <span style={{ color: "red" }} role="alert">
-          {errors.title?.type === "required" &&
-            "Enter a title of maximum 20 characters"}
-        </span>
-        <br></br> {/* real bad quick fix*/}
-        <span style={{ color: "red" }} role="alert">
-          {errors.content?.type === "required" &&
-            "Enter a post body (max 140 characters)"}
-        </span>
-        <div className="postButtons">
-          <button
-            className="previewText"
-            type="button"
-            onClick={() => setShowPreview(!showPreview)}
-          >
-            Preview post
-          </button>
-          <input className="postPageSubmit" type="submit" />
-        </div>
-      </form>
-    </div>
+
+            {showPreview ? (
+              <ReactMarkdown
+                remarkPlugins={[gfm]}
+                className="markdown"
+                children={input}
+              />
+            ) : null}
+          </div>
+          <span style={{ color: "red" }} role="alert">
+            {errors.title?.type === "required" &&
+              "Enter a title of maximum 20 characters"}
+          </span>
+          <br></br> {/* real bad quick fix*/}
+          <span style={{ color: "red" }} role="alert">
+            {errors.content?.type === "required" &&
+              "Enter a post body (max 140 characters)"}
+          </span>
+          <div className="postButtons">
+            <button
+              className="previewText"
+              type="button"
+              onClick={() => setShowPreview(!showPreview)}
+            >
+              Preview post
+            </button>
+            <input className="postPageSubmit" type="submit" />
+          </div>
+        </form>
+      </div>
+    </Layout>
   );
 };
 

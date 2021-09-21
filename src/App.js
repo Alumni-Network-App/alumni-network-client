@@ -34,7 +34,7 @@ function App() {
           <Route path={["/page-not-found", "*"]} component={PageNotFound} />
         </Switch>
       </Router>
-    </>
+    </> 
   );
 }
 
