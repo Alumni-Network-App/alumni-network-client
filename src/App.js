@@ -31,10 +31,11 @@ function App() {
           <Route path="/reply/post/:id" component={CreateReply} />
           <Route path="/profile/settings" component={Settings} />
           <Route path="/profile/create-post" component={CreatePost} />
+          <Route path="/profile/create-group" component={CreatePost} />
           <Route path={["/page-not-found", "*"]} component={PageNotFound} />
         </Switch>
       </Router>
-    </>
+    </> 
   );
 }
 

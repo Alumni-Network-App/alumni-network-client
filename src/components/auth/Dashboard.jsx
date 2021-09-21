@@ -14,7 +14,7 @@ const Dashboard = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const history = useHistory();
-  
+
   useEffect(() => {
     if (loading) return;
     if (error) {
@@ -32,7 +32,7 @@ const Dashboard = () => {
           {
             method: "GET",
             headers: {
-              Authorization: `Bearer ${accessToken}`
+              Authorization: `Bearer ${accessToken}`,
             },
           }
         );

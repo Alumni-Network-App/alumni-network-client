@@ -17,7 +17,7 @@ const GroupList = () => {
   const history = useHistory();
   /**
    * TODO:
-   * GET Private groups as well 
+   * GET Private groups as well
    *
    */
   useEffect(() => {

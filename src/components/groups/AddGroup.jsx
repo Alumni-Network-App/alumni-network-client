@@ -15,8 +15,7 @@ const AddGroup = () => {
 
 
     const joinGroup = async (groupId) =>{
-        console.log(groupId);
-        //addUserToGroup(groupId);
+        addUserToGroup(groupId);
     }
  
     return (

@@ -17,7 +17,7 @@ const addUserToPostgres = async (
   };
   // const accessToken = await auth.currentUser.getIdToken(true).then((idToken) => idToken);
   let accessToken = (await auth.currentUser.getIdTokenResult()).token;
-  console.log(accessToken);
+
   const response = await fetch(
     DEFAULT_DOMAIN_URL + "/api/v1/user",
     {
