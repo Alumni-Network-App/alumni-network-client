@@ -1,6 +1,8 @@
 import { auth } from "../../firebase";
+import { DEFAULT_DOMAIN_URL } from "../../resource/constants";
 import { getUser } from "./user";
-const BASE_URL = "https://alumni-network-backend.herokuapp.com/api/v1/";
+const DOMAIN_URL = DEFAULT_DOMAIN_URL;
+const BASE_URL = DOMAIN_URL + "/api/v1/";
 const BASE_USER_URL = BASE_URL + "user/";
 
 /**
