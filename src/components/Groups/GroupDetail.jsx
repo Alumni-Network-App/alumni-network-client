@@ -6,7 +6,6 @@ import SearchBar from "../SearchBar/SearchBar";
 import Post from "../Posts/Post";
 import { auth } from "../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-import JoinGroup from "./JoinGroup";
 
 const GroupDetail = () => {
     const [user, loading, error] = useAuthState(auth);
@@ -54,11 +53,10 @@ const GroupDetail = () => {
                 <Post postTitle = {posts.title} content ={posts.content} comments={posts.comments} createdAt = {posts.date}/>
             </div> 
         )
-
+    
     return (
         <section>
             <h1>{data.name}</h1>
-            {<JoinGroup groupId={data.id}/>}
             <p>{data.description}</p>
             <h5>Top level posts</h5>
             <SearchBar onChange={(value) => setSearchData(value)}/>

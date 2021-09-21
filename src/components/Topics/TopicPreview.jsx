@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import JoinTopic from "./JoinTopic";
 
 const TopicPreview = ({ description, title, topicId }) => {
   const TOPIC_URL = "/topics/" + topicId;
@@ -30,6 +31,7 @@ const TopicPreview = ({ description, title, topicId }) => {
           >
             Read more
           </Link>
+          {<JoinTopic topicId={topicId}/>}   
           {/* <div>
             <a href="s#" className="flex items-center">
               <img
