@@ -1,1 +1,67 @@
+.Reply {
+    border: 1px solid black;
+    margin-top: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+}
 
+#reply-content {
+    width: 100%;
+    resize: none;
+    border-top: 1px black solid;
+    border-bottom: 1px black solid;
+    padding: 10px;
+}
+
+.button {
+    border: none;
+    padding: 8px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+#edit-reply-button {
+    background-color: green;
+    color: white;
+}
+
+#submit-reply-button {
+    background-color: #f44336;
+    color: white;
+}
+
+#edit-reply-button:hover {
+    background-color: rgb(3, 94, 3);
+}
+
+#submit-reply-button:hover {
+    background-color: #c23127;
+}
+
+.Hide {
+    display: none;
+}
+
+.Show {
+    display: initial;
+}
+
+#button-center {
+    text-align: center;
+}
+
+#toggle-button {
+    background-color: lightgray;
+    transform: translateY(-4px);
+}
+
+#toggle-button:hover {
+    background-color: gray;
+    color: white;
+} 

@@ -12,6 +12,8 @@ import "./posts.css";
 import TopicModal from "./CreateTopicModal";
 import AddGroup from "../groups/AddGroup";
 import Nav from "../nav/Nav";
+import Layout from "../layout/Layout";
+
 
 const CreatePost = () => {
   const [user, loading, error] = useAuthState(auth);
@@ -181,3 +183,4 @@ const CreatePost = () => {
 };
 
 export default CreatePost;
+

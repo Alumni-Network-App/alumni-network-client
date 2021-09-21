@@ -1,6 +1,8 @@
 import { auth } from "../../firebase";
-const BASE_URL = "https://alumni-network-backend.herokuapp.com/api/v1/";
-//const BASE_USER_URL = BASE_URL + "user/";
+import { DEFAULT_DOMAIN_URL } from "../../resource/constants";
+
+const DOMAIN_URL = DEFAULT_DOMAIN_URL;
+const BASE_URL = DOMAIN_URL + "/api/v1/";
 const BASE_REPLY_URL = BASE_URL + "reply/";
 
 export const getRepliesToPost = async (postId) => {
@@ -39,18 +41,15 @@ export const createReply = async (postId, reply) => {
 };
 
 export const updateReply = async (replyId, reply) => {
-  const accessToken = await auth.currentUser
-    .getIdToken(true)
-    .then((idToken) => idToken);
-  const REPLY_URL = BASE_REPLY_URL + replyId;
-  const response = await fetch(REPLY_URL, {
-    method: "PUT",
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(reply),
-  });
-  if (!response.ok) throw new Error("Oops! Error updating reply.");
-};
+    const accessToken = await auth.currentUser.getIdToken(true).then((idToken) => idToken);
+    const REPLY_URL = BASE_REPLY_URL + replyId;
+    const response = await fetch(REPLY_URL, {
+        method: "PUT",
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Content-Type": "application/json"
+          },
+        body: JSON.stringify(reply)
+    });
+    if(!response.ok) throw new Error ("Oops! Error updating reply.");
+}

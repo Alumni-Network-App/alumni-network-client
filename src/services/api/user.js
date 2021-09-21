@@ -1,11 +1,14 @@
 import { auth } from "../../firebase";
-const BASE_URL = "https://alumni-network-backend.herokuapp.com/api/v1/";
-// const BASE_USER_URL = BASE_URL + "user/";
+import { DEFAULT_DOMAIN_URL } from "../../resource/constants";
+
+const DOMAIN_URL = DEFAULT_DOMAIN_URL;
+const BASE_URL = DOMAIN_URL + "/api/v1/";
+const BASE_USER_URL = BASE_URL + "user/";
 
 // a function to get a user
 
 export const getUser = async (user) => {
-  const USER_URL = BASE_URL + "user/" + user.uid;
+  const USER_URL = BASE_USER_URL + user.uid;
   const accessToken = await user.getIdToken(true).then((idToken) => idToken);
   try {
     const response = await fetch(USER_URL, {
@@ -28,22 +31,44 @@ export const getUser = async (user) => {
 // a function to update user settings
 
 export const updateSettings = async (settings) => {
+    let user = auth.currentUser;
+    const accessToken = await user.getIdToken(true).then((idToken) => idToken);
+    try{
+        const response = await fetch(BASE_USER_URL + "update/" + user.uid, {
+            method: 'PATCH',
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(settings)
+        });
+        if (!response.ok) {
+            throw new Error ("Something went horribly wrong");
+        } else {
+            const data = await response.json();
+            console.log("Updated user settings")
+            return data;
+        }
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+export const getUserWithLink = async (link) => {
+  const USER_URL = DOMAIN_URL + link;
   let user = auth.currentUser;
   const accessToken = await user.getIdToken(true).then((idToken) => idToken);
   try {
-    const response = await fetch(BASE_URL + "user/update/" + user.uid, {
-      method: "PATCH",
+    const response = await fetch(USER_URL, {
+      method: "GET",
       headers: {
         Authorization: `Bearer ${accessToken}`,
-        "Content-type": "application/json",
       },
-      body: JSON.stringify(settings),
     });
     if (!response.ok) {
       throw new Error("Something went horribly wrong");
     } else {
       const data = await response.json();
-      console.log("Updated user settings");
       return data;
     }
   } catch (error) {
