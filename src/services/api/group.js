@@ -25,7 +25,7 @@ export const getPublicGroups = async () => {
       throw new Error("Something went wrong");
     } else {
       const data = await response.json();
-      console.log(data);
+      //console.log(data);
       return data.filter((x) => x.private === false);
     }
   } catch (error) {
@@ -39,7 +39,7 @@ export const getPublicGroups = async () => {
 export const getUsersGroups = async (user) => {
   const data = await getUser(user);
   if (data.groups.length < 1) {
-    console.log("No groups so nothing will load check");
+    //console.log("No groups so nothing will load check");
     return [];
   } else {
     const group_urls = await getUserGroupsList(user);
@@ -179,18 +179,72 @@ export const addUserToGroup = async (groupId) => {
     .then((idToken) => idToken);
   const GROUP_URL = BASE_URL + "group/" + groupId + "/join";
   try {
-    const response = await fetch(GROUP_URL, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-    if (!response.ok) {
-      throw new Error("Somethign went horribly wrong");
+    const userInGroup = await isUserInGroup(groupId);
+    if(userInGroup){
+      // Temporary fix - optimally groups a user is in would be
+      // filtered out. 
+      alert("You are already a member of the selected group");
     } else {
-      console.log("user was added to group " + groupId);
+      const response = await fetch(GROUP_URL, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      if (!response.ok) {
+        throw new Error("Somethign went horribly wrong");
+      } else {
+        console.log("user was added to group " + groupId);
+      }
     }
   } catch (error) {
     console.log(error);
   }
 };
+
+
+const processGroupDataValueLabel = (data) => {
+  let dataTransform = [];
+  for (let i = 0; i < data.length; ++i) {
+    dataTransform.push({
+      value: data[i].id,
+      label: data[i].name
+    });
+  }
+  return dataTransform;
+};
+
+
+/**
+ * Get joinable public groups user is not in 
+ */
+export const getJoinableGroups = async () => {
+    try {
+      //const userGroups = await getUsersGroups(user);
+      const publicGroups = await getPublicGroups();
+      const groups = processGroupDataValueLabel(publicGroups);
+          //  TODO: REMOVE duplicate groups 
+      return groups;
+    } catch (error) {
+      console.log(error);
+    }
+}
+
+
+/**
+ * Quick helper function to check if a user is already
+ * in a group with the given group Id
+ * @param {*} groupId 
+ * @returns 
+ */
+
+export const isUserInGroup = async (groupId) => {
+    const user = auth.currentUser;
+    const userGroups = await getUsersGroups(user);    
+    const found = userGroups.some(x => x.id === groupId);
+    if(found){
+      return true;
+    } 
+    return false;
+}
+

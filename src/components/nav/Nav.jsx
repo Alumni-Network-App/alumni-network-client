@@ -34,11 +34,11 @@ const Nav = () => {
           </Link>
 
           <Link
-            className="my-1 text-gray-800 hover:text-blue-500 md:mx-4 md:my-0"
             to="/profile/create-post"
+            className="my-1 text-gray-800 hover:text-blue-500 md:mx-4 md:my-0"
           >
             Create Post
-          </Link>
+            </Link>
 
           <Link
             className="my-1 text-gray-800 hover:text-blue-500 md:mx-4 md:my-0"
