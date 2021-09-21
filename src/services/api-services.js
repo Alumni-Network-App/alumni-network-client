@@ -16,7 +16,7 @@ const addUserToPostgres = async (
   };
   // const accessToken = await auth.currentUser.getIdToken(true).then((idToken) => idToken);
   let accessToken = (await auth.currentUser.getIdTokenResult()).token;
-  console.log(accessToken);
+
   const response = await fetch(
     // "http://localhost:8080/api/v1/user",
     "https://alumni-network-backend.herokuapp.com/api/v1/user",
