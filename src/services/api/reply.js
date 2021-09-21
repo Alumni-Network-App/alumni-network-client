@@ -41,7 +41,6 @@ export const updateReply = async (replyId, reply) => {
         method: "PUT",
         headers: {
             Authorization: `Bearer ${accessToken}`,
-            "Accept": "application/json",
             "Content-Type": "application/json"
           },
         body: JSON.stringify(reply)
