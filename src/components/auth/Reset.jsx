@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useHistory, Link } from "react-router-dom";
 import { auth, sendPasswordResetEmail } from "../../firebase";
-import LoginImage from "../../assets/login_1.svg";
+
+import Footer from "../footer/Footer";
 
 const Reset = () => {
   const [email, setEmail] = useState("");
@@ -18,14 +19,8 @@ const Reset = () => {
   }, [user, loading, history, error]);
 
   return (
-    <div
-      className="bg-no-repeat bg-cover bg-center relative"
-      style={{
-        backgroundImage: `url(${LoginImage})`,
-      }}
-    >
-      <div className="absolute bg-gradient-to-b from-green-500 to-green-400 opacity-75 inset-0 z-0"></div>
-      <div className="min-h-screen sm:flex sm:flex-row mx-0 justify-center">
+    <>
+      <div className="min-h-screen sm:flex sm:self-center sm:flex-row mx-0 justify-center">
         <div className="flex-col flex  self-center p-10 sm:max-w-5xl xl:max-w-2xl  z-10">
           <div className="p-12 bg-white mx-auto rounded-2xl w-100 ">
             <div className="mb-4">
@@ -76,7 +71,8 @@ const Reset = () => {
           </div>
         </div>
       </div>
-    </div>
+      <Footer />
+    </>
   );
 };
 
