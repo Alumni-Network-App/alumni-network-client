@@ -6,7 +6,7 @@ import SearchBar from "../searchBar/SearchBar";
 import Post from "../posts/Post";
 import { auth } from "../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-import ReplyList from "../Replies/ReplyList";
+import ReplyList from "../replies/ReplyList";
 import JoinGroup from "./JoinGroup";
 
 const GroupDetail = () => {
