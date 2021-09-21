@@ -21,6 +21,7 @@ export const getPublicGroups = async () => {
             throw new Error("Something went wrong");
         } else {
             const data = await response.json();
+            console.log(data);
             return data.filter(x => x.private === false);
         }
     } catch (error) {
@@ -96,10 +97,11 @@ const fetchAll = async (user, urls) => {
             }
         })));
 
-        if (!response.ok) {
+        if (!response) {
             throw new Error("Something went wrong....!");
           } else {
             const data = await Promise.all(response.map(r => r.json()));
+            //console.log(processGroupData(data));
             return processGroupData(data);
           }
     } catch (error) {
@@ -159,4 +161,27 @@ export const isGroupInDatabase = async (groupId, user) => {
     } catch (error) {
         console.log(error);
     }    
+}
+
+/**
+ * Adds a user to the group using the specified group Id 
+ */
+export const addUserToGroup = async (groupId) => {
+    const accessToken = await auth.currentUser.getIdToken(true).then((idToken) => idToken);
+    const GROUP_URL = BASE_URL + "group/" + groupId + "/join";
+    try {
+        const response = await fetch(GROUP_URL, {
+            method: "POST", 
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            }
+        });
+        if(!response.ok){
+            throw new Error ("Somethign went horribly wrong");
+        } else {
+            console.log("user was added to group " + groupId)
+        }
+    } catch (error) {
+        console.log(error);
+    }
 }
