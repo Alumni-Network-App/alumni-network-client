@@ -4,18 +4,20 @@ import gfm from "remark-gfm";
 import { useForm } from "react-hook-form";
 import { addPost } from "../../services/api/posts";
 import { useHistory } from "react-router-dom";
-import { getUsersGroups } from "../../services/api/group";
+import { getUsersGroups, getJoinableGroups } from "../../services/api/group";
 import { getUsersTopics } from "../../services/api/topic";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase";
 import "./posts.css";
 import TopicModal from "./CreateTopicModal";
 import AddGroup from "../groups/AddGroup";
+import Nav from "../nav/Nav";
 
 const CreatePost = () => {
   const [user, loading, error] = useAuthState(auth);
   const [groupObjects, setGroupObjects] = useState([]);
   const [topicObjects, setTopicObjects] = useState([]);
+  const [joinableGroups, setJoinableGroups] = useState([]);
   const [input, setInput] = useState();
   const [showPreview, setShowPreview] = useState(false);
   const [showAddGroups, setShowAddGroups] = useState(false);
@@ -35,9 +37,10 @@ const CreatePost = () => {
     if (!user) return history.replace("/");
     getGroupList(user);
     getTopicList(user);
+    getJoinableGroupsList(user);
   }, [user, loading, error, history]);
 
-  //console.log(auth.currentUser.uid)
+  
 
   const getGroupList = async (user) => {
     try {
@@ -57,12 +60,20 @@ const CreatePost = () => {
     }
   };
 
+  const getJoinableGroupsList = async (user) => {
+    try {
+      const data = await getJoinableGroups(user); // set this to user id
+      setJoinableGroups(data);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   const onSubmit = (data) => {
     data.topic = {
       id: data.topic,
     };
     data.receiverType = "group";
-    //console.log(data);
     createPost(data);
     history.push("/dashboard"); // change this to the actual post when view thread is complete
   };
@@ -88,79 +99,83 @@ const CreatePost = () => {
   topicOptions.push(getTopicListOptions);
   topicOptions.push(<TopicModal />);
 
+  //let publicGroups = joinableGroups;
   // fix validation form
+  
 
   return (
     <div className="postPage">
-      <h1>Create post</h1>
-      {topicOptions[1]}
-      <button
-        className=""
-        type="button"
-        onClick={() => setShowAddGroups(!showAddGroups)}
-      >
-        Add groups
-      </button>
-      {showAddGroups ? <AddGroup /> : null}
-      <form className="postForm" onSubmit={handleSubmit(onSubmit)}>
-        <input
-          type="text"
-          placeholder="Title"
-          {...register("title", { required: true, maxLength: 20 })}
-        />
-        <select className="groupSelect" {...register("receiverId")}>
-          <option value="DEFAULT" disabled>
-            Choose a group ...
-          </option>
-          <option value="2">group 2 FOR TEST PURPOSES</option>
-          {getGroupListOptions}
-        </select>
-        <div className="selectCreateTopic">
-          <select className="topicSelect" {...register("topic")}>
-            <option value="3">TOPIC 3 FOR TEST PURPOSES</option>
-            <option value="DEFAULT" disabled>
-              Choose a topic ...
-            </option>
-            {topicOptions[0]}
-          </select>
-        </div>
-        <div className="textmarkdown">
-          <textarea
-            autoFocus
-            className="textarea"
-            value={input}
-            {...register("content", { required: true, maxLength: 140 })}
-            onChange={(e) => setInput(e.target.value)}
-          />
+        <Nav/>
+        <div className="postPageContent">
+            <h1>Create post</h1>
+            {!showAddGroups ? topicOptions[1] : null }            
+            <button
+                className="addGroups"
+                type="button"
+                onClick={() => setShowAddGroups(!showAddGroups)}
+            >
+            {!showAddGroups ? <p>Add group</p> : <p> Close add group</p> }
+            </button>
+            
+            {showAddGroups ? <AddGroup publicGroups={joinableGroups} /> : null}
+            <form className="postForm" onSubmit={handleSubmit(onSubmit)}>
+                <input
+                type="text"
+                placeholder="Title"
+                {...register("title", { required: true, maxLength: 20 })}
+                />
+                <select className="groupSelect" {...register("receiverId", { required: true})}>
+                <option value="DEFAULT" disabled>
+                    Choose a group ...
+                </option>
+                {getGroupListOptions}
+                </select>
+                <div className="selectCreateTopic">
+                    <select className="topicSelect" {...register("topic",{ required: true} )}>
+                        <option value="DEFAULT" disabled>
+                            Choose a topic ...
+                        </option>
+                        {topicOptions[0]}
+                    </select>
+                </div>
+                <div className="textmarkdown">
+                    <textarea
+                        autoFocus
+                        className="textarea"
+                        value={input}
+                        {...register("content", { required: true, maxLength: 140 })}
+                        onChange={(e) => setInput(e.target.value)}
+                    />
 
-          {showPreview ? (
-            <ReactMarkdown
-              remarkPlugins={[gfm]}
-              className="markdown"
-              children={input}
-            />
-          ) : null}
+                    {showPreview ? (
+                        <ReactMarkdown
+                        remarkPlugins={[gfm]}
+                        className="markdown"
+                        children={input}
+                        />
+                    ) : null}
+                </div>
+                <span style={{ color: "red" }} role="alert">
+                {errors.title?.type === "required" &&
+                    "Enter a title of maximum 20 characters"}
+                </span>
+                <br></br> {/* real bad quick fix*/}
+                <span style={{ color: "red" }} role="alert">
+                {errors.content?.type === "required" &&
+                    "Enter a post body (max 140 characters)"}
+                </span>
+                <div className="postButtons">
+                    <button
+                        className="previewText"
+                        type="button"
+                        onClick={() => setShowPreview(!showPreview)}
+                    >
+                        Preview post
+                    </button>
+                    <input className="postPageSubmit" type="submit" />
+                </div>
+            </form>
         </div>
-        <span style={{ color: "red" }} role="alert">
-          {errors.title?.type === "required" &&
-            "Enter a title of maximum 20 characters"}
-        </span>
-        <br></br> {/* real bad quick fix*/}
-        <span style={{ color: "red" }} role="alert">
-          {errors.content?.type === "required" &&
-            "Enter a post body (max 140 characters)"}
-        </span>
-        <div className="postButtons">
-          <button
-            className="previewText"
-            type="button"
-            onClick={() => setShowPreview(!showPreview)}
-          >
-            Preview post
-          </button>
-          <input className="postPageSubmit" type="submit" />
-        </div>
-      </form>
     </div>
   );
 };

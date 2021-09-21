@@ -12,7 +12,7 @@ import Dashboard from "./components/auth/Dashboard";
 import Register from "./components/auth/Register";
 import Reset from "./components/auth/Reset";
 import Login from "./components/auth/Login";
-import ReplyList from "./components/Replies/ReplyList";
+import ReplyList from "./components/replies/ReplyList";
 
 function App() {
   return (

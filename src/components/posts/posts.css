@@ -22,12 +22,12 @@ body.active-modal {
     left: 50%;
     transform: translate(-50%, -50%);
     line-height: 1.4;
-    background: #f1f1f1;
+    background: #ffffff;
     padding: 14px 28px;
     border-radius: 3px;
-    min-height: 50%;
-    max-width: 80%;
-    min-width: 60%;
+    min-height: 60%;
+    max-width: 90%;
+    min-width: 80%;
 }
 
 
@@ -43,20 +43,24 @@ body.active-modal {
     box-sizing: border-box;
 }
 
-.postPage {
-    margin-top: 10%;
+.postPageContent {
+    border-radius: 10px;
+    margin-top: 3%;
     width: 80%;
     margin-left: auto;
     margin-right: auto;
     border: 2px solid black;
-    background-color: #f2f2f2;
+    background-color: #ffffff;
     padding: 20px;
+    max-width: 960px;
 }
 
 .postPage h1 {
+    text-align: left;
+    margin-left: 30px;
     font-weight: 700;
     font-size: 30px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 input[type=text] {
@@ -90,6 +94,8 @@ input[type=submit], .previewText {
 }
 
 .groupSelect {
+    border: 1px solid #ccc;
+    border-radius: 4px;
     width: 100%;
     height: 50px;
 }
@@ -137,9 +143,44 @@ input[type=submit], .previewText {
 }
 
 .createTopic {
-    float: right;
+    margin-bottom: 30px;
+    width: 100%;
+    margin: 8px 0;
+    display: inline-block;
+    box-sizing: border-box;
+    text-align: right;
 }
 
-.joinTopic {
-    width: 50%;
+.addGroups {
+    margin-bottom: 10px;
+    width: 100%;
+    margin: 8px 0;
+    display: inline-block;
+    text-align: right;
+    box-sizing: border-box;
+}
+
+
+.createTopicTitle {
+    border: 1px solid #888; 
+    width: 100%;
+    padding: 14px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+
+.createTopicDescription {
+    border: 1px solid #888; 
+    width: 100%;
+    height: 300px;
+    padding: 14px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
 }

@@ -2,18 +2,9 @@ import { useState } from 'react';
 import Select from 'react-select';
 import { addUserToGroup } from '../../services/api/group';
 
-const AddGroup = () => {
-    const [selectedOption, setSelectedOption] = useState(null);
-    
-
-    const options = [
-        {value: 2, label: 'Test group 2'},
-        {value: 7, label: 'Test group 7'},
-        {value: 28, label: 'Test group 28'},
-        
-    ];
-
-
+const AddGroup = ({publicGroups}) => {
+    const [selectedOption, setSelectedOption] = useState(null);  
+    //const history = useHistory();
     const joinGroup = async (groupId) =>{
         addUserToGroup(groupId);
     }
@@ -23,13 +14,14 @@ const AddGroup = () => {
             <Select
                 defaultValue={selectedOption}
                 onChange={setSelectedOption}
-                options={options}
+                options={publicGroups}
+                
             />
 
             {
-                selectedOption ? <button type="button" 
+                selectedOption ? <button type="button" className="previewText"
                 onClick={() => {joinGroup(selectedOption.value);}}
-                style={{border: "2px solid black", padding: "3px", background:"#ffffff"}}>
+                style={{width: "100%"}}>
                 Join {selectedOption.label}
             </button>  : null  
             }

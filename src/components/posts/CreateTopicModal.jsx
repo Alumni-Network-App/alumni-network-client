@@ -26,7 +26,7 @@ export default function TopicModal() {
     return (
       <>
         <button type="button" onClick={toggleModal} className="createTopic">
-          No topics? Click here
+          Create a topic
         </button>
         <br></br>
     
@@ -43,12 +43,11 @@ export default function TopicModal() {
                         <div className="newTopic">
                             <form onSubmit= {handleSubmit(onSubmit)}>
                                 <h3> Topic name </h3>
-                                <input {...register("name", { required: true, maxLength: 20 })} />
+                                <input className="createTopicTitle" {...register("name", { required: true, maxLength: 20 })} />
                                 {errors.name?.type === 'required' && "A topic name is required"}
                                 <h3> Description </h3>
-                                <input {...register("description", { required: true, maxLength: 50 })} />
+                                <textarea className="createTopicDescription" {...register("description", { required: true, maxLength: 50 })} />
                                 {errors.description?.type === 'required' && "Enter a description of max 50 characters"}
-                                <h3> Add topic </h3>
                                 <input type="submit" />
                             </form>
                         </div>
