@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 import { getTopics } from "../../services/api/topic";
-import SearchBar from "../SearchBar/SearchBar";
+import SearchBar from "../searchBar/SearchBar";
 import { useHistory } from "react-router";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase";

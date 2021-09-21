@@ -1,6 +1,8 @@
 import { auth } from "../../firebase";
-const BASE_URL = "http://localhost:8080/api/v1/";
-//const BASE_USER_URL = BASE_URL + "user/";
+import { DEFAULT_DOMAIN_URL } from "../../resource/constants";
+
+const DOMAIN_URL = DEFAULT_DOMAIN_URL;
+const BASE_URL = DOMAIN_URL + "/api/v1/";
 const BASE_REPLY_URL = BASE_URL + "reply/";
 
 export const getRepliesToPost = async (postId) => {

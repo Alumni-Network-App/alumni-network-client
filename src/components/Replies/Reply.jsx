@@ -1,17 +1,29 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import { updateReply } from "../../services/api/reply";
-import ReactMarkdown from "react-markdown";
-import gfm from "remark-gfm";
+import { getUserWithLink } from "../../services/api/user";
+import "./reply.css"
 
-const Reply = ({ replyId, content }) => {
+const Reply = ({ senderLink, replyId, content }) => {
 
     const [text, setText] = useState(content);
+    const [user, setUser] = useState("");
+
+    useEffect(() => {
+        setUserName();
+    }, []);
+
+    const setUserName = async () => {
+        const user = await getUserWithLink(senderLink);
+        setUser(user.name);
+    }
 
 
     const handleEditClick = () => {
-        document.getElementById("reply-content").disabled = false;
-        document.getElementById("submit-reply-button").hidden = false;
+        const content = document.getElementById("reply-content");
+        content.disabled = !content.disabled
+        const submitButton = document.getElementById("submit-reply-button");
+        submitButton.hidden = !submitButton.hidden;
     }
 
     const handleSubmitClick = (e) => {
@@ -30,12 +42,14 @@ const Reply = ({ replyId, content }) => {
     return (
         <div className="Reply">
             <div>
-                <label>Reply: </label>
+                <label>Reply: {user}</label>
                 <div>
                     <textarea value={text} id="reply-content" rows={4} disabled={true} maxLength={200} onChange={handleOnChange} />
                 </div>
-                <button onClick={handleEditClick}>Edit</button>
-                <button onClick={handleSubmitClick} id="submit-reply-button" hidden={true}>Submit</button>
+                <div className="button-field">
+                    <button onClick={handleEditClick} className="button" id="edit-reply-button">Edit</button>
+                    <button onClick={handleSubmitClick} className="button" id="submit-reply-button" hidden={true}>Submit</button>
+                </div>
             </div>
         </div>
     )

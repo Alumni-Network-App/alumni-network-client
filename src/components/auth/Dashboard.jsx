@@ -6,6 +6,7 @@ import Timeline from "../timeline/Timeline";
 import Loader from "react-loader-spinner";
 
 import Layout from "../layout/Layout";
+import { DEFAULT_DOMAIN_URL } from "../../resource/constants";
 
 const Dashboard = () => {
   const [user, loading, error] = useAuthState(auth);
@@ -26,7 +27,7 @@ const Dashboard = () => {
 
       try {
         const response = await fetch(
-          `http://localhost:8080/api/v1/user/` +
+          DEFAULT_DOMAIN_URL + "/api/v1/user/" +
             user.uid,
           {
             method: "GET",

@@ -10,7 +10,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase";
 import "./posts.css"
 import TopicModal from "./CreateTopicModal";
-import AddGroup from "../Groups/AddGroup";
+import AddGroup from "../groups/AddGroup";
 
 
 const CreatePost = () => {

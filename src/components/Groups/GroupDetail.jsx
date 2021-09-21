@@ -2,11 +2,10 @@ import { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { getGroupPosts } from "../../services/api/posts"; 
 import { getGroup } from "../../services/api/group";
-import SearchBar from "../SearchBar/SearchBar";
-import Post from "../Posts/Post";
+import SearchBar from "../searchBar/SearchBar";
+import Post from "../posts/Post";
 import { auth } from "../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-import ReplyList from "../Replies/ReplyList";
 import JoinGroup from "./JoinGroup";
 
 const GroupDetail = () => {
@@ -52,8 +51,7 @@ const GroupDetail = () => {
         val.content.toLowerCase().includes(searchData.toLowerCase())
         )).map((posts) =>
             <div key={posts.id} style={{ padding:"20px" }} > 
-                <Post postTitle = {posts.title} content ={posts.content} comments={posts.comments} createdAt = {posts.date}/>
-                <ReplyList postId = {posts.id} />
+                <Post id = {posts.id} postTitle = {posts.title} content ={posts.content} comments={posts.comments} createdAt = {posts.date}/>
             </div> 
         )
 

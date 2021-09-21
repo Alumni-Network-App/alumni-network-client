@@ -1,6 +1,6 @@
 import { isTopicInDatabase } from "../../services/api/topic"
 import { Route, useHistory, useParams } from "react-router-dom";
-import TopicDetail from "../Topics/TopicDetail";
+import TopicDetail from "../topics/TopicDetail";
 import { useEffect } from "react";
 import { auth } from "../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";

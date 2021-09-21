@@ -1,6 +1,6 @@
 import { isGroupInDatabase } from "../../services/api/group"
 import { Route, useHistory, useParams } from "react-router-dom";
-import GroupDetail from "../Groups/GroupDetail";
+import GroupDetail from "../groups/GroupDetail";
 import { useEffect } from "react";
 import { auth } from "../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";

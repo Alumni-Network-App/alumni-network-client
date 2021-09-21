@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { getTopicPosts } from "../../services/api/posts"; 
 import { getTopic } from "../../services/api/topic";
-import SearchBar from "../SearchBar/SearchBar";
-import Post from "../Posts/Post";
+import SearchBar from "../searchBar/SearchBar";
+import Post from "../posts/Post";
 import { auth } from "../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import JoinTopic from "./JoinTopic";
@@ -48,7 +48,7 @@ const TopicDetail = () => {
         val.content.toLowerCase().includes(searchData.toLowerCase())
         )).map((posts) =>
            <div key={posts.id} style={{ padding:"20px" }} > 
-                <Post postTitle = {posts.title} content ={posts.content} comments={posts.comments} createdAt = {posts.date}/>
+                <Post id = {posts.id} postTitle = {posts.title} content ={posts.content} comments={posts.comments} createdAt = {posts.date}/>
             </div>
         )
 

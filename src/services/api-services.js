@@ -1,4 +1,5 @@
 import { auth } from "../firebase";
+import { DEFAULT_DOMAIN_URL } from "../resource/constants";
 
 const getIdToken = () => {
   auth.currentUser.getIdToken(true).then((idToken) => idToken);
@@ -18,7 +19,7 @@ const addUserToPostgres = async (
   let accessToken = (await auth.currentUser.getIdTokenResult()).token;
   console.log(accessToken);
   const response = await fetch(
-    "http://localhost:8080/api/v1/user",
+    DEFAULT_DOMAIN_URL + "/api/v1/user",
     {
       method: "POST",
       body: JSON.stringify(userData),

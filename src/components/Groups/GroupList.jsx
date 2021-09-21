@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { getPublicGroups } from "../../services/api/group";
-import SearchBar from "../SearchBar/SearchBar";
+import SearchBar from "../searchBar/SearchBar";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase";
 import { useHistory } from "react-router";
