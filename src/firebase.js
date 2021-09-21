@@ -55,7 +55,6 @@ const signInWithEmailAndPassword = async (email, password) => {
     await auth.signInWithEmailAndPassword(email, password);
   } catch (err) {
     console.error(err);
-    console.log("hello world");
   }
 };
 

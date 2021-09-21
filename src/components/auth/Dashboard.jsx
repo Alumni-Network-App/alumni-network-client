@@ -26,7 +26,7 @@ const Dashboard = () => {
 
       try {
         const response = await fetch(
-          `https://alumni-network-backend.herokuapp.com/api/v1/user/` +
+          `http://localhost:8080/api/v1/user/` +
             user.uid,
           {
             method: "GET",

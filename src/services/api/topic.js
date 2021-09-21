@@ -1,7 +1,7 @@
 import { getUser } from "./user";
 import { auth } from "../../firebase";
-const BASE_URL = "https://alumni-network-backend.herokuapp.com/api/v1/";
-const BASE_USER_URL = "https://alumni-network-backend.herokuapp.com/api/v1/user/";
+const BASE_URL = "http://localhost:8080/api/v1/";
+const BASE_USER_URL = BASE_URL + "user/";
 
 /**
  * Get the topics
