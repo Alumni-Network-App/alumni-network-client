@@ -8,8 +8,6 @@ import gfm from "remark-gfm";
  * @returns
  */
 const Post = ({ postTitle, content, comments, createdAt }) => {
-  console.log("This post was created at:" + createdAt);
-  
   return (
     <section style={{ border: "1px solid black" }}>
       <h1>{postTitle}</h1>

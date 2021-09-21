@@ -1,29 +1,40 @@
-import { useEffect } from "react";
+import { useEffect/*, useState */ } from "react";
 import { useHistory } from "react-router";
 import { auth } from "../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
 import { updateSettings } from "../../services/api/user";
 import Layout from "../layout/Layout";
-
+import { getUser } from "../../services/api/user";
 const Settings = () => {
   const history = useHistory();
   const [user, loading, error] = useAuthState(auth);
-  const { register, handleSubmit } = useForm();
-  // TODO: change fakeProps to currentUser when the user profile component is complete
-
+  const { register, handleSubmit, reset } = useForm();
   useEffect(() => {
     if (loading) return;
     if (error) {
       return <>Error: {error}</>;
     }
     if (!user) return history.replace("/");
-  }, [user, loading, error, history]);
+
+    async function getUserInfo (user) {
+      const data = await getUser(user);
+      if(data){
+        reset({
+          name: data.name,
+          status: data.status,
+          bio: data.bio,
+          funFact: data.funFact
+        })
+      }
+    };
+    getUserInfo(user);
+  }, [user, loading, error, history, reset]);
 
   const onSubmit = async (data, e) => {
     updateSettings(data);
-
     e.target.reset();
+    history.push("/dashboard");
   };
 
   return (

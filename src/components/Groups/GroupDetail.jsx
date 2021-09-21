@@ -9,6 +9,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import ReplyList from "../Replies/ReplyList";
 import JoinGroup from "./JoinGroup";
 
+
 const GroupDetail = () => {
     const [user, loading, error] = useAuthState(auth);
     const [posts, setPosts] = useState([]);
@@ -56,11 +57,10 @@ const GroupDetail = () => {
                 <ReplyList postId = {posts.id} />
             </div> 
         )
-
+    
     return (
         <section>
             <h1>{data.name}</h1>
-            {<JoinGroup groupId={data.id}/>}
             <p>{data.description}</p>
             <h5>Top level posts</h5>
             <SearchBar onChange={(value) => setSearchData(value)}/>

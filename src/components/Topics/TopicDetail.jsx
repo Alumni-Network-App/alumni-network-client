@@ -6,7 +6,6 @@ import SearchBar from "../SearchBar/SearchBar";
 import Post from "../Posts/Post";
 import { auth } from "../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-import JoinTopic from "./JoinTopic";
 
 const TopicDetail = () => {
     const [user, loading, error] = useAuthState(auth);
@@ -56,7 +55,7 @@ const TopicDetail = () => {
         <section>
             <h1>{data.name}</h1>
             <p>{data.description}</p>
-            {<JoinTopic topicId={data.id}/>}       
+            {/*<JoinTopic topicId={data.id}/>*/}       
             <h5>Top level posts</h5>
             <SearchBar onChange={(value) => setSearchData(value)}/>
             <h5> Add calendar component here </h5>

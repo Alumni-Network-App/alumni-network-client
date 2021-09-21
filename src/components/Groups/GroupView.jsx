@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import JoinGroup from "./JoinGroup";
 
 const GroupView = ({ description, title, groupId }) => {
   const GROUP_URL = "/groups/" + groupId;
@@ -32,6 +33,7 @@ const GroupView = ({ description, title, groupId }) => {
       >
         Read More
       </Link>
+      {<JoinGroup groupId={groupId}/>}
     </div>
   );
 };
