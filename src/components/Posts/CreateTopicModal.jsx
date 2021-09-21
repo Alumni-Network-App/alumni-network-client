@@ -2,19 +2,19 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import "./posts.css"
 import { addUsersTopic } from "../../services/api/topic";
-export default function Modal() {
+export default function TopicModal() {
 
     const [modal, setModal] = useState(false);
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const onSubmit = (data) => {
-        console.log(data);
+        //console.log(data);
         setModal(!modal);
         addUsersTopic(data);
     }
 
     const toggleModal = () => {
-      setModal(!modal);
+      setModal(!modal); 
     };
   
     if(modal) {

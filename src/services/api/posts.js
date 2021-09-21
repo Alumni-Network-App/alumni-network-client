@@ -7,8 +7,10 @@ const BASE_USER_URL = BASE_URL + "user/";
  * @returns The group id for the specfic group
  */
 export const getGroupPosts = async (groupId) => {
+    
     const accessToken = await auth.currentUser.getIdToken(true).then((idToken) => idToken);
-    const POST_URL = BASE_URL + "post/";
+    const POST_URL = BASE_URL + "post/group/" + groupId;
+    //console.log(POST_URL);
     try {
         const response = await fetch(POST_URL, {
             method: "GET",
@@ -20,7 +22,11 @@ export const getGroupPosts = async (groupId) => {
             throw new Error ("Something went horribly wrong");
         } else {
             const data = await response.json();
-            return data.filter(x => x.receiverType === "group" && x.receiverId === groupId);
+            //console.log(data);
+            if(data){
+                return data
+            }
+            return []  
         }
     } catch (error) {
         console.log(error)
@@ -35,7 +41,7 @@ export const getGroupPosts = async (groupId) => {
  */
  export const getTopicPosts = async (topicId) => {
     const accessToken = await auth.currentUser.getIdToken(true).then((idToken) => idToken);
-    const POST_URL = BASE_URL + "post/";
+    const POST_URL = BASE_URL + "post/topic/" + topicId;
     try {
         const response = await fetch(POST_URL, {
             method: "GET", 
@@ -47,8 +53,11 @@ export const getGroupPosts = async (groupId) => {
             throw new Error ("Something went horribly wrong")
         } else {
             const data = await response.json();
-            const topicUrl = "/api/v1/topic/" + topicId;
-            return data.filter(x => x.topic === topicUrl); 
+            //console.log(data);
+            if(data) {
+                return data
+            }
+            return []
         }
     } catch (error) {
         console.log(error);
@@ -60,6 +69,7 @@ export const getGroupPosts = async (groupId) => {
  * @param post - The post sent to the database 
  */
 export const addPost = async (post) => {
+    console.log(post);
     const accessToken = await auth.currentUser.getIdToken(true).then((idToken) => idToken);
     try {
         const response = await fetch(BASE_URL + "post/", {

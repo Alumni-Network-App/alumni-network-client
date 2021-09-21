@@ -7,6 +7,7 @@ import Post from "../Posts/Post";
 import { auth } from "../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import ReplyList from "../Replies/ReplyList";
+import JoinGroup from "./JoinGroup";
 
 const GroupDetail = () => {
     const [user, loading, error] = useAuthState(auth);
@@ -27,12 +28,14 @@ const GroupDetail = () => {
          return <>Error: {error}</>;
         }
         if (!user) return history.replace("/");
-        console.log(user);
         async function fetchGroupAndPosts(id){
             try {
                 const posts = await getGroupPosts(id);
                 const data =  await getGroup(id);
-                setPosts(posts.reverse());
+                if(posts){
+                    setPosts(posts);
+                }
+                //setPosts(posts.reverse());
                 setData(data);
             } catch (error) {
                 console.error('Error:', error);
@@ -53,14 +56,16 @@ const GroupDetail = () => {
                 <ReplyList postId = {posts.id} />
             </div> 
         )
-        
+
     return (
         <section>
             <h1>{data.name}</h1>
+            {<JoinGroup groupId={data.id}/>}
             <p>{data.description}</p>
             <h5>Top level posts</h5>
             <SearchBar onChange={(value) => setSearchData(value)}/>
             <h5> Calendar will be added here </h5>
+            
             {filteredPosts}             
         </section>
     )

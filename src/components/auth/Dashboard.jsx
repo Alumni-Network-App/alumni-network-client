@@ -13,7 +13,7 @@ const Dashboard = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const history = useHistory();
-
+  
   useEffect(() => {
     if (loading) return;
     if (error) {
@@ -31,9 +31,7 @@ const Dashboard = () => {
           {
             method: "GET",
             headers: {
-              Authorization: `Bearer ${accessToken}`,
-              // Accept: "application/json",
-              // "Content-Type": "application/json",
+              Authorization: `Bearer ${accessToken}`
             },
           }
         );
@@ -42,9 +40,6 @@ const Dashboard = () => {
           throw new Error("Something went wrong....!");
         }
         const data = await response.json();
-
-        //console.log(test, "coming from dashboard");
-
         setCurrentUserData(data);
       } catch (error) {
         console.log(error);
@@ -55,8 +50,6 @@ const Dashboard = () => {
 
     setIsLoading(false);
   }, [user, loading, error, history]);
-
-  //console.log(currentUserData);
 
   return (
     <Layout>

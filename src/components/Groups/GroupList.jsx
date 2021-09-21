@@ -17,10 +17,7 @@ const GroupList = () => {
   const history = useHistory();
   /**
    * TODO:
-   * Add check for login / authenticated in if else block
-   * then fetch group list
-   *
-   * --> This task is done
+   * GET Private groups as well 
    *
    */
   useEffect(() => {

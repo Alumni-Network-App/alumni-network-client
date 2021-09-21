@@ -51,10 +51,10 @@ export const getTopic = async (topicId) => {
 /**
  * Get the topics that a user is in 
  */
+
  export const getUsersTopics = async (user) => {
   const data = await getUser(user);
   if(data.topicSubscriptions.length < 1){
-    console.log("no topics so nothing will load")
     return []
   } else {
     const topic_urls = await getUserTopicsList(user);
@@ -113,8 +113,7 @@ const fetchAll = async (user, urls) => {
               Authorization: `Bearer ${accessToken}`
           }
       })));
-
-      if (!response.ok) {
+      if (!response) {
           throw new Error("Something went wrong....!");
         } else {
           const data = await Promise.all(response.map(r => r.json()));
@@ -147,15 +146,15 @@ export const getTopicUsingName = async (name) => {
 
 
 export const addUserToTopic = async (topicId) => {
-  //const accessToken = await auth.currentUser.getIdToken(true).then((idToken) => idToken);
+  const accessToken = await auth.currentUser.getIdToken(true).then((idToken) => idToken);
   const TOPIC_URL = BASE_URL + "topic/" + topicId + "/join";
-  console.log(TOPIC_URL);
+  //console.log(TOPIC_URL);
   try {
     const response = await fetch(TOPIC_URL, 
       {
         method: "POST", 
         headers: {
-          //Authorization: `Bearer ${accessToken}`,
+          Authorization: `Bearer ${accessToken}`,
           "Accept": 'application/json',
           "Content-Type": 'application/json'
         }
@@ -173,8 +172,6 @@ export const addUserToTopic = async (topicId) => {
 export const createNewTopic = async (topic) => {
   const accessToken = await auth.currentUser.getIdToken(true).then((idToken) => idToken);
   const TOPIC_URL = BASE_URL + "topic";
-  console.log(TOPIC_URL);
-  console.log(topic);
   try { 
     const response = await fetch(TOPIC_URL, 
       {
@@ -201,9 +198,10 @@ export const addUsersTopic = async (data) => {
   const topic = await getTopicUsingName(data.name);
   if(topic.length>0){
     addUserToTopic(topic[0].id);
-    console.log("topic found already so added exxisting")
   }else {
     createNewTopic(data);
-    console.log("the topic does not exist so created new")
   }
 }
+
+
+
