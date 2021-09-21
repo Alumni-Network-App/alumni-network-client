@@ -41,7 +41,7 @@ const registerWithEmailAndPassword = async (name, email, password) => {
   try {
     const res = await auth.createUserWithEmailAndPassword(email, password);
     const user = res.user;
-    apiServices.addUserToPostgres(user.uid, user.displayName, user.photoURL);
+    apiServices.addUserToPostgres(user.uid, name, user.photoURL);
     return user;
   } catch (err) {
     console.error(err);

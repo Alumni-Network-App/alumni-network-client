@@ -6,6 +6,7 @@ import SearchBar from "../SearchBar/SearchBar";
 import Post from "../Posts/Post";
 import { auth } from "../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
+import ReplyList from "../Replies/ReplyList";
 
 const GroupDetail = () => {
     const [user, loading, error] = useAuthState(auth);
@@ -49,6 +50,7 @@ const GroupDetail = () => {
         )).map((posts) =>
             <div key={posts.id} style={{ padding:"20px" }} > 
                 <Post postTitle = {posts.title} content ={posts.content} comments={posts.comments} createdAt = {posts.date}/>
+                <ReplyList postId = {posts.id} />
             </div> 
         )
         

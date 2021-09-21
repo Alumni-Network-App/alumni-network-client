@@ -11,6 +11,7 @@ import Dashboard from "./components/auth/Dashboard";
 import Register from "./components/auth/Register";
 import Reset from "./components/auth/Reset";
 import Login from "./components/auth/Login";
+import ReplyList from "./components/Replies/ReplyList"
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="/groups/:id" component={GroupPageExists} />
           <Route path="/topics/all" component={TopicList} />
           <Route path="/topics/:id" component={TopicPageExists} />
+          <Route path="/post/replies" component={ReplyList} />
           <Route path="/profile/settings" component={Settings} />
           <Route path="/profile/create-post" component={CreatePost} />
           <Route path={["/page-not-found", "*"]} component={PageNotFound} />
