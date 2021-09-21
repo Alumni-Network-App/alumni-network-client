@@ -1,6 +1,6 @@
-import Usercard from "../Users/Usercard";
+import Usercard from "../users/Usercard";
 
-import TopicList from "../Topics/TopicList";
+import TopicList from "../topics/TopicList";
 
 const Timeline = ({ currentUser }) => {
   return (

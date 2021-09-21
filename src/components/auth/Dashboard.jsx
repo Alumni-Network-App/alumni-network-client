@@ -13,7 +13,7 @@ const Dashboard = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const history = useHistory();
-  
+
   useEffect(() => {
     if (loading) return;
     if (error) {
@@ -26,12 +26,12 @@ const Dashboard = () => {
 
       try {
         const response = await fetch(
-          `http://localhost:8080/api/v1/user/` +
+          `https://alumni-network-backend.herokuapp.com/api/v1/user/` +
             user.uid,
           {
             method: "GET",
             headers: {
-              Authorization: `Bearer ${accessToken}`
+              Authorization: `Bearer ${accessToken}`,
             },
           }
         );

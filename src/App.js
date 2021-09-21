@@ -1,17 +1,18 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
-import GroupList from "./components/Groups/GroupList";
-import PageNotFound from "./components/PageNotFound/PageNotFound";
-import GroupPageExists from "./components/PageNotFound/GroupPageExists";
-import TopicList from "./components/Topics/TopicList";
-import TopicPageExists from "./components/PageNotFound/TopicPageExists";
-import Settings from "./components/Users/Settings";
-import CreatePost from "./components/Posts/CreatePost";
+
+import GroupList from "./components/groups/GroupList";
+import PageNotFound from "./components/pageNotFound/PageNotFound";
+import GroupPageExists from "./components/pageNotFound/GroupPageExists";
+import TopicList from "./components/topics/TopicList";
+import TopicPageExists from "./components/pageNotFound/TopicPageExists";
+import Settings from "./components/users/Settings";
+import CreatePost from "./components/posts/CreatePost";
 import Dashboard from "./components/auth/Dashboard";
 import Register from "./components/auth/Register";
 import Reset from "./components/auth/Reset";
 import Login from "./components/auth/Login";
-import ReplyList from "./components/Replies/ReplyList"
+import ReplyList from "./components/Replies/ReplyList";
 
 function App() {
   return (

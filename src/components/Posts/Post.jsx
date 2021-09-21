@@ -11,7 +11,11 @@ const Post = ({ postTitle, content, comments, createdAt }) => {
   return (
     <section style={{ border: "1px solid black" }}>
       <h1>{postTitle}</h1>
-      <ReactMarkdown remarkPlugins={[gfm]} className="markdown" children={content} />
+      <ReactMarkdown
+        remarkPlugins={[gfm]}
+        className="markdown"
+        children={content}
+      />
       <div className="postMeta">
         {/* <p>{comments.map((comment) => comment.content)}</p> */}
         <p> {comments} </p>
