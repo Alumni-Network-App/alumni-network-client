@@ -9,7 +9,7 @@ import ReplyList from "../replies/ReplyList";
  * @param {*} param0
  * @returns
  */
-const Post = ({ id, postTitle, content, comments, createdAt }) => {
+const Post = ({ id, postTitle, content, comments, createdAt, creator }) => {
   const history = useHistory();
 
   const createReply = () => {
@@ -27,6 +27,7 @@ const Post = ({ id, postTitle, content, comments, createdAt }) => {
             <strong className="text-2xl font-bold text-gray-700  ">
               {postTitle}
             </strong>
+            {/*<p>{creator}</p>*/}
             <span className="text-xs ml-4 text-gray-400 self-center">
               {moment(createdAt).format("lll")}
             </span>
