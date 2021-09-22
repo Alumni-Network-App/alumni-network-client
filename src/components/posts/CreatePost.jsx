@@ -14,7 +14,6 @@ import AddGroup from "../groups/AddGroup";
 import Nav from "../nav/Nav";
 import Layout from "../layout/Layout";
 
-
 const CreatePost = () => {
   const [user, loading, error] = useAuthState(auth);
   const [groupObjects, setGroupObjects] = useState([]);
@@ -24,7 +23,7 @@ const CreatePost = () => {
   const [showPreview, setShowPreview] = useState(false);
   const [showAddGroups, setShowAddGroups] = useState(false);
   const history = useHistory();
-
+  
   const {
     register,
     handleSubmit,
@@ -42,7 +41,6 @@ const CreatePost = () => {
     getJoinableGroupsList(user);
   }, [user, loading, error, history]);
 
-  
 
   const getGroupList = async (user) => {
     try {

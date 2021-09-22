@@ -192,9 +192,12 @@ export const addUserToGroup = async (groupId) => {
         },
       });
       if (!response.ok) {
-        throw new Error("Somethign went horribly wrong");
+        throw new Error("Something went horribly wrong");
       } else {
         console.log("user was added to group " + groupId);
+        //alert("You joined the group!")
+        return true;
+        //window.location.reload(); // quick - fix
       }
     }
   } catch (error) {

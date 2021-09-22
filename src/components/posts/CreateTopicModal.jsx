@@ -7,10 +7,13 @@ export default function TopicModal() {
     const [modal, setModal] = useState(false);
     const { register, handleSubmit, formState: { errors } } = useForm();
 
-    const onSubmit = (data) => {
-        //console.log(data);
-        setModal(!modal);
-        addUsersTopic(data);
+    const onSubmit = async (data) => {
+        const addedTopic = await addUsersTopic(data);    
+        if(addedTopic){
+          setModal(!modal);  
+          alert("The topic was added to your topic list")
+          window.location.reload();
+        }
     }
 
     const toggleModal = () => {

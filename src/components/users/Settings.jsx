@@ -33,9 +33,11 @@ const Settings = () => {
   }, [user, loading, error, history, reset]);
 
   const onSubmit = async (data, e) => {
-    updateSettings(data);
-    e.target.reset();
-    history.replace("/dashboard");
+    const settingsUpdated = await updateSettings(data);
+    if(settingsUpdated){
+      e.target.reset();
+      history.replace("/dashboard");
+    }
   };
 
   return (

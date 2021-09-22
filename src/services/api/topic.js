@@ -202,7 +202,9 @@ export const addUsersTopic = async (data) => {
   const topic = await getTopicUsingName(data.name);
   if (topic.length > 0) {
     addUserToTopic(topic[0].id);
+    return true;
   } else {
     createNewTopic(data);
+    return true;
   }
 };
