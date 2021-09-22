@@ -20,7 +20,7 @@ const Reply = ({ senderLink, replyId, content, lastUpdated }) => {
         setUser();
         if(!user) return history.push("/");
         if(user.uid === fromUserId) setEditable(true);
-    }, []);
+    }, [fromUserId]);
 
     const setUser = async () => {
         const user = await getUserWithLink(senderLink);
