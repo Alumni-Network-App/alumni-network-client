@@ -9,7 +9,7 @@ import ReplyList from "../replies/ReplyList";
  * @param {*} param0
  * @returns
  */
-const Post = ({ id, postTitle, content, comments, createdAt }) => {
+const Post = ({ id, postTitle, content, comments, createdAt, creator }) => {
   const history = useHistory();
 
   const createReply = () => {
@@ -24,6 +24,7 @@ const Post = ({ id, postTitle, content, comments, createdAt }) => {
       <section>
         <div className="max-w-4xl px-10 py-6  bg-white rounded-lg shadow-md">
           <div>
+            {/*<p>{creator}</p>*/}
             <span className="font-light text-gray-600">
               {" "}
               {moment(createdAt).startOf("DAY").fromNow()}

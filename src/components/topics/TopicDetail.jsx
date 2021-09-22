@@ -33,6 +33,7 @@ const TopicDetail = () => {
         const data = await getTopic(id);
         setPosts(posts);
         setData(data);
+        console.log(posts);
       } catch (error) {
         console.error("Error:", error);
       }
@@ -55,6 +56,7 @@ const TopicDetail = () => {
           content={posts.content}
           comments={posts.comments}
           createdAt={posts.date}
+          creator= {posts.user}
         />
       </div>
     ));

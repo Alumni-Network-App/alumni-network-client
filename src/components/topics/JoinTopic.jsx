@@ -5,9 +5,7 @@ const JoinTopic = ({topicId}) => {
         //console.log(topicId)
         addUserToTopic(topicId);
     }
-
-    // USE STATE TO SHOW IF IN GROUP OR NOT / SUBSCIBE UNSUBSCIBRE
-    
+        
     return (
         <div>
             <button type="button" 
