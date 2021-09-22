@@ -9,7 +9,7 @@ const BASE_USER_URL = BASE_URL + "user/";
  * get them groups
  * @returns A list of group objects in the database
  */
-export const getPublicGroups = async () => {
+export const getGroups = async () => {
   const GROUP_URL = BASE_URL + "group/";
   const accessToken = await auth.currentUser
     .getIdToken(true)
@@ -26,7 +26,7 @@ export const getPublicGroups = async () => {
     } else {
       const data = await response.json();
       //console.log(data);
-      return data.filter((x) => x.private === false);
+      return data;
     }
   } catch (error) {
     console.log(error);
@@ -94,7 +94,7 @@ const fetchAll = async (user, urls) => {
   try {
     const response = await Promise.all(
       urls.map((u) =>
-        fetch(DEFAULT_DOMAIN_URL- + u, {
+        fetch(DEFAULT_DOMAIN_URL + u, {
           method: "GET",
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -224,7 +224,7 @@ const processGroupDataValueLabel = (data) => {
 export const getJoinableGroups = async () => {
     try {
       //const userGroups = await getUsersGroups(user);
-      const publicGroups = await getPublicGroups();
+      const publicGroups = await getGroups().filter((x) => x.private === false);
       const groups = processGroupDataValueLabel(publicGroups);
           //  TODO: REMOVE duplicate groups 
       return groups;

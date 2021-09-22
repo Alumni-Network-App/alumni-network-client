@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getPublicGroups } from "../../services/api/group";
+import { getGroups } from "../../services/api/group";
 import SearchBar from "../searchBar/SearchBar";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase";
@@ -34,7 +34,7 @@ const GroupList = () => {
    */
   const getGroupList = async () => {
     try {
-      const data = await getPublicGroups();
+      const data = await getGroups();
       setData(data);
     } catch (error) {
       console.error("Error:", error);
