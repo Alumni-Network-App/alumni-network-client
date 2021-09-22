@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import JoinTopic from "./JoinTopic";
 import LeaveTopic from "./LeaveTopic";
-
 import { useState, useEffect } from "react";
 
 const TopicPreview = ({ description, title, topicId, userTopics }) => {
