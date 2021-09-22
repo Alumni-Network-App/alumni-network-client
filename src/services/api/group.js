@@ -94,7 +94,7 @@ const fetchAll = async (user, urls) => {
   try {
     const response = await Promise.all(
       urls.map((u) =>
-        fetch("https://alumni-network-backend.herokuapp.com" + u, {
+        fetch(DEFAULT_DOMAIN_URL- + u, {
           method: "GET",
           headers: {
             Authorization: `Bearer ${accessToken}`,

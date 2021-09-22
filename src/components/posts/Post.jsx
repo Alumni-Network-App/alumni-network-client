@@ -1,7 +1,10 @@
 import moment from "moment";
+import { useEffect, useState } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
 import ReactMarkdown from "react-markdown";
 import { useHistory } from "react-router";
 import gfm from "remark-gfm";
+import { auth } from "../../firebase";
 import ReplyList from "../replies/ReplyList";
 import Profile from "../users/Profile";
 /**
@@ -9,8 +12,20 @@ import Profile from "../users/Profile";
  * @param {*} param0
  * @returns
  */
-const Post = ({ id, postTitle, content, comments, createdAt, creator }) => {
+const Post = ({ id, postTitle, content, createdAt, users }) => {
   const history = useHistory();
+  const [user] = useAuthState(auth);
+  const [disableButton, setDisable] = useState(true);
+
+  useEffect(() => {
+    if (users !== undefined) {
+      for (const userLink of users) {
+        const userId = userLink.replace("/api/v1/user/", "");
+        if (user.uid === userId) setDisable(false);
+      }
+    }
+
+  }, [users]);
 
   const createReply = () => {
     history.push({
@@ -48,6 +63,7 @@ const Post = ({ id, postTitle, content, comments, createdAt, creator }) => {
                 // id="create-reply-button"id="create-reply-button-card"
                 // className="create-reply-button"
                 onClick={createReply}
+                hidden={disableButton}
                 className="text-blue-600 hover:underline"
               >
                 Create Reply
@@ -60,4 +76,5 @@ const Post = ({ id, postTitle, content, comments, createdAt, creator }) => {
     </div>
   );
 };
+
 export default Post;
