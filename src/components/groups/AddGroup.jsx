@@ -4,9 +4,12 @@ import { addUserToGroup } from '../../services/api/group';
 
 const AddGroup = ({publicGroups}) => {
     const [selectedOption, setSelectedOption] = useState(null);  
-    //const history = useHistory();
     const joinGroup = async (groupId) =>{
-        addUserToGroup(groupId);
+        const addedInGroup = await addUserToGroup(groupId);
+        if(addedInGroup){
+            console.log("It is now added");
+            window.location.reload();
+        }
     }
  
     return (
