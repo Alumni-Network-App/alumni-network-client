@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import gfm from "remark-gfm";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { useHistory } from 'react-router-dom'
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase";
@@ -15,15 +15,25 @@ const CreateEvent = () => {
     const [user, loading, error] = useAuthState(auth);    
     const [input, setInput] = useState();
     const [showPreview, setShowPreview] = useState(true);
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit, control, setValue } = useForm();
     const history = useHistory();
-    const [startDate, setStartDate] = useState(new Date());
-    const [endDate, setEndDate] = useState();
+    const [startDate, setStartDate] = useState(new Date(Date.now()));
+    const [endDate, setEndDate] = useState("");
 
 
+    //test 
+    const handleEndDateTest = datechange => {
+        setValue('start_time', datechange, {
+            shouldDirty: true
+        })
+        setStartDate(datechange)
+    }
     const handleStartDate = (startDate) =>{
+        setValue('start_time', startDate, {
+            shouldDirty: true
+        })
         setStartDate(startDate);
-        setEndDate(null);
+        // setEndDate(null);
         console.log("date is " + startDate)
     }
 
@@ -63,31 +73,43 @@ const CreateEvent = () => {
                             {...register("name")} 
                 />
                 
-                <form action="/action_page.php">
+                {/* <form>
                     <h2>Select Event Banner</h2>
                     <input type="file" id="myFile" name="filename" {...register("bannerImg")}></input>
-                </form>
+                </form>  */}
 
                 <label >
                     Start Date <br/>
-                    
+{/*                     
                     <DatePicker selected={startDate}
-                        {...register("start_time")}
+                        
                         minDate={startDate}
+                        {...register("start_time")}
                         onChange={handleStartDate}
+                        
                         showTimeSelect
                         dateFormat="Pp"
                         timeFormat="HH:mm"
                         
-                    />
+                    /> */}
+                    <Controller name='start_time' control={control} render={() => (
+                        <DatePicker {...register("start_time")}
+                        onChange={handleStartDate}
+                        
+                        showTimeSelect
+                        dateFormat="Pp"
+                        timeFormat="HH:mm" />
+                    )} />
                     
                 </label>
 
-                <label {...register("end_time")}>
+                <label >
                     End Date <br/>
                     <DatePicker selected={endDate} 
                         minDate={startDate}
-                        onChange={handleEndDate}  
+                        {...register("end_time")} 
+                        onChange={handleEndDate} 
+                        
                         showTimeSelect
                         dateFormat="Pp"
                         timeFormat="HH:mm"

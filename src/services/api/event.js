@@ -5,12 +5,29 @@ const BASE_URL = "https://alumni-network-backend.herokuapp.com/api/v1/";
  * Get all events 
  * @returns events
  */
+
 export const getEvents = async () => {
-    const POST_URL = BASE_URL + "event/";
-    const response = await fetch(POST_URL);
-    const data = await response.json();
-    return data.filter; 
+    const EVENT_URL = BASE_URL + "event/";
+    const accessToken = await auth.currentUser.getIdToken(true).then((idToken) => idToken);
+    try {
+        const response = await fetch(EVENT_URL, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            }
+        });
+        /*if (!response.ok) { 
+            throw new Error("Something went wrong");
+        } else {*/
+            const data = await response.json();
+            console.log(data + "från event");
+           /* return data.filter(x => x.private === false);
+        }*/
+    } catch (error) {
+        console.log(error);
+    }
 }
+
 
 /**
  * Add/create an event 
