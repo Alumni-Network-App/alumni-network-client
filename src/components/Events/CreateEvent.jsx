@@ -18,8 +18,18 @@ const CreateEvent = () => {
     const { register, handleSubmit } = useForm();
     const history = useHistory();
     const [startDate, setStartDate] = useState(new Date());
-    const [endDate, setEndDate] = useState(new Date());
+    const [endDate, setEndDate] = useState();
 
+
+    const handleStartDate = (startDate) =>{
+        setStartDate(startDate);
+        setEndDate(null);
+        console.log("date is " + startDate)
+    }
+
+    const handleEndDate = (endDate) => {
+        setEndDate(endDate);        
+    }
     useEffect(() => {
         if (loading) return;
         if (error) {
@@ -58,21 +68,42 @@ const CreateEvent = () => {
                     <input type="file" id="myFile" name="filename" {...register("bannerImg")}></input>
                 </form>
 
-                <label>
+                <label >
                     Start Date <br/>
-                    <DatePicker selected={startDate} onChange={(date) => setStartDate(date)}  />
+                    
+                    <DatePicker selected={startDate}
+                        {...register("start_time")}
+                        minDate={startDate}
+                        onChange={handleStartDate}
+                        showTimeSelect
+                        dateFormat="Pp"
+                        timeFormat="HH:mm"
+                        
+                    />
+                    
                 </label>
 
-                <label>
+                <label {...register("end_time")}>
                     End Date <br/>
-                    <DatePicker selected={endDate} onChange={(date) => setEndDate(date)}  />
+                    <DatePicker selected={endDate} 
+                        minDate={startDate}
+                        onChange={handleEndDate}  
+                        showTimeSelect
+                        dateFormat="Pp"
+                        timeFormat="HH:mm"
+                    />
                 </label>
 
                 <textarea autoFocus className="textarea" value={input} {...register("description")} 
                     onChange= {(e) => setInput(e.target.value)}
                 />
 
-                <input type="text" placeholder="Topic/group/invitedUsers" {...register("groups")} />
+                <select {...register("category")}>
+                
+                    <option value="Topics" {...register("Topics")}>Topics</option>
+                    <option value="Groups" {...register("Groups")}>Groups</option>
+                    <option value="invitedUsers" {...register("invitedUsers")}>invitedUsers</option>
+                </select>
 
                 <input className="postPageSubmit" type="submit" />
             </form>
