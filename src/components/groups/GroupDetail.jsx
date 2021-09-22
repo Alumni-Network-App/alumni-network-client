@@ -61,6 +61,7 @@ const GroupDetail = () => {
           content={posts.content}
           comments={posts.comments}
           createdAt={posts.date}
+          creator= {posts.user}
         />
       </div>
     ));

@@ -75,3 +75,27 @@ export const getUserWithLink = async (link) => {
     console.log(error);
   }
 };
+
+
+// a function to get a user
+
+export const getUserUsingId = async (userId) => {
+  const USER_URL = BASE_USER_URL + userId;
+  const accessToken = await auth.currentUser.getIdToken(true).then((idToken) => idToken);
+  try {
+    const response = await fetch(USER_URL, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+    if (!response.ok) {
+      throw new Error("Something went horribly wrong");
+    } else {
+      const data = await response.json();
+      return data;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
