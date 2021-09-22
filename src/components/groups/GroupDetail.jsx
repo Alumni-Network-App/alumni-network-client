@@ -28,21 +28,22 @@ const GroupDetail = () => {
       return <>Error: {error}</>;
     }
     if (!user) return history.replace("/");
-    async function fetchGroupAndPosts(id) {
-      try {
-        const posts = await getGroupPosts(id);
-        const data = await getGroup(id);
-        if (posts) {
-          setPosts(posts);
-        }
-        //setPosts(posts.reverse());
-        setData(data);
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    }
     fetchGroupAndPosts(id);
   }, [id, user, loading, error, history]);
+
+  const fetchGroupAndPosts = async (id) => {
+    try {
+      const posts = await getGroupPosts(id);
+      const data = await getGroup(id);
+      if (posts) {
+        setPosts(posts);
+      }
+      //setPosts(posts.reverse());
+      setData(data);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
 
   /**
    * TODO: refactor - reusability / duplicates
@@ -56,11 +57,11 @@ const GroupDetail = () => {
     .map((posts) => (
       <div key={posts.id} style={{ padding: "20px" }}>
         <Post
-          id = {posts.id}
+          id={posts.id}
           postTitle={posts.title}
           content={posts.content}
-          comments={posts.comments}
-          createdAt={posts.date}
+          createdAt={posts.lastUpdated}
+          users={data.users}
         />
       </div>
     ));

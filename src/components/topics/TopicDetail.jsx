@@ -34,13 +34,16 @@ const TopicDetail = () => {
         const data = await getTopic(id);
         setPosts(posts);
         setData(data);
-        console.log(posts);
+  
       } catch (error) {
         console.error("Error:", error);
       }
     }
+
     fetchTopicAndPosts(id);
   }, [id, user, loading, error, history]);
+
+  
 
   // filter topic searches
   const filteredPosts = posts
@@ -55,7 +58,6 @@ const TopicDetail = () => {
           id={posts.id}
           postTitle={posts.title}
           content={posts.content}
-          comments={posts.comments}
           createdAt={posts.date}
           creator= {posts.user}
         />
