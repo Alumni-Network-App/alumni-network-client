@@ -6,6 +6,7 @@ import SearchBar from "../searchBar/SearchBar";
 import Post from "../posts/Post";
 import { auth } from "../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
+import Layout from "../layout/Layout";
 
 const TopicDetail = () => {
   const [user, loading, error] = useAuthState(auth);
@@ -50,7 +51,7 @@ const TopicDetail = () => {
     .map((posts) => (
       <div key={posts.id} style={{ padding: "20px" }}>
         <Post
-          id = {posts.id}
+          id={posts.id}
           postTitle={posts.title}
           content={posts.content}
           comments={posts.comments}
@@ -60,15 +61,18 @@ const TopicDetail = () => {
     ));
 
   return (
-    <section>
-      <h1>{data.name}</h1>
+    <Layout>
+      {/* <h1>{data.name}</h1>
       <p>{data.description}</p>
-      {/*<JoinTopic topicId={data.id}/>*/}
-      <h5>Top level posts</h5>
-      <SearchBar onChange={(value) => setSearchData(value)} />
-      <h5> Add calendar component here </h5>
-      {filteredPosts}
-    </section>
+    <JoinTopic topicId={data.id}/>*/}
+
+      <div className="px-10 py-6 m-auto  bg-white rounded-lg shadow-md">
+        <h5>Top level posts</h5>
+        <SearchBar onChange={(value) => setSearchData(value)} />
+        <h5> Add calendar component here </h5>
+        {filteredPosts}
+      </div>
+    </Layout>
   );
 };
 
