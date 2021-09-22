@@ -62,6 +62,7 @@ const GroupDetail = () => {
           content={posts.content}
           createdAt={posts.lastUpdated}
           users={data.users}
+          creator= {posts.user}
         />
       </div>
     ));

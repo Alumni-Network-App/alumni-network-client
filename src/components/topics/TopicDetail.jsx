@@ -8,6 +8,7 @@ import { auth } from "../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Layout from "../layout/Layout";
 
+
 const TopicDetail = () => {
   const [user, loading, error] = useAuthState(auth);
   const [posts, setPosts] = useState([]);
@@ -63,7 +64,7 @@ const TopicDetail = () => {
         />
       </div>
     ));
-
+console.log(posts);
   return (
     <Layout>
       {/* <h1>{data.name}</h1>

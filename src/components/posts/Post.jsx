@@ -6,7 +6,7 @@ import { useHistory } from "react-router";
 import gfm from "remark-gfm";
 import { auth } from "../../firebase";
 import ReplyList from "../replies/ReplyList";
-
+import Profile from "../users/Profile";
 /**
  * We are not using this component at the moment
  * @param {*} param0
@@ -42,7 +42,6 @@ const Post = ({ id, postTitle, content, createdAt, users }) => {
             <strong className="text-2xl font-bold text-gray-700  ">
               {postTitle}
             </strong>
-            {/*<p>{creator}</p>*/}
             <span className="text-xs ml-4 text-gray-400 self-center">
               {moment(createdAt).format("lll")}
             </span>
@@ -58,6 +57,7 @@ const Post = ({ id, postTitle, content, createdAt, users }) => {
             <div className="space-y-4">
               <ReplyList postId={id} />
             </div>
+            
             <div className="flex items-center justify-between mt-4">
               <button
                 // id="create-reply-button"id="create-reply-button-card"
@@ -69,6 +69,7 @@ const Post = ({ id, postTitle, content, createdAt, users }) => {
                 Create Reply
               </button>
             </div>
+            <Profile userId = {creator}/>
           </div>
         </div>
       </div>
