@@ -12,11 +12,9 @@ const TopicPreview = ({ description, title, topicId, userTopics }) => {
     
     const isInTopic = () => {
       if(userTopics.includes(topicId)){
-        console.log("topic is contained");
         setInTopic(true);
       }
     }
-
     isInTopic();
   }, [userTopics, topicId]);
 
@@ -33,18 +31,15 @@ const TopicPreview = ({ description, title, topicId, userTopics }) => {
           <Link
             className="text-2xl font-bold text-gray-700 hover:underline "
             to={inTopic ? { pathname: TOPIC_URL, state: { topicId } } : {pathname: ''}}
-    
           >
             {title}
           </Link>
-
-
           <p className="mt-2 text-gray-600">{description}</p>
         </div>
         <div className="flex items-center justify-between mt-4">
           <Link
             className="text-blue-600 hover:underline"
-            to={{ pathname: TOPIC_URL, state: { topicId } }}
+            to={inTopic ? { pathname: TOPIC_URL, state: { topicId } } : {pathname: ''}}
           >
             Read more
           </Link>

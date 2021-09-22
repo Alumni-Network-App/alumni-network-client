@@ -1,9 +1,11 @@
 import { addUserToTopic } from "../../services/api/topic"
+import { useHistory } from "react-router";
 const JoinTopic = ({topicId}) => {
-
+    const history = useHistory();
     const joinTopic = async (topicId) =>{
         //console.log(topicId)
         addUserToTopic(topicId);
+        history.push("/topics/"+topicId);
     }
         
     return (
