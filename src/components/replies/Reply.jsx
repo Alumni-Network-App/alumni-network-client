@@ -41,7 +41,7 @@ const Reply = ({ senderLink, replyId, content, lastUpdated }) => {
   return (
     <div className="flex mb-3 border rounded-lg ">
       <div className="flex-col w-full  bg-gray-100 rounded-lg px-4 py-2 sm:px-6 sm:py-4 leading-relaxed">
-        <strong>{user} </strong>{" "}
+        <strong>{user} </strong>
         <span className="text-xs text-gray-400 ">
           {moment(lastUpdated).format("lll")}
         </span>

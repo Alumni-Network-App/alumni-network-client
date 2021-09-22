@@ -32,24 +32,9 @@ const ReplyList = ({ postId }) => {
     }
   };
 
-  // const toggleReplies = (e) => {
-  //   setToggleClass(e.target.value);
-  //   e.target.value = e.target.value === "Hide" ? "Show" : "Hide";
-  // };
-
   return (
     <div className="ReplyList">
-      {/* <div id="button-center">
-        <button
-          value="Hide"
-          className="button"
-          id="toggle-button"
-          onClick={toggleReplies}
-        >
-          Toggle Replies
-        </button>
-      </div> */}
-      <div id="reply-list" className={toggleClass}>
+      <div id="reply-list">
         {replies.map(({ id, content, user, lastUpdated }) => (
           <Reply
             key={id}
