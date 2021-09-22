@@ -12,7 +12,7 @@ import Profile from "../users/Profile";
  * @param {*} param0
  * @returns
  */
-const Post = ({ id, postTitle, content, createdAt, users }) => {
+const Post = ({ id, postTitle, content, createdAt, users, creator }) => {
   const history = useHistory();
   const [user] = useAuthState(auth);
   const [disableButton, setDisable] = useState(true);
