@@ -155,7 +155,8 @@ export const isGroupInDatabase = async (groupId, user) => {
       throw new Error("Something went horribly wrong");
     } else {
       const data = await response.json();
-      const exists = data.find((x) => x.id === parseInt(groupId));
+      
+      const exists = data.find((x) => x.groupId === parseInt(groupId));
       if (exists) {
         return true;
       } else {
