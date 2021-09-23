@@ -9,16 +9,19 @@ import { auth } from "../../firebase";
 import { updatePost } from "../../services/api/posts";
 import ReplyList from "../replies/ReplyList";
 import Profile from "../users/Profile";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 
-const Post = ({ id, postTitle, content, createdAt, creator }) => {
+const Post = ({ id, postTitle, content, createdAt, creator, users }) => {
   const history = useHistory();
   const [image, setImage] = useState("");
+  const [user] = useAuthState(auth);
 
   const [editable, setEditable] = useState(false);
 
   const [title, setTitle] = useState(postTitle);
   const [text, setText] = useState(content);
+  const [disable, setDisable] = useState(true);
 
   useEffect(() => {
     getUser(creator);
@@ -114,7 +117,7 @@ const Post = ({ id, postTitle, content, createdAt, creator }) => {
                 onClick={handleEditClick}
                 className="text-blue-600 hover:underline"
                 id="edit-reply-button"
-                hidden={!editable}
+                hidden={disable}
               >
                 Update Post
               </button>
