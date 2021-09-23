@@ -44,10 +44,10 @@ The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
 ## Team
-Hamza Farah - [@HamzaHayd](https://github.com/Hamza1001101)
+Hamza Farah - [@Hamza Hayd](https://github.com/Hamza1001101)
 \
-Tyson - 
+Tyson - [@Tyson Mcleod](https://github.com/tysonmcleod)
 \
-Robin -
+Robin - [@Robin Eliasson](https://github.com/Corn3)
 \
-Adam -
+Adam - [@Adam Joulak](https://github.com/adamjoulak)
