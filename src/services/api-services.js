@@ -31,7 +31,6 @@ const addUserToPostgres = async (
     }
   );
   const data = await response.json();
-  console.log(data);
 };
 
 export const apiServices = {

@@ -64,7 +64,6 @@ const TopicDetail = () => {
         />
       </div>
     ));
-console.log(posts);
   return (
     <Layout>
       {/* <h1>{data.name}</h1>

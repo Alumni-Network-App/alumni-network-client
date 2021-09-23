@@ -5,7 +5,6 @@ import { addUserToGroup } from '../../services/api/group';
 const AddGroup = ({publicGroups}) => {
     const [selectedOption, setSelectedOption] = useState(null);  
     const joinGroup = async (groupId) =>{
-        console.log(groupId);
         const addedInGroup = await addUserToGroup(groupId);
         if(addedInGroup){
             console.log("It is now added");

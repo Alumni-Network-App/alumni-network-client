@@ -154,7 +154,6 @@ export const addUserToTopic = async (topicId) => {
     .getIdToken(true)
     .then((idToken) => idToken);
   const TOPIC_URL = BASE_URL + "topic/" + topicId + "/join";
-  //console.log(TOPIC_URL);
   try {
     const response = await fetch(TOPIC_URL, {
       method: "POST",
