@@ -81,6 +81,6 @@ Upon logging in successfully, you will be presented by the user dashboard page. 
   - `Create Posts`
   - `Log out`
 
-## More details regarding the usage of the application can be found in the [User Manual](alumninetwork-manual.pdf).
-## The repository for the backend [can be found here](https://github.com/Alumni-Network-App/Alumni-network-backend2)
+### More details regarding the usage of the application can be found in the [User Manual](alumninetwork-manual.pdf).
+### The repository for the backend [can be found here](https://github.com/Alumni-Network-App/Alumni-network-backend2)
 
