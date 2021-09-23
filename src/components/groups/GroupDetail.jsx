@@ -73,7 +73,7 @@ const GroupDetail = () => {
       <p>{data.description}</p>
       <h5>Top level posts</h5>
       <SearchBar onChange={(value) => setSearchData(value)} />
-      <h5> Calendar will be added here </h5>
+      {/*<h5> Calendar will be added here </h5>*/}
 
       {filteredPosts}
     </section>
