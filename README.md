@@ -51,3 +51,36 @@ Tyson - [@Tyson Mcleod](https://github.com/tysonmcleod)
 Robin - [@Robin Eliasson](https://github.com/Corn3)
 \
 Adam - [@Adam Joulak](https://github.com/adamjoulak)
+
+
+## Getting started with the project
+
+After cloning the project repository, you will need to run the following scripts in the command line:
+
+- `npm install` - This will install all the necessary libraries and dependencies.
+
+- `npm start` - This will start the app locally in development mode and you will be able to view the app by opening [http://localhost:3000](http://localhost:3000) in the browser.
+
+### Using the application
+
+
+#### Login and Sign up page
+
+After starting the app, you will presented by the login and registration page. The first step is to create an account using an email address and password, or simply by using a gmail account. 
+
+
+#### User dashboard
+
+Upon logging in successfully, you will be presented by the user dashboard page. On this page you will be able to see:
+
+- A list of `Topics ` in the alumni network. 
+- Your ` User Details Card ` with an update button. 
+- A navigation bar, where you can: 
+  - `View groups`
+  - `Create groups`
+  - `Create Posts`
+  - `Log out`
+
+##### More details regarding the usage of the application can be found in the [User Manual](https://github.com/tysonmcleod).
+##### The repository for the backend [can be found here](https://github.com/Alumni-Network-App/Alumni-network-backend2)
+
