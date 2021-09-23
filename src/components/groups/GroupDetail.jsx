@@ -14,7 +14,7 @@ const GroupDetail = () => {
   const [posts, setPosts] = useState([]);
   const [data, setData] = useState([]);
   const [searchData, setSearchData] = useState("");
-  const { id } = useParams();
+  const { groupId } = useParams();
   const history = useHistory();
 
   /**
@@ -28,13 +28,13 @@ const GroupDetail = () => {
       return <>Error: {error}</>;
     }
     if (!user) return history.replace("/");
-    fetchGroupAndPosts(id);
-  }, [id, user, loading, error, history]);
+    fetchGroupAndPosts(groupId);
+  }, [groupId, user, loading, error, history]);
 
-  const fetchGroupAndPosts = async (id) => {
+  const fetchGroupAndPosts = async (groupId) => {
     try {
-      const posts = await getGroupPosts(id);
-      const data = await getGroup(id);
+      const posts = await getGroupPosts(groupId);
+      const data = await getGroup(groupId);
       if (posts) {
         setPosts(posts);
       }

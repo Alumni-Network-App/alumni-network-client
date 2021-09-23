@@ -24,7 +24,7 @@ function App() {
           <Route path="/dashboard" component={Dashboard} />
           <Route path="/register" component={Register} />
           <Route path="/groups/all" component={GroupList} />
-          <Route path="/groups/:id" component={GroupPageExists} />
+          <Route path="/groups/:groupId" component={GroupPageExists} />
           <Route path="/topics/all" component={TopicList} />
           <Route path="/topics/:id" component={TopicPageExists} />
           <Route path="/post/replies" component={ReplyList} />

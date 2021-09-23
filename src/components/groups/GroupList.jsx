@@ -54,7 +54,7 @@ const GroupList = () => {
           val.name.toLowerCase().includes(searchData.toLowerCase()) ||
           val.description.toLowerCase().includes(searchData.toLowerCase())
       )
-      .map(({ name, id, description }) => (
+      .map((group) => (
         // <GroupPreview
         //   key={id}
         //   groupId={id}
@@ -63,11 +63,10 @@ const GroupList = () => {
         //   topicId={id}
         // />
         <GroupView
-          key={id}
-          groupId={id}
-          title={name}
-          description={description}
-          topicId={id}
+          key={group.groupId}
+          groupId={group.groupId}
+          title={group.name}
+          description={group.description}
         />
       ));
   }
