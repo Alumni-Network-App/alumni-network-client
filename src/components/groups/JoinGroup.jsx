@@ -1,8 +1,10 @@
-import { addUserToGroup } from "../../services/api/group"
+import { addUserToGroup } from "../../services/api/group";
+import { useHistory } from "react-router";
 const JoinGroup = ({groupId}) => {
-
+    const history = useHistory();
     const joinGroup = async (groupId) =>{
         addUserToGroup(groupId);
+        history.push("/groups/"+groupId);
     }
     return (
         <div>
