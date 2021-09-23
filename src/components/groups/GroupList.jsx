@@ -25,7 +25,6 @@ const GroupList = () => {
       return <>Error: {error}</>;
     }
     if (!user) return history.replace("/");
-    
     const addUserGroupSubscriptions = async (data) => {
       let userGroupSubscriptions = [];
       if(data){
@@ -46,8 +45,6 @@ const GroupList = () => {
     }
 
     getGroups();
-
-    //getGroupList();
   }, [loading, error, user, history]);
 
   /*
@@ -76,14 +73,7 @@ const GroupList = () => {
           val.name.toLowerCase().includes(searchData.toLowerCase()) ||
           val.description.toLowerCase().includes(searchData.toLowerCase())
       )
-      .map(({ name, id, description }) => (
-        // <GroupPreview
-        //   key={id}
-        //   groupId={id}
-        //   title={name}
-        //   description={description}
-        //   topicId={id}
-        // />
+      .map((data) => (
         <GroupView
           key={id}
           groupId={id}
@@ -91,6 +81,7 @@ const GroupList = () => {
           description={description}
           topicId={id}
           userGroups={userGroups}
+          isPrivate={data.private}
         />
       ));
   }

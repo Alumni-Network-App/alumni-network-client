@@ -11,7 +11,7 @@ const TopicList = () => {
   const [user, loading, error] = useAuthState(auth);
   const [data, setData] = useState([]);
   const [searchData, setSearchData] = useState("");
-  const [userTopics, setUserTopics] = useState([])
+  const [userTopics, setUserTopics] = useState([]);
   const history = useHistory();
 
   /**
@@ -30,25 +30,26 @@ const TopicList = () => {
 
     const addUserTopicSubscriptions = async (data) => {
       let userTopicSubscriptions = [];
-      if(data){
-        for(let i = 0; i < data.length; i++){
+      if (data) {
+        for (let i = 0; i < data.length; i++) {
           userTopicSubscriptions.push(data[i].id);
         }
       }
       setUserTopics(userTopicSubscriptions);
-    }
+    };
 
     const getTopics = async () => {
       const data = await getTopicList();
-      if(data){
+      if (data) {
         const userData = await getUsersTopics(user);
         addUserTopicSubscriptions(userData);
       }
-    }
+    };
 
     getTopics();
-    
   }, [user, loading, error, history]);
+
+  console.log("get topics", data);
 
   /*
    * A function used to get a list pf topics
@@ -62,7 +63,7 @@ const TopicList = () => {
       console.error("Error:", error);
     }
   };
-  
+
   /**
    * Filter topic searches
    */
@@ -76,7 +77,7 @@ const TopicList = () => {
           val.name.toLowerCase().includes(searchData.toLowerCase()) ||
           val.description.toLowerCase().includes(searchData.toLowerCase())
       )
-      .map(({ id, name, description }) => (
+      .map(({ id, name, description, lastUpdated }) => (
         // <TopicPreview
         //   key={topic.id}
         //   topicId={topic.id}
@@ -89,9 +90,8 @@ const TopicList = () => {
           topicId={id}
           title={name}
           userTopics={userTopics}
+          lastUpdated={lastUpdated}
         />
-        
-        
       ));
   }
 

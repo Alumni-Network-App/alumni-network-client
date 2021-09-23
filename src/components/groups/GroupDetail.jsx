@@ -8,7 +8,6 @@ import { auth } from "../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import ReplyList from "../replies/ReplyList";
 
-
 const GroupDetail = () => {
   const [user, loading, error] = useAuthState(auth);
   const [posts, setPosts] = useState([]);
@@ -43,7 +42,8 @@ const GroupDetail = () => {
     } catch (error) {
       console.error("Error:", error);
     }
-  }
+  };
+  console.log(data, 'fretch groups "posts');
 
   /**
    * TODO: refactor - reusability / duplicates
@@ -62,7 +62,7 @@ const GroupDetail = () => {
           content={posts.content}
           createdAt={posts.lastUpdated}
           users={data.users}
-          creator= {posts.user}
+          creator={posts.user}
         />
       </div>
     ));
