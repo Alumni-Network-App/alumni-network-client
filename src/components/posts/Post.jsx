@@ -12,12 +12,10 @@ import Profile from "../users/Profile";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 
-const Post = ({ id, postTitle, content, createdAt, creator, users }) => {
+const Post = ({ id, postTitle, content, createdAt, creator }) => {
   const history = useHistory();
   const [image, setImage] = useState("");
   const [user] = useAuthState(auth);
-
-  const [editable, setEditable] = useState(false);
 
   const [title, setTitle] = useState(postTitle);
   const [text, setText] = useState(content);
@@ -25,14 +23,12 @@ const Post = ({ id, postTitle, content, createdAt, creator, users }) => {
 
   useEffect(() => {
     getUser(creator);
-    if (users !== undefined) {
-      for (const userLink of users) {
-        const userId = userLink.replace("/api/v1/user/", "");
-        if (user.uid === userId) setDisable(false);
-      }
+    if (creator !== undefined) {
+      const userId = creator.replace("/api/v1/user/", "");
+      console.log(userId);
+      if (user.uid === userId) setDisable(false);
     }
-    setEditable(true);
-  }, [users]);
+  }, []);
 
   const getUser = async (user) => {
     const data = await getUserWithLink(user);
