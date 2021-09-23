@@ -1,22 +1,19 @@
 import moment from "moment";
-import { useEffect, useState } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { useState } from "react";
+import { useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import { useHistory } from "react-router";
 import gfm from "remark-gfm";
+import { getUser, getUserWithLink } from "../../services/api/user";
 import { auth } from "../../firebase";
 import { updatePost } from "../../services/api/posts";
 import ReplyList from "../replies/ReplyList";
 import Profile from "../users/Profile";
-/**
- * We are not using this component at the moment
- * @param {*} param0
- * @returns
- */
-const Post = ({ id, postTitle, content, createdAt, users, creator }) => {
+
+
+const Post = ({ id, postTitle, content, createdAt, creator }) => {
   const history = useHistory();
-  const [user] = useAuthState(auth);
-  const [disableButton, setDisable] = useState(true);
+  const [image, setImage] = useState("");
 
   const [editable, setEditable] = useState(false);
 
@@ -24,6 +21,7 @@ const Post = ({ id, postTitle, content, createdAt, users, creator }) => {
   const [text, setText] = useState(content);
 
   useEffect(() => {
+    getUser(creator);
     if (users !== undefined) {
       for (const userLink of users) {
         const userId = userLink.replace("/api/v1/user/", "");
@@ -32,6 +30,11 @@ const Post = ({ id, postTitle, content, createdAt, users, creator }) => {
     }
     setEditable(true);
   }, [users]);
+
+  const getUser = async (user) => {
+    const data = await getUserWithLink(user);
+    setImage(data.picture)
+  }
 
   const createReply = () => {
     history.push({
@@ -67,6 +70,7 @@ const Post = ({ id, postTitle, content, createdAt, users, creator }) => {
       <div className="spay-4">
         <div className="flex">
           <div className="flex-1 border rounded-lg px-4 py-2 sm:px-6 sm:py-4 leading-relaxed">
+            <span><img className="w-10 h-auto float-right" src={image} /></span>
             <strong className="text-2xl font-bold text-gray-700  ">
               {postTitle}
             </strong>
@@ -100,10 +104,7 @@ const Post = ({ id, postTitle, content, createdAt, users, creator }) => {
 
             <div className="flex w-64 items-center justify-between mt-4">
               <button
-                // id="create-reply-button"id="create-reply-button-card"
-                // className="create-reply-button"
                 onClick={createReply}
-                //hidden={disableButton}
                 className="text-blue-600 hover:underline"
               >
                 Create Reply
