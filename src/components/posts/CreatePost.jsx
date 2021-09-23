@@ -44,7 +44,6 @@ const CreatePost = () => {
   const getGroupList = async (user) => {
     try {
       const data = await getUsersGroups(user); // set this to user ida
-      console.log(data);
       setGroupObjects(data);
     } catch (error) {
       console.error("Error:", error);
@@ -73,7 +72,6 @@ const CreatePost = () => {
     data.topic = {
       id: data.topic,
     };
-    console.log(data.receiverId);
     data.receiverType = "group";
     createPost(data);
     history.push("/dashboard"); // change this to the actual post when view thread is complete

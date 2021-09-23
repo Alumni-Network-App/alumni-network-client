@@ -14,7 +14,6 @@ export const getGroupPosts = async (groupId) => {
     .getIdToken(true)
     .then((idToken) => idToken);
   const POST_URL = BASE_URL + "post/group/" + groupId;
-  //console.log(POST_URL);
   try {
     const response = await fetch(POST_URL, {
       method: "GET",
@@ -26,7 +25,6 @@ export const getGroupPosts = async (groupId) => {
       throw new Error("Something went horribly wrong");
     } else {
       const data = await response.json();
-      //console.log(data);
       if (data) {
         return data;
       }
@@ -57,7 +55,6 @@ export const getTopicPosts = async (topicId) => {
       throw new Error("Something went horribly wrong");
     } else {
       const data = await response.json();
-      //console.log(data);
       if (data) {
         return data;
       }
@@ -73,7 +70,6 @@ export const getTopicPosts = async (topicId) => {
  * @param post - The post sent to the database
  */
 export const addPost = async (post) => {
-  console.log(post);
   const accessToken = await auth.currentUser
     .getIdToken(true)
     .then((idToken) => idToken);

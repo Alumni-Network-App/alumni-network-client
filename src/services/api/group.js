@@ -25,8 +25,6 @@ export const getGroups = async () => {
       throw new Error("Something went wrong");
     } else {
       const data = await response.json();
-      console.log(data);
-      //console.log(data);
       return data;
     }
   } catch (error) {
