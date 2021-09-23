@@ -15,17 +15,19 @@ const Reply = ({ senderLink, replyId, content, lastUpdated }) => {
     const [fromUserName, setUserName] = useState("");
     const [fromUserId, setUserId] = useState("");
     const [editable, setEditable] = useState(false);
+    const [image, setImage] = useState("");
 
     useEffect(() => {
         setUser();
-        if(!user) return history.push("/");
-        if(user.uid === fromUserId) setEditable(true);
+        if (!user) return history.push("/");
+        if (user.uid === fromUserId) setEditable(true);
     }, [fromUserId]);
 
     const setUser = async () => {
         const user = await getUserWithLink(senderLink);
         setUserName(user.name);
         setUserId(user.id);
+        setImage(user.picture);
     };
 
     const handleEditClick = () => {
@@ -51,7 +53,8 @@ const Reply = ({ senderLink, replyId, content, lastUpdated }) => {
     return (
         <div className="flex mb-3 border rounded-lg ">
             <div className="flex-col w-full  bg-gray-100 rounded-lg px-4 py-2 sm:px-6 sm:py-4 leading-relaxed">
-                <strong>{fromUserName} </strong>{" "}
+                <span><img className="w-10 h-auto float-right" src={image} /></span>
+                <span><strong>{fromUserName} </strong>{" "}</span>
                 <span className="text-xs text-gray-400 ">
                     {moment(lastUpdated).format("lll")}
                 </span>
