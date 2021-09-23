@@ -26,7 +26,7 @@ const GroupPageExists = () => {
     }
   };
 
-  return <Route path="/groups/:id" component={GroupDetail} />;
+  return <Route path="/groups/:groupId" component={GroupDetail} />;
 };
 
 export default GroupPageExists;

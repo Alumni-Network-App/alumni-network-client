@@ -29,7 +29,7 @@ const GroupDetail = () => {
     }
     if (!user) return history.replace("/");
     fetchGroupAndPosts(groupId);
-  }, [groupId, user, loading, error, history]);
+  }, [user, loading, error, history]);
 
   const fetchGroupAndPosts = async (groupId) => {
     try {
