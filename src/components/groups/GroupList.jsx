@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
-import { getPublicGroups } from "../../services/api/group";
+import {
+  getAllPublicAndPrivateGroups,
+  getPublicGroups,
+} from "../../services/api/group";
 import SearchBar from "../searchBar/SearchBar";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase";
@@ -26,25 +29,35 @@ const GroupList = () => {
       return <>Error: {error}</>;
     }
     if (!user) return history.replace("/");
-    getGroupList();
+    //getGroupList();
+    const getAllGroups = async () => {
+      try {
+        const data = await getAllPublicAndPrivateGroups();
+        setData(data);
+      } catch (error) {
+        console.error("Error: ", error);
+      }
+    };
+    getAllGroups();
+    console.log(user.uid);
   }, [loading, error, user, history]);
 
   /*
    * A function used to get group list
    */
-  const getGroupList = async () => {
-    try {
-      const data = await getPublicGroups();
-      setData(data);
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
+  // const getGroupList = async () => {
+  //   try {
+  //     const data = await getPublicGroups();
+  //     setData(data);
+  //   } catch (error) {
+  //     console.error("Error:", error);
+  //   }
+  // };
 
   /**
    * Filter group searches
    */
-
+  console.log(data.map((d) => console.log("cccccc", d.private)));
   let filterGroups = data;
 
   if (typeof data !== "undefined") {
@@ -54,7 +67,7 @@ const GroupList = () => {
           val.name.toLowerCase().includes(searchData.toLowerCase()) ||
           val.description.toLowerCase().includes(searchData.toLowerCase())
       )
-      .map(({ name, id, description }) => (
+      .map((data) => (
         // <GroupPreview
         //   key={id}
         //   groupId={id}
@@ -63,11 +76,13 @@ const GroupList = () => {
         //   topicId={id}
         // />
         <GroupView
-          key={id}
-          groupId={id}
-          title={name}
-          description={description}
-          topicId={id}
+          key={data.lastUpdated}
+          groupId={data.id}
+          title={data.name}
+          description={data.description}
+          topicId={data.id}
+          lastUpdated={data.lastUpdated}
+          privates={data.private}
         />
       ));
   }

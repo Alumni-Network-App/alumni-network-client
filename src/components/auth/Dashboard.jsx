@@ -27,8 +27,7 @@ const Dashboard = () => {
 
       try {
         const response = await fetch(
-          DEFAULT_DOMAIN_URL + "/api/v1/user/" +
-            user.uid,
+          DEFAULT_DOMAIN_URL + "/api/v1/user/" + user.uid,
           {
             method: "GET",
             headers: {
@@ -50,7 +49,7 @@ const Dashboard = () => {
     fetchUserData();
 
     setIsLoading(false);
-  }, [user, loading, error, history]);
+  }, [user, loading, error, history, currentUserData]);
 
   return (
     <Layout>

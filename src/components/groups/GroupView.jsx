@@ -1,22 +1,22 @@
+import moment from "moment";
 import { Link } from "react-router-dom";
 import JoinGroup from "./JoinGroup";
 
-const GroupView = ({ description, title, groupId }) => {
+const GroupView = ({ description, title, groupId, lastUpdated, privates }) => {
   const GROUP_URL = "/groups/" + groupId;
+  console.log("from helevet", privates);
   return (
-    <div
-      className="w-96 p-10 rounded-md  border-solid border-2 border-gray-800"
-      // style={{
-      //   border: "1px solid black",
-      //   padding: "1rem",
-      //   width: "25rem",
-      //   borderRadius: "5px",
-      // }}
-    >
+    <div className="w-96 p-10 rounded-md  border-solid border-2 border-gray-800">
       <div className="flex item-center justify-center pb-4">
-        <p className="px-2 py-1 text-sm text-green-100 bg-gray-600 rounded hover:bg-gray-500">
-          Public
-        </p>
+        {privates ? (
+          <p className="px-2 py-1 text-sm text-green-100 bg-gray-600 rounded hover:bg-gray-500">
+            Public
+          </p>
+        ) : (
+          <p>False</p>
+        )}
+
+        {moment(lastUpdated).calendar()}
       </div>
 
       <Link
@@ -33,7 +33,7 @@ const GroupView = ({ description, title, groupId }) => {
       >
         Read More
       </Link>
-      {<JoinGroup groupId={groupId}/>}
+      {<JoinGroup groupId={groupId} />}
     </div>
   );
 };
