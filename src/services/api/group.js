@@ -25,6 +25,7 @@ export const getGroups = async () => {
       throw new Error("Something went wrong");
     } else {
       const data = await response.json();
+      console.log(data);
       //console.log(data);
       return data;
     }
@@ -224,7 +225,9 @@ const processGroupDataValueLabel = (data) => {
 export const getJoinableGroups = async () => {
     try {
       //const userGroups = await getUsersGroups(user);
-      const publicGroups = await getGroups().filter((x) => x.private === false);
+      let publicGroups = [];
+      publicGroups = await getGroups()
+      publicGroups.filter((x) => x.private === false);
       const groups = processGroupDataValueLabel(publicGroups);
           //  TODO: REMOVE duplicate groups 
       return groups;
