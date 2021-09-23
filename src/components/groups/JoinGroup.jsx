@@ -3,8 +3,11 @@ import { useHistory } from "react-router";
 const JoinGroup = ({groupId}) => {
     const history = useHistory();
     const joinGroup = async (groupId) =>{
-        addUserToGroup(groupId);
-        history.push("/groups/"+groupId);
+        const addedInGroup = await addUserToGroup(groupId);
+        if(addedInGroup){
+            history.go(0);
+        }
+        //history.push("/groups/"+groupId);
     }
     return (
         <div>

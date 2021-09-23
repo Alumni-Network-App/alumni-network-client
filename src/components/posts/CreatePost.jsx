@@ -74,7 +74,7 @@ const CreatePost = () => {
     };
     data.receiverType = "group";
     createPost(data);
-    history.push("/dashboard"); // change this to the actual post when view thread is complete
+    history.push("/groups/" + data.receiverId); // change this to the actual post when view thread is complete
   };
 
   const createPost = async (post) => {
