@@ -25,6 +25,7 @@ export const getGroups = async () => {
       throw new Error("Something went wrong");
     } else {
       const data = await response.json();
+      console.log(data);
       //console.log(data);
       return data;
     }
@@ -220,6 +221,7 @@ const processGroupDataValueLabel = (data) => {
  * Get joinable public groups user is not in
  */
 export const getJoinableGroups = async () => {
+
   // try {
   //   //const userGroups = await getUsersGroups(user);
   //   const publicGroups = await getGroups().filter((x) => x.private === false);
@@ -241,6 +243,9 @@ export const getJoinableGroups = async () => {
     console.log(error);
   }
 };
+
+
+
 
 /**
  * Quick helper function to check if a user is already
