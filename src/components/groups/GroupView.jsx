@@ -8,14 +8,13 @@ const GroupView = ({ description, title, groupId, isPrivate, userGroups }) => {
   const [inGroup, setInGroup] = useState(false);
 
   useEffect(() => {
-    
     const isInGroup = () => {
       if(userGroups.includes(groupId)){
         setInGroup(true);
       }
     }
     isInGroup();
-  }, [userGroups, groupId]);
+  }, [userGroups]);
 
   return (
     <div className="w-96 p-10 rounded-md  border-solid border-2 border-gray-800">

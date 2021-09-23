@@ -67,6 +67,7 @@ const GroupList = () => {
   let filterGroups = data;
 
   if (typeof data !== undefined) {
+    console.log(data)
     filterGroups = data
       .filter(
         (val) =>

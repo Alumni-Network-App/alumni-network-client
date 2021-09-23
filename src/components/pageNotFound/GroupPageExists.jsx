@@ -7,7 +7,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 
 const GroupPageExists = () => {
   const [user, loading, error] = useAuthState(auth);
-  const { id } = useParams();
+  const { groupId } = useParams();
   const history = useHistory();
 
   useEffect(() => {
@@ -20,7 +20,7 @@ const GroupPageExists = () => {
   });
 
   const doesGroupExist = async (user) => {
-    const response = await isGroupInDatabase(id, user);
+    const response = await isGroupInDatabase(groupId, user);
     if (!response) {
       history.push("/page-not-found");
     }
