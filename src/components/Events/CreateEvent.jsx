@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import gfm from "remark-gfm";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useHistory } from 'react-router-dom'
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase";
@@ -15,30 +15,20 @@ const CreateEvent = () => {
     const [user, loading, error] = useAuthState(auth);    
     const [input, setInput] = useState();
     const [showPreview, setShowPreview] = useState(true);
-    const { register, handleSubmit, control, setValue } = useForm();
+    const { register, handleSubmit } = useForm();
     const history = useHistory();
-    const [startDate, setStartDate] = useState(new Date(Date.now()));
-    const [endDate, setEndDate] = useState("");
+    const [startDate, setStartDate] = useState(new Date());
+    const [endDate, setEndDate] = useState();
 
 
-    //test 
-    const handleEndDateTest = datechange => {
-        setValue('start_time', datechange, {
-            shouldDirty: true
-        })
-        setStartDate(datechange)
-    }
-    const handleStartDate = (startDate) =>{
-        setValue('start_time', startDate, {
-            shouldDirty: true
-        })
-        setStartDate(startDate);
+    const handleStartDate = (date) =>{
+        setStartDate(date);
+        console.log(date);
         // setEndDate(null);
-        console.log("date is " + startDate)
     }
 
-    const handleEndDate = (endDate) => {
-        setEndDate(endDate);        
+    const handleEndDate = (date) => {
+        setEndDate(date);        
     }
     useEffect(() => {
         if (loading) return;
@@ -70,61 +60,67 @@ const CreateEvent = () => {
 
             <form onSubmit={handleSubmit(onSubmit)} >
                 <input type="text" placeholder="Title"
-                            {...register("name")} 
+                    ref={register("name")}
+                    // {...register("name")} 
                 />
                 
                 {/* <form>
                     <h2>Select Event Banner</h2>
                     <input type="file" id="myFile" name="filename" {...register("bannerImg")}></input>
-                </form>  */}
+                </form> */}
 
-                <label >
+                <label>
                     Start Date <br/>
-{/*                     
-                    <DatePicker selected={startDate}
-                        
-                        minDate={startDate}
-                        {...register("start_time")}
+                    {/* <DatePicker selected={startDate} 
+                        minDate={new Date()}
+                         
                         onChange={handleStartDate}
-                        
+                        ref={register("start_time")}  
                         showTimeSelect
                         dateFormat="Pp"
                         timeFormat="HH:mm"
-                        
                     /> */}
-                    <Controller name='start_time' control={control} render={() => (
-                        <DatePicker {...register("start_time")}
-                        onChange={handleStartDate}
+                    <input
                         
+                        type="datetime-local"
+                        
+                
+                        minDate={new Date()}
+                        onChange={handleStartDate}  
                         showTimeSelect
                         dateFormat="Pp"
-                        timeFormat="HH:mm" />
-                    )} />
+                        timeFormat="HH:mm"
+                        {...register("start_time")}             
+                    />
                     
                 </label>
 
-                <label >
+                <label>
                     End Date <br/>
                     <DatePicker selected={endDate} 
                         minDate={startDate}
-                        {...register("end_time")} 
-                        onChange={handleEndDate} 
-                        
+                        onChange={handleEndDate}
+                        ref={register("end_time")}  
                         showTimeSelect
                         dateFormat="Pp"
                         timeFormat="HH:mm"
-                    />
+                     />
+
                 </label>
 
-                <textarea autoFocus className="textarea" value={input} {...register("description")} 
+                <textarea autoFocus className="textarea" value={input} 
+
+                // {...register("description")} 
                     onChange= {(e) => setInput(e.target.value)}
+                    ref={register("description")}
                 />
 
                 <select {...register("category")}>
-                
-                    <option value="Topics" {...register("Topics")}>Topics</option>
-                    <option value="Groups" {...register("Groups")}>Groups</option>
-                    <option value="invitedUsers" {...register("invitedUsers")}>invitedUsers</option>
+                    <option value="Topics" 
+                        ref={register("topics")}
+                    >Select...</option>
+                    {/* <option value="Groups" {...register("Groups")}>Category A</option>
+                    <option value="invitedUsers" {...register("invitedUsers")}>Category B</option> */}
                 </select>
 
                 <input className="postPageSubmit" type="submit" />
