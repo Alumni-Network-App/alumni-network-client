@@ -120,7 +120,7 @@ const CreatePost = () => {
             <input
               type="text"
               placeholder="Title"
-              {...register("title", { required: true, maxLength: 20 })}
+              {...register("title", { required: true, maxLength: 40 })}
             />
             <select
               className="groupSelect"
@@ -147,7 +147,7 @@ const CreatePost = () => {
                 autoFocus
                 className="textarea"
                 value={input}
-                {...register("content", { required: true, maxLength: 140 })}
+                {...register("content", { required: true, maxLength: 200 })}
                 onChange={(e) => setInput(e.target.value)}
               />
 

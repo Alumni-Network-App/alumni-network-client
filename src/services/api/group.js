@@ -217,7 +217,6 @@ const processGroupDataValueLabel = (data) => {
  * Get joinable public groups user is not in
  */
 export const getJoinableGroups = async () => {
-
   // try {
   //   //const userGroups = await getUsersGroups(user);
   //   const publicGroups = await getGroups().filter((x) => x.private === false);
@@ -234,14 +233,12 @@ export const getJoinableGroups = async () => {
     publicGroups.filter((x) => x.private === false);
     const groups = processGroupDataValueLabel(publicGroups);
     //  TODO: REMOVE duplicate groups
+    console.log("comes from getjoingroups in group", groups);
     return groups;
   } catch (error) {
     console.log(error);
   }
 };
-
-
-
 
 /**
  * Quick helper function to check if a user is already

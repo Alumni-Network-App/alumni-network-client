@@ -12,7 +12,7 @@ const GroupList = () => {
   const [user, loading, error] = useAuthState(auth);
   const [data, setData] = useState([]);
   const [searchData, setSearchData] = useState("");
-  const [userGroups, setUserGroups] = useState([])
+  const [userGroups, setUserGroups] = useState([]);
   const history = useHistory();
   /**
    * TODO:
@@ -27,22 +27,22 @@ const GroupList = () => {
     if (!user) return history.replace("/");
     const addUserGroupSubscriptions = async (data) => {
       let userGroupSubscriptions = [];
-      if(data){
-        for(let i = 0; i < data.length; i++){
+      if (data) {
+        for (let i = 0; i < data.length; i++) {
           userGroupSubscriptions.push(data[i].id);
         }
       }
       setUserGroups(userGroupSubscriptions);
-    }
+    };
 
     const getGroups = async () => {
       const data = await getGroupList();
-      
-      if(data){
+
+      if (data) {
         const userData = await getUsersGroups(user);
         addUserGroupSubscriptions(userData);
       }
-    }
+    };
 
     getGroups();
   }, [loading, error, user, history]);
@@ -85,7 +85,6 @@ const GroupList = () => {
       ));
   }
 
-  
   return (
     <Layout>
       {/* <Nav /> */}

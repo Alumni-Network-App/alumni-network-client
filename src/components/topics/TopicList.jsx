@@ -49,8 +49,6 @@ const TopicList = () => {
     getTopics();
   }, [user, loading, error, history]);
 
-  console.log("get topics", data);
-
   /*
    * A function used to get a list pf topics
    */
@@ -102,6 +100,7 @@ const TopicList = () => {
         <BlogGroupTitle> Topics </BlogGroupTitle>
       
       </Div> */}
+
       <SearchBar onChange={(value) => setSearchData(value)} />
       {filterTopics}
     </>

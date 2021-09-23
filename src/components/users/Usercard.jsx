@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { auth } from "../../firebase";
 
 const Usercard = ({ currentUser }) => {
   return (
@@ -29,6 +30,7 @@ const Usercard = ({ currentUser }) => {
                 >
                   Name:
                 </a>
+
                 <span className="text-sm font-light text-gray-700">
                   {currentUser.name}
                 </span>
@@ -71,8 +73,8 @@ const Usercard = ({ currentUser }) => {
           </div>
         </div>
         <Link
-          to = "/profile/settings"
-          className = "border border-indigo-500 bg-indigo-500 self-end text-white rounded-md px-4 py-3  transition duration-500 ease select-none hover:bg-indigo-600 focus:outline-none focus:shadow-outline"
+          to="/profile/settings"
+          className="border border-indigo-500 bg-indigo-500 self-end text-white rounded-md px-4 py-3  transition duration-500 ease select-none hover:bg-indigo-600 focus:outline-none focus:shadow-outline"
         >
           Update profile
         </Link>

@@ -28,7 +28,7 @@ const TopicPreview = ({
       <div className="max-w-4xl px-10 py-6 mx-auto bg-white rounded-lg shadow-md">
         <div className="flex items-center justify-between">
           <span className="font-light text-gray-600">
-            {moment(lastUpdated).format("LL")}
+            {moment(lastUpdated).format("LLL")}
           </span>
           <p className="px-2 py-1 font-bold text-gray-100 bg-gray-600 rounded hover:bg-gray-500">
             {topicId}

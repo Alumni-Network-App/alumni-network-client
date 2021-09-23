@@ -89,3 +89,8 @@ export const addPost = async (post) => {
     console.log(error);
   }
 };
+
+export const updatePost = async (content, title) => {
+  const accessToken = (await auth.currentUser.getIdTokenResult()).token;
+  console.log(accessToken);
+};

@@ -33,6 +33,13 @@ const Post = ({ id, postTitle, content, createdAt, users, creator }) => {
     });
   };
 
+  const updatePost = () => {
+    history.push({
+      pathname: `/post/${id}`,
+      state: id,
+    });
+  };
+
   return (
     <div className="mb-7">
       <div className="spay-4">
@@ -49,6 +56,7 @@ const Post = ({ id, postTitle, content, createdAt, users, creator }) => {
               className="text-sm mt-2"
               children={content}
             />
+
             <h4 className="my-2 uppercase tracking-wide mt-8 text-gray-400 font-bold text-xs">
               Replies
             </h4>
@@ -57,7 +65,7 @@ const Post = ({ id, postTitle, content, createdAt, users, creator }) => {
               <ReplyList postId={id} />
             </div>
 
-            <div className="flex items-center justify-between mt-4">
+            <div className="flex w-48 items-center justify-between mt-4">
               <button
                 // id="create-reply-button"id="create-reply-button-card"
                 // className="create-reply-button"
@@ -66,6 +74,16 @@ const Post = ({ id, postTitle, content, createdAt, users, creator }) => {
                 className="text-blue-600 hover:underline"
               >
                 Create Reply
+              </button>
+
+              <button
+                // id="create-reply-button"id="create-reply-button-card"
+                // className="create-reply-button"
+                onClick={updatePost}
+                //hidden={disableButton}
+                className="text-blue-600 hover:underline"
+              >
+                Update Post
               </button>
             </div>
             <Profile userId={creator} />
