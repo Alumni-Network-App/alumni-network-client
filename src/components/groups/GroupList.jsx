@@ -86,6 +86,7 @@ const GroupList = () => {
       ));
   }
 
+  
   return (
     <Layout>
       {/* <Nav /> */}
