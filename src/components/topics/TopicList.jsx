@@ -49,7 +49,7 @@ const TopicList = () => {
     getTopics();
   }, [user, loading, error, history]);
 
-  console.log("get topics", data);
+  //console.log("get topics", data);
 
   /*
    * A function used to get a list pf topics
