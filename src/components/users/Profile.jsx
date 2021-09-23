@@ -1,20 +1,27 @@
 import React, { useState, useEffect } from "react";
-import { getUserWithLink} from "../../services/api/user";
+import { getUserWithLink, getUserUsingId} from "../../services/api/user";
 
- const  Profile = ({userId}) => {
+ const  Profile = ({userId, link}) => {
     const [modal, setModal] = useState(false);
     const [userData, setUserData] = useState([]);
 
     useEffect(() => {
         const getUserData = async () => {
-            const userData = await getUserWithLink(userId);
-            if(userData){
-                setUserData(userData);
+            if(link){
+                const userData = await getUserWithLink(userId);
+                if(userData){
+                    setUserData(userData);
+                }
+            }else {
+                const userData = await getUserUsingId(userId);
+                if(userData){
+                    setUserData(userData);
+                }
             }
         }
         
         getUserData();
-      }, [userId]);
+      }, [userId, link]);
     
     const toggleModal = () => {
       setModal(!modal); 
@@ -29,8 +36,9 @@ import { getUserWithLink} from "../../services/api/user";
     return (
         <>
             <p type="button" onClick={toggleModal} className="createTopic"
-            style={{width: "50%", float:"right", color:"rgba(0,0,0, 0.5)", cursor:"pointer"}}>
-                 Created by: {userData.name}
+            style={link ? {color:"000000", fontWeight:"400", cursor:"pointer"} :
+                {cursor: "pointer", marginLeft:"0",fontWeight:"600", color:"#000000", paddingRight:"100%"}}>
+                {link ? "Created by: " + userData.name : userData.name}
             </p>
             <br></br>
     

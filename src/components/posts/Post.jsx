@@ -68,7 +68,7 @@ const Post = ({ id, postTitle, content, createdAt, users, creator }) => {
                 Create Reply
               </button>
             </div>
-            <Profile userId={creator} />
+            <Profile userId={creator} link={true} />
           </div>
         </div>
       </div>
