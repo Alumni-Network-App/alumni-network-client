@@ -50,7 +50,7 @@ const Reply = ({ senderLink, replyId, content, lastUpdated }) => {
     const handleOnChange = (e) => {
         setText(e.target.value);
     };
-    console.log(fromUserId)
+
     return (
         <div className="flex mb-3 border rounded-lg ">
             <div className="flex-col w-full  bg-gray-100 rounded-lg px-4 py-2 sm:px-6 sm:py-4 leading-relaxed">
