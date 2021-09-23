@@ -130,7 +130,7 @@ const Post = ({ id, postTitle, content, createdAt, creator, users }) => {
                 Submit
               </button>
             </div>
-            <Profile userId={creator} />
+            <Profile userId={creator} link={true} />
           </div>
         </div>
       </div>
