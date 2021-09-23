@@ -43,8 +43,7 @@ export const getUsersGroups = async (user) => {
     //console.log("No groups so nothing will load check");
     return [];
   } else {
-    const group_urls = await getUserGroupsList(user);
-    return fetchAll(user, group_urls);
+    return fetchAll(user, data.groups);
   }
 };
 
@@ -82,7 +81,7 @@ const processGroupData = (data) => {
   for (let i = 0; i < data.length; ++i) {
     dataTransform.push({
       name: data[i].name,
-      id: data[i].id,
+      groupId: data[i].groupId,
     });
   }
   return dataTransform;
@@ -108,7 +107,6 @@ const fetchAll = async (user, urls) => {
       throw new Error("Something went wrong....!");
     } else {
       const data = await Promise.all(response.map((r) => r.json()));
-      //console.log(processGroupData(data));
       return processGroupData(data);
     }
   } catch (error) {

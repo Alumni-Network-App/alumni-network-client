@@ -75,10 +75,10 @@ const GroupList = () => {
       )
       .map((data) => (
         <GroupView
-          key={data.id}
-          groupId={data.id}
-          title={data.name}
-          description={data.description}
+          key={group.groupId}
+          groupId={group.groupId}
+          title={group.name}
+          description={group.description}
           topicId={data.id}
           userGroups={userGroups}
           isPrivate={data.private}
