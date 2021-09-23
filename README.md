@@ -61,7 +61,7 @@ After cloning the project repository, you will need to run the following scripts
 
 - `npm start` - This will start the app locally in development mode and you will be able to view the app by opening [http://localhost:3000](http://localhost:3000) in the browser.
 
-### Using the application
+### Application overview
 
 
 #### Login and Sign up page
