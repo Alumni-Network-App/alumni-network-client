@@ -8,7 +8,6 @@ import { auth } from "../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Layout from "../layout/Layout";
 
-
 const TopicDetail = () => {
   const [user, loading, error] = useAuthState(auth);
   const [posts, setPosts] = useState([]);
@@ -35,7 +34,6 @@ const TopicDetail = () => {
         const data = await getTopic(id);
         setPosts(posts);
         setData(data);
-  
       } catch (error) {
         console.error("Error:", error);
       }
@@ -44,8 +42,6 @@ const TopicDetail = () => {
     fetchTopicAndPosts(id);
   }, [id, user, loading, error, history]);
 
-  
-
   // filter topic searches
   const filteredPosts = posts
     .filter(
@@ -53,18 +49,19 @@ const TopicDetail = () => {
         val.title.toLowerCase().includes(searchData.toLowerCase()) ||
         val.content.toLowerCase().includes(searchData.toLowerCase())
     )
-    .map((posts) => (
-      <div key={posts.id} style={{ padding: "20px" }}>
-        <Post
-          id={posts.id}
-          postTitle={posts.title}
-          content={posts.content}
-          createdAt={posts.date}
-          creator= {posts.user}
-        />
-      </div>
+    .map(({ id, title, content, lastUpdated, user }) => (
+      // <div key={posts.id} style={{ padding: "20px" }}>
+      <Post
+        key={id}
+        id={id}
+        postTitle={title}
+        content={content}
+        createdAt={lastUpdated}
+        creator={user}
+      />
+      // </div>
     ));
-console.log(posts);
+
   return (
     <Layout>
       {/* <h1>{data.name}</h1>

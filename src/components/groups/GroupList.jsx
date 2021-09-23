@@ -3,6 +3,7 @@ import { getGroups } from "../../services/api/group";
 import SearchBar from "../searchBar/SearchBar";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase";
+
 import { useHistory } from "react-router";
 //import { filter } from "dom-helpers";
 
@@ -26,6 +27,7 @@ const GroupList = () => {
       return <>Error: {error}</>;
     }
     if (!user) return history.replace("/");
+
     getGroupList();
   }, [loading, error, user, history]);
 
@@ -54,20 +56,14 @@ const GroupList = () => {
           val.name.toLowerCase().includes(searchData.toLowerCase()) ||
           val.description.toLowerCase().includes(searchData.toLowerCase())
       )
-      .map(({ name, id, description }) => (
-        // <GroupPreview
-        //   key={id}
-        //   groupId={id}
-        //   title={name}
-        //   description={description}
-        //   topicId={id}
-        // />
+      .map((data) => (
         <GroupView
-          key={id}
-          groupId={id}
-          title={name}
-          description={description}
-          topicId={id}
+          key={data.id}
+          groupId={data.id}
+          title={data.name}
+          description={data.description}
+          topicId={data.id}
+          isPrivate={data.private}
         />
       ));
   }
