@@ -24,7 +24,6 @@ const Post = ({ id, postTitle, content, createdAt, users, creator }) => {
         if (user.uid === userId) setDisable(false);
       }
     }
-
   }, [users]);
 
   const createReply = () => {
@@ -57,19 +56,19 @@ const Post = ({ id, postTitle, content, createdAt, users, creator }) => {
             <div className="space-y-4">
               <ReplyList postId={id} />
             </div>
-            
+
             <div className="flex items-center justify-between mt-4">
               <button
                 // id="create-reply-button"id="create-reply-button-card"
                 // className="create-reply-button"
                 onClick={createReply}
-                hidden={disableButton}
+                //hidden={disableButton}
                 className="text-blue-600 hover:underline"
               >
                 Create Reply
               </button>
             </div>
-            <Profile userId = {creator}/>
+            <Profile userId={creator} />
           </div>
         </div>
       </div>

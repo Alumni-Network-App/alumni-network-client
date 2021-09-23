@@ -13,6 +13,7 @@ import Reset from "./components/auth/Reset";
 import Login from "./components/auth/Login";
 import ReplyList from "./components/replies/ReplyList";
 import CreateReply from "./components/replies/CreateReply";
+import CreateGroup from "./components/groups/CreateGroup";
 
 function App() {
   return (
@@ -31,7 +32,7 @@ function App() {
           <Route path="/reply/post/:id" component={CreateReply} />
           <Route path="/profile/settings" component={Settings} />
           <Route path="/profile/create-post" component={CreatePost} />
-          <Route path="/profile/create-group" component={CreatePost} />
+          <Route path="/profile/create-group" component={CreateGroup} />
 
           <Route path={["/page-not-found", "*"]} component={PageNotFound} />
         </Switch>
