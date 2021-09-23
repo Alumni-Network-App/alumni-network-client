@@ -8,12 +8,11 @@ const GroupView = ({ description, title, groupId, isPrivate, userGroups }) => {
   const [inGroup, setInGroup] = useState(false);
 
   useEffect(() => {
-    
     const isInGroup = () => {
-      if(userGroups.includes(groupId)){
+      if (userGroups.includes(groupId)) {
         setInGroup(true);
       }
-    }
+    };
     isInGroup();
   }, [userGroups, groupId]);
 
@@ -31,7 +30,11 @@ const GroupView = ({ description, title, groupId, isPrivate, userGroups }) => {
         )}
       </div>
       <Link
-        to={inGroup ? { pathname: GROUP_URL, state: { groupId } } : {pathname: ''}}
+        to={
+          inGroup
+            ? { pathname: GROUP_URL, state: { groupId } }
+            : { pathname: "" }
+        }
         className="text-2xl font-bold text-gray-700 hover:underline"
       >
         {title}
@@ -40,12 +43,19 @@ const GroupView = ({ description, title, groupId, isPrivate, userGroups }) => {
       <p> {description} </p>
       <Link
         className="text-blue-600 hover:underline mb-6"
-        to={inGroup ? { pathname: GROUP_URL, state: { groupId } } : {pathname: ''}}
+        to={
+          inGroup
+            ? { pathname: GROUP_URL, state: { groupId } }
+            : { pathname: "" }
+        }
       >
         Read More
       </Link>
-      {!inGroup ? <JoinGroup groupId={groupId}/> : <LeaveGroup groupId={groupId}/>}
-
+      {!inGroup ? (
+        <JoinGroup groupId={groupId} />
+      ) : (
+        <LeaveGroup groupId={groupId} />
+      )}
     </div>
   );
 };

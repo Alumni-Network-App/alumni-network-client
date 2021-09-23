@@ -5,6 +5,7 @@ import ReactMarkdown from "react-markdown";
 import { useHistory } from "react-router";
 import gfm from "remark-gfm";
 import { auth } from "../../firebase";
+import { updatePost } from "../../services/api/posts";
 import ReplyList from "../replies/ReplyList";
 import Profile from "../users/Profile";
 /**
@@ -17,6 +18,11 @@ const Post = ({ id, postTitle, content, createdAt, users, creator }) => {
   const [user] = useAuthState(auth);
   const [disableButton, setDisable] = useState(true);
 
+  const [editable, setEditable] = useState(false);
+
+  const [title, setTitle] = useState(postTitle);
+  const [text, setText] = useState(content);
+
   useEffect(() => {
     if (users !== undefined) {
       for (const userLink of users) {
@@ -24,6 +30,7 @@ const Post = ({ id, postTitle, content, createdAt, users, creator }) => {
         if (user.uid === userId) setDisable(false);
       }
     }
+    setEditable(true);
   }, [users]);
 
   const createReply = () => {
@@ -33,11 +40,26 @@ const Post = ({ id, postTitle, content, createdAt, users, creator }) => {
     });
   };
 
-  const updatePost = () => {
-    history.push({
-      pathname: `/post/${id}`,
-      state: id,
-    });
+  const handleEditClick = () => {
+    const content = document.getElementById("reply-content");
+    content.disabled = !content.disabled;
+    const submitButton = document.getElementById("submit-reply-button");
+    submitButton.hidden = !submitButton.hidden;
+  };
+
+  const handleSubmitClick = (e) => {
+    const updatedPost = {
+      content: text,
+      postTitle: title,
+    };
+    updatePost(updatedPost, id);
+
+    document.getElementById("reply-content").disabled = true;
+    e.target.hidden = true;
+  };
+
+  const handleOnChange = (e) => {
+    setText(e.target.value);
   };
 
   return (
@@ -48,13 +70,24 @@ const Post = ({ id, postTitle, content, createdAt, users, creator }) => {
             <strong className="text-2xl font-bold text-gray-700  ">
               {postTitle}
             </strong>
+
             <span className="text-xs ml-4 text-gray-400 self-center">
               {moment(createdAt).format("lll")}
             </span>
-            <ReactMarkdown
+            {/* <ReactMarkdown
               remarkPlugins={[gfm]}
               className="text-sm mt-2"
               children={content}
+            /> */}
+
+            <textarea
+              value={text}
+              id="reply-content"
+              rows={2}
+              disabled={true}
+              className="w-full  resize-none text-xs sm:text-sm mt-4"
+              maxLength={200}
+              onChange={handleOnChange}
             />
 
             <h4 className="my-2 uppercase tracking-wide mt-8 text-gray-400 font-bold text-xs">
@@ -65,7 +98,7 @@ const Post = ({ id, postTitle, content, createdAt, users, creator }) => {
               <ReplyList postId={id} />
             </div>
 
-            <div className="flex w-48 items-center justify-between mt-4">
+            <div className="flex w-64 items-center justify-between mt-4">
               <button
                 // id="create-reply-button"id="create-reply-button-card"
                 // className="create-reply-button"
@@ -77,13 +110,20 @@ const Post = ({ id, postTitle, content, createdAt, users, creator }) => {
               </button>
 
               <button
-                // id="create-reply-button"id="create-reply-button-card"
-                // className="create-reply-button"
-                onClick={updatePost}
-                //hidden={disableButton}
+                onClick={handleEditClick}
                 className="text-blue-600 hover:underline"
+                id="edit-reply-button"
+                hidden={!editable}
               >
                 Update Post
+              </button>
+              <button
+                onClick={handleSubmitClick}
+                className="text-blue-600 hover:underline"
+                id="submit-reply-button"
+                hidden={true}
+              >
+                Submit
               </button>
             </div>
             <Profile userId={creator} />

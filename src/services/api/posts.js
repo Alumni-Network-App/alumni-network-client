@@ -90,7 +90,25 @@ export const addPost = async (post) => {
   }
 };
 
-export const updatePost = async (content, title) => {
-  const accessToken = (await auth.currentUser.getIdTokenResult()).token;
-  console.log(accessToken);
+export const updatePost = async (newlyUpdatedContent, postId) => {
+  const accessToken = await auth.currentUser
+    .getIdToken(true)
+    .then((idToken) => idToken);
+
+  const POST_URL = `${BASE_URL}post/${postId}`;
+  try {
+    const response = await fetch(POST_URL, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newlyUpdatedContent),
+    });
+    if (!response.ok) {
+      throw new Error("Updating post went horribly wrong....");
+    }
+  } catch (error) {
+    console.log("Error", error);
+  }
 };

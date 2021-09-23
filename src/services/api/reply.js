@@ -41,15 +41,17 @@ export const createReply = async (postId, reply) => {
 };
 
 export const updateReply = async (replyId, reply) => {
-    const accessToken = await auth.currentUser.getIdToken(true).then((idToken) => idToken);
-    const REPLY_URL = BASE_REPLY_URL + replyId;
-    const response = await fetch(REPLY_URL, {
-        method: "PUT",
-        headers: {
-            Authorization: `Bearer ${accessToken}`,
-            "Content-Type": "application/json"
-          },
-        body: JSON.stringify(reply)
-    });
-    if(!response.ok) throw new Error ("Oops! Error updating reply.");
-}
+  const accessToken = await auth.currentUser
+    .getIdToken(true)
+    .then((idToken) => idToken);
+  const REPLY_URL = BASE_REPLY_URL + replyId;
+  const response = await fetch(REPLY_URL, {
+    method: "PUT",
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(reply),
+  });
+  if (!response.ok) throw new Error("Oops! Error updating reply.");
+};

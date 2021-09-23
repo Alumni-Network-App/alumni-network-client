@@ -29,7 +29,7 @@ const GroupList = () => {
       let userGroupSubscriptions = [];
       if (data) {
         for (let i = 0; i < data.length; i++) {
-          userGroupSubscriptions.push(data[i].id);
+          userGroupSubscriptions.push(data[i].groupId);
         }
       }
       setUserGroups(userGroupSubscriptions);
@@ -43,7 +43,6 @@ const GroupList = () => {
         addUserGroupSubscriptions(userData);
       }
     };
-
     getGroups();
   }, [loading, error, user, history]);
 
@@ -67,6 +66,7 @@ const GroupList = () => {
   let filterGroups = data;
 
   if (typeof data !== undefined) {
+    console.log(data);
     filterGroups = data
       .filter(
         (val) =>
