@@ -68,10 +68,11 @@ const TopicDetail = () => {
       <p>{data.description}</p>
     <JoinTopic topicId={data.id}/>*/}
 
-      <div className=" px-24 py-4">
-        <h5>Top level posts</h5>
+      <div className="px-10 py-6 m-auto  bg-white rounded-lg shadow-md">
+        <h5>{data.name}</h5>
+        <h5>{data.description}</h5>
         <SearchBar onChange={(value) => setSearchData(value)} />
-        <h5> Add calendar component here </h5>
+        {/*<h5> Add calendar component here </h5>*/}
         {filteredPosts}
       </div>
     </Layout>
