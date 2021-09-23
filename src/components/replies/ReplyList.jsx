@@ -20,35 +20,20 @@ const ReplyList = ({ postId }) => {
     }
     if (!user) return history.push("/");
 
+    const getReplyList = async () => {
+      try {
+        const data = await getRepliesToPost(postId);
+        setReplies(data);
+      } catch (error) {
+        console.error("Error: ", error);
+      }
+    };
+
     getReplyList();
-  }, [user, loading, error, history]);
-
-  const getReplyList = async () => {
-    try {
-      const data = await getRepliesToPost(postId);
-      setReplies(data);
-    } catch (error) {
-      console.error("Error: ", error);
-    }
-  };
-
-  // const toggleReplies = (e) => {
-  //   setToggleClass(e.target.value);
-  //   e.target.value = e.target.value === "Hide" ? "Show" : "Hide";
-  // };
+  }, [user, loading, error, history, postId]);
 
   return (
     <div className="ReplyList">
-      {/* <div id="button-center">
-        <button
-          value="Hide"
-          className="button"
-          id="toggle-button"
-          onClick={toggleReplies}
-        >
-          Toggle Replies
-        </button>
-      </div> */}
       <div id="reply-list" className={toggleClass}>
         {replies.map(({ id, content, user, lastUpdated }) => (
           <Reply
