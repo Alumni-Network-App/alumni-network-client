@@ -220,9 +220,20 @@ const processGroupDataValueLabel = (data) => {
  * Get joinable public groups user is not in
  */
 export const getJoinableGroups = async () => {
+  // try {
+  //   //const userGroups = await getUsersGroups(user);
+  //   const publicGroups = await getGroups().filter((x) => x.private === false);
+  //   const groups = processGroupDataValueLabel(publicGroups);
+  //   //  TODO: REMOVE duplicate groups
+  //   return groups;
+  // } catch (error) {
+  //   console.log(error);
+  // }
   try {
     //const userGroups = await getUsersGroups(user);
-    const publicGroups = await getGroups().filter((x) => x.private === false);
+    let publicGroups = [];
+    publicGroups = await getGroups();
+    publicGroups.filter((x) => x.private === false);
     const groups = processGroupDataValueLabel(publicGroups);
     //  TODO: REMOVE duplicate groups
     return groups;
