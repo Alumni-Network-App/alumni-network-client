@@ -2,7 +2,7 @@ const Footer = () => {
   return (
     <footer
       style={{
-        position: "absolute",
+        position: "fixed",
         bottom: "0",
       }}
       className="px-6 py-2 text-gray-100 bg-gray-800 w-full"

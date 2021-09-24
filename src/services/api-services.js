@@ -18,19 +18,17 @@ const addUserToPostgres = async (
   // const accessToken = await auth.currentUser.getIdToken(true).then((idToken) => idToken);
   let accessToken = (await auth.currentUser.getIdTokenResult()).token;
 
-  const response = await fetch(
-    DEFAULT_DOMAIN_URL + "/api/v1/user",
-    {
-      method: "POST",
-      body: JSON.stringify(userData),
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    }
-  );
+  const response = await fetch(DEFAULT_DOMAIN_URL + "/api/v1/user", {
+    method: "POST",
+    body: JSON.stringify(userData),
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  });
   const data = await response.json();
+  return data;
 };
 
 export const apiServices = {

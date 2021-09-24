@@ -50,7 +50,6 @@ const TopicDetail = () => {
         val.content.toLowerCase().includes(searchData.toLowerCase())
     )
     .map(({ id, title, content, lastUpdated, user }) => (
-      // <div key={posts.id} style={{ padding: "20px" }}>
       <Post
         key={id}
         id={id}
@@ -59,20 +58,19 @@ const TopicDetail = () => {
         createdAt={lastUpdated}
         creator={user}
       />
-      // </div>
     ));
 
   return (
     <Layout>
-      {/* <h1>{data.name}</h1>
-      <p>{data.description}</p>
-    <JoinTopic topicId={data.id}/>*/}
-
-      <div className="px-10 py-6 m-auto  bg-white rounded-lg shadow-md">
-        <h5>{data.name}</h5>
-        <h5>{data.description}</h5>
+      <div className="mx-auto mb-24   max-w-screen-sm">
+        <p className="mb-4 mt-7 text-lg font-semibold text-gray-900">
+          Group Name: <span> {data.name}</span>
+        </p>
+        <p className="mb-4 mt-7 text-lg font-semibold text-gray-900">
+          Group Description: <span> {data.description}</span>
+        </p>
         <SearchBar onChange={(value) => setSearchData(value)} />
-        {/*<h5> Add calendar component here </h5>*/}
+
         {filteredPosts}
       </div>
     </Layout>

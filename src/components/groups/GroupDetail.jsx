@@ -6,7 +6,7 @@ import SearchBar from "../searchBar/SearchBar";
 import Post from "../posts/Post";
 import { auth } from "../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-import ReplyList from "../replies/ReplyList";
+import Layout from "../layout/Layout";
 
 const GroupDetail = () => {
   const [user, loading, error] = useAuthState(auth);
@@ -27,27 +27,27 @@ const GroupDetail = () => {
       return <>Error: {error}</>;
     }
     if (!user) return history.replace("/");
-    fetchGroupAndPosts(groupId);
-  }, [user, loading, error, history]);
 
-  const fetchGroupAndPosts = async (groupId) => {
-    try {
-      const posts = await getGroupPosts(groupId);
-      const data = await getGroup(groupId);
-      if (posts) {
-        setPosts(posts);
+    const fetchGroupAndPosts = async (groupId) => {
+      try {
+        const posts = await getGroupPosts(groupId);
+        const data = await getGroup(groupId);
+        if (posts) {
+          setPosts(posts);
+        }
+        //setPosts(posts.reverse());
+        setData(data);
+      } catch (error) {
+        console.error("Error:", error);
       }
-      //setPosts(posts.reverse());
-      setData(data);
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
-  console.log(data, 'fretch groups "posts');
+    };
+    fetchGroupAndPosts(groupId);
+  }, [user, loading, error, history, groupId]);
 
   /**
    * TODO: refactor - reusability / duplicates
    */
+
   const filteredPosts = posts
     .filter(
       (val) =>
@@ -55,7 +55,7 @@ const GroupDetail = () => {
         val.content.toLowerCase().includes(searchData.toLowerCase())
     )
     .map((posts) => (
-      <div key={posts.id} style={{ padding: "20px" }}>
+      <div key={posts.id}>
         <Post
           id={posts.id}
           postTitle={posts.title}
@@ -68,15 +68,21 @@ const GroupDetail = () => {
     ));
 
   return (
-    <section>
-      <h1>{data.name}</h1>
-      <p>{data.description}</p>
-      <h5>Top level posts</h5>
-      <SearchBar onChange={(value) => setSearchData(value)} />
-      {/*<h5> Calendar will be added here </h5>*/}
+    <Layout>
+      <div className="mx-auto max-w-screen-sm  mb-24">
+        <h1 className="mb-4 mt-7 text-lg font-semibold text-gray-900">
+          Group Name: <span>{data.name}</span>
+        </h1>
+        <p className="mb-4 mt-7 text-lg font-semibold text-gray-900">
+          Group Description: <span> {data.description}</span>
+        </p>
 
-      {filteredPosts}
-    </section>
+        <SearchBar onChange={(value) => setSearchData(value)} />
+        {/*<h5> Calendar will be added here </h5>*/}
+
+        {filteredPosts}
+      </div>
+    </Layout>
   );
 };
 

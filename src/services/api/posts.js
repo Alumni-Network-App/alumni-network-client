@@ -3,7 +3,7 @@ import { DEFAULT_DOMAIN_URL } from "../../resource/constants";
 
 const DOMAIN_URL = DEFAULT_DOMAIN_URL;
 const BASE_URL = DOMAIN_URL + "/api/v1/";
-const BASE_USER_URL = BASE_URL + "user/";
+// const BASE_USER_URL = BASE_URL + "user/";
 
 /**
  * Get posts for a specific group

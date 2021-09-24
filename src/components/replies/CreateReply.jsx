@@ -6,7 +6,6 @@ import { useHistory } from "react-router";
 import { auth } from "../../firebase";
 import { createReply } from "../../services/api/reply";
 import Layout from "../layout/Layout";
-import "./reply.css";
 
 const CreateReply = (props) => {
   const [user, loading, error] = useAuthState(auth);

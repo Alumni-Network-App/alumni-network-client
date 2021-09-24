@@ -4,11 +4,10 @@ import { useHistory } from "react-router";
 import { auth } from "../../firebase";
 import { getRepliesToPost } from "../../services/api/reply";
 import Reply from "./Reply";
-import "./reply.css";
 
 const ReplyList = ({ postId }) => {
   const [user, loading, error] = useAuthState(auth);
-  const [toggleClass, setToggleClass] = useState("Show");
+  // const [toggleClass, setToggleClass] = useState("Show");
   const history = useHistory();
 
   const [replies, setReplies] = useState([]);
@@ -34,7 +33,8 @@ const ReplyList = ({ postId }) => {
 
   return (
     <div className="ReplyList">
-      <div id="reply-list" className={toggleClass}>
+      {/* <div id="reply-list" className={toggleClass}> */}
+      <div id="reply-list">
         {replies.map(({ id, content, user, lastUpdated }) => (
           <Reply
             key={id}

@@ -11,7 +11,7 @@ import Footer from "../footer/Footer";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isSignedIn, setIsSigned] = useState(false);
+  // const [isSignedIn, setIsSigned] = useState(false);
   const [user, loading, error] = useAuthState(auth);
   const history = useHistory();
 
@@ -21,12 +21,12 @@ const Login = () => {
       return <> Error: {error} </>;
     }
     if (user) history.replace("/dashboard");
-    const unregisterAuthObserver = auth.onAuthStateChanged((firebase) => {
-      setIsSigned(!!firebase);
-    });
-    return () => {
-      unregisterAuthObserver();
-    };
+    // const unregisterAuthObserver = auth.onAuthStateChanged((firebase) => {
+    //   setIsSigned(!!firebase);
+    // });
+    // return () => {
+    //   unregisterAuthObserver();
+    // };
   }, [user, history, error, loading]);
 
   const handleLoginWithEmailAndPassword = () => {
