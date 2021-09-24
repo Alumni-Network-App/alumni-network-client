@@ -6,13 +6,14 @@ import { auth } from "../../firebase";
 import { useHistory } from "react-router";
 //import { filter } from "dom-helpers";
 import Layout from "../layout/Layout";
+
 import GroupView from "./GroupView";
 
 const GroupList = () => {
   const [user, loading, error] = useAuthState(auth);
   const [data, setData] = useState([]);
   const [searchData, setSearchData] = useState("");
-  const [userGroups, setUserGroups] = useState([])
+  const [userGroups, setUserGroups] = useState([]);
   const history = useHistory();
   /**
    * TODO:
@@ -27,22 +28,22 @@ const GroupList = () => {
     if (!user) return history.replace("/");
     const addUserGroupSubscriptions = async (data) => {
       let userGroupSubscriptions = [];
-      if(data){
-        for(let i = 0; i < data.length; i++){
+      if (data) {
+        for (let i = 0; i < data.length; i++) {
           userGroupSubscriptions.push(data[i].groupId);
         }
       }
       setUserGroups(userGroupSubscriptions);
-    }
+    };
 
     const getGroups = async () => {
       const data = await getGroupList();
-      
-      if(data){
+
+      if (data) {
         const userData = await getUsersGroups(user);
         addUserGroupSubscriptions(userData);
       }
-    }
+    };
     getGroups();
   }, [loading, error, user, history]);
 
@@ -85,11 +86,8 @@ const GroupList = () => {
       ));
   }
 
-  
   return (
     <Layout>
-      {/* <Nav /> */}
-      {/* <SearchBar onChange={(value) => setSearchData(value)} /> */}
       <div className="flex justify-center pt-4">
         <SearchBar onChange={(value) => setSearchData(value)} />
       </div>

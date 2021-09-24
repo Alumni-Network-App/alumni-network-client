@@ -3,6 +3,7 @@ import Select from "react-select";
 import Layout from "../layout/Layout";
 import { auth } from "../../firebase";
 import { DEFAULT_DOMAIN_URL } from "../../resource/constants";
+import { useHistory } from "react-router";
 
 const DOMAIN_URL = DEFAULT_DOMAIN_URL;
 const BASE_URL = DOMAIN_URL + "/api/v1/group";
@@ -15,12 +16,15 @@ const options = [
 const CreateGroup = () => {
   const [groupName, setGroupName] = useState("");
   const [groupDescription, setGroupDescription] = useState("");
+  const history = useHistory();
 
   const [selectedOption, setSelectedOption] = useState(null);
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
     createGroup();
+    history.push("/dashboard");
+
     // console.log(groupDescription, groupName, selectedOption.value);
   };
 
