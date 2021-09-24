@@ -32,6 +32,12 @@ const Settings = () => {
     getUserInfo(user);
   }, [user, loading, error, history, reset]);
 
+  /**
+   * Function used to update the settings and redirect
+   * to the dashboard when completed.
+   * @param {*} data 
+   * @param {*} e 
+   */
   const onSubmit = async (data, e) => {
     const settingsUpdated = await updateSettings(data);
     if(settingsUpdated){

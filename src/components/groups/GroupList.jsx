@@ -4,7 +4,6 @@ import SearchBar from "../searchBar/SearchBar";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase";
 import { useHistory } from "react-router";
-//import { filter } from "dom-helpers";
 import Layout from "../layout/Layout";
 
 import GroupView from "./GroupView";
@@ -15,11 +14,7 @@ const GroupList = () => {
   const [searchData, setSearchData] = useState("");
   const [userGroups, setUserGroups] = useState([]);
   const history = useHistory();
-  /**
-   * TODO:
-   * GET Private groups as well
-   *
-   */
+
   useEffect(() => {
     if (loading) return;
     if (error) {
@@ -38,7 +33,6 @@ const GroupList = () => {
 
     const getGroups = async () => {
       const data = await getGroupList();
-
       if (data) {
         const userData = await getUsersGroups(user);
         addUserGroupSubscriptions(userData);

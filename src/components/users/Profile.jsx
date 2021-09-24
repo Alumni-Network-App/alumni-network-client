@@ -22,7 +22,9 @@ const Profile = ({ userId, link }) => {
 
     getUserData();
   }, [userId, link]);
-
+  /**
+   * A function used to toggle the modal on click. 
+   */
   const toggleModal = () => {
     setModal(!modal);
   };

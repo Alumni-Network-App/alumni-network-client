@@ -17,15 +17,12 @@ const CreateGroup = () => {
   const [groupName, setGroupName] = useState("");
   const [groupDescription, setGroupDescription] = useState("");
   const history = useHistory();
-
   const [selectedOption, setSelectedOption] = useState(null);
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
     createGroup();
     history.push("/dashboard");
-
-    // console.log(groupDescription, groupName, selectedOption.value);
   };
 
   const createGroup = async () => {
