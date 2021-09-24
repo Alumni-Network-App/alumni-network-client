@@ -19,8 +19,9 @@ const CreateEvent = () => {
     const history = useHistory();
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState();
-
-
+    
+    
+    
     const handleStartDate = (date) =>{
         setStartDate(date);
         console.log(date);
@@ -45,13 +46,21 @@ const CreateEvent = () => {
     }
 
     const onSubmit = (data) => {
+        const userId = {"2TSqo0Zn8aXcdEZOryVdxJ5OAvr2": Object};
+        const userArray = [];
+        userArray.push(userId);
         data.event = {
-            id: data.event
+            name: data.name,
+            description: data.description,
+            bannerImg: data.bannerImg[0].name,
+            startTime: data.start_time,
+            endTime: data.end_time,
+            invitedUsers: userArray
         }
         data.receiverType = "event"
-        console.log(data);
+        console.log(userArray[0] + "tjenaaaaa");
         createEvent(data);
-        history.push('/dashboard'); // change this to the actual post when view thread is complete
+        // history.push('/dashboard'); // change this to the actual post when view thread is complete
     }
 
     return (
@@ -60,14 +69,14 @@ const CreateEvent = () => {
 
             <form onSubmit={handleSubmit(onSubmit)} >
                 <input type="text" placeholder="Title"
-                    ref={register("name")}
-                    // {...register("name")} 
+                    {...register("name")} 
                 />
                 
-                {/* <form>
-                    <h2>Select Event Banner</h2>
-                    <input type="file" id="myFile" name="filename" {...register("bannerImg")}></input>
-                </form> */}
+                
+                <h2>Select Event Banner</h2>
+                <input type="file" id="myFile" name="filename" {...register("bannerImg")}></input>
+                <br/>
+                
 
                 <label>
                     Start Date <br/>
@@ -80,11 +89,8 @@ const CreateEvent = () => {
                         dateFormat="Pp"
                         timeFormat="HH:mm"
                     /> */}
-                    <input
-                        
+                    <input                        
                         type="datetime-local"
-                        
-                
                         minDate={new Date()}
                         onChange={handleStartDate}  
                         showTimeSelect
@@ -94,33 +100,42 @@ const CreateEvent = () => {
                     />
                     
                 </label>
+                <br/>
 
                 <label>
                     End Date <br/>
-                    <DatePicker selected={endDate} 
+                    {/* <DatePicker selected={endDate} 
                         minDate={startDate}
                         onChange={handleEndDate}
                         ref={register("end_time")}  
                         showTimeSelect
                         dateFormat="Pp"
                         timeFormat="HH:mm"
-                     />
+                     /> */}
+
+                    <input                        
+                        type="datetime-local"
+                        minDate={startDate}
+                        onChange={handleEndDate}  
+                        showTimeSelect
+                        dateFormat="Pp"
+                        timeFormat="HH:mm"
+                        {...register("end_time")}             
+                    />
 
                 </label>
 
-                <textarea autoFocus className="textarea" value={input} 
-
-                // {...register("description")} 
+                <textarea autoFocus className="textarea" value={input}                 
                     onChange= {(e) => setInput(e.target.value)}
-                    ref={register("description")}
+                    {...register("description")} 
                 />
 
                 <select {...register("category")}>
                     <option value="Topics" 
-                        ref={register("topics")}
+                        {...register("topics")} 
                     >Select...</option>
-                    {/* <option value="Groups" {...register("Groups")}>Category A</option>
-                    <option value="invitedUsers" {...register("invitedUsers")}>Category B</option> */}
+                    <option value="Groups" {...register("Groups")}>Category A</option>
+                    <option value="invitedUsers" {...register("invitedUsers")}>Category B</option>
                 </select>
 
                 <input className="postPageSubmit" type="submit" />
