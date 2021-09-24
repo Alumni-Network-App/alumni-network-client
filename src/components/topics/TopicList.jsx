@@ -14,13 +14,6 @@ const TopicList = () => {
   const [userTopics, setUserTopics] = useState([]);
   const history = useHistory();
 
-  /**
-   * TODO:
-   * Add check for login / authenticated in if else block
-   * then fetch group list
-   *
-   * --> This task is done
-   */
   useEffect(() => {
     if (loading) return;
     if (error) {
@@ -51,8 +44,9 @@ const TopicList = () => {
 
   //console.log("get topics", data);
 
-  /*
-   * A function used to get a list pf topics
+  /**
+   * Get a list of topics.
+   * @returns 
    */
   const getTopicList = async () => {
     try {
@@ -78,12 +72,6 @@ const TopicList = () => {
           val.description.toLowerCase().includes(searchData.toLowerCase())
       )
       .map(({ id, name, description, lastUpdated }) => (
-        // <TopicPreview
-        //   key={topic.id}
-        //   topicId={topic.id}
-        //   topicTitle={topic.name}
-        //   topicDescription={topic.description}
-        // />
         <TopicPreview
           key={id}
           description={description}

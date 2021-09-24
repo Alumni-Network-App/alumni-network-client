@@ -43,7 +43,7 @@ const CreatePost = () => {
 
   const getGroupList = async (user) => {
     try {
-      const data = await getUsersGroups(user); // set this to user ida
+      const data = await getUsersGroups(user); 
       setGroupObjects(data);
     } catch (error) {
       console.error("Error:", error);
@@ -52,7 +52,7 @@ const CreatePost = () => {
 
   const getTopicList = async (user) => {
     try {
-      const data = await getUsersTopics(user); // set this to user id
+      const data = await getUsersTopics(user); 
       setTopicObjects(data);
     } catch (error) {
       console.error("Error:", error);
@@ -61,7 +61,7 @@ const CreatePost = () => {
 
   const getJoinableGroupsList = async (user) => {
     try {
-      const data = await getJoinableGroups(user); // set this to user id
+      const data = await getJoinableGroups(user); 
       setJoinableGroups(data);
     } catch (error) {
       console.error("Error:", error);
@@ -74,14 +74,14 @@ const CreatePost = () => {
     };
     data.receiverType = "group";
     createPost(data);
-    history.push("/groups/" + data.receiverId); // change this to the actual post when view thread is complete
+    history.push("/groups/" + data.receiverId);
   };
 
   const createPost = async (post) => {
     await addPost(post);
   };
 
-  // TODO: fix default if user is in no groups // same for topics
+  
   const getGroupListOptions = groupObjects.map((group) => (
     <option key={group.groupId} value={group.groupId}>
       {group.name}
@@ -97,9 +97,6 @@ const CreatePost = () => {
 
   topicOptions.push(getTopicListOptions);
   topicOptions.push(<TopicModal />);
-
-  //let publicGroups = joinableGroups;
-  // fix validation form
 
   return (
     <Layout>

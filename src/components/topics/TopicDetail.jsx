@@ -64,10 +64,10 @@ const TopicDetail = () => {
     <Layout>
       <div className="mx-auto mb-24   max-w-screen-sm">
         <p className="mb-4 mt-7 text-lg font-semibold text-gray-900">
-          Group Name: <span> {data.name}</span>
+          <span> {data.name}</span>
         </p>
         <p className="mb-4 mt-7 text-lg font-semibold text-gray-900">
-          Group Description: <span> {data.description}</span>
+          <span> {data.description}</span>
         </p>
         <SearchBar onChange={(value) => setSearchData(value)} />
 

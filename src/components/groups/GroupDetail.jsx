@@ -16,11 +16,6 @@ const GroupDetail = () => {
   const { groupId } = useParams();
   const history = useHistory();
 
-  /**
-   * TODO:
-   * Add check for login / authenticated in if else block
-   * then fetch groups
-   */
   useEffect(() => {
     if (loading) return;
     if (error) {
@@ -35,7 +30,6 @@ const GroupDetail = () => {
         if (posts) {
           setPosts(posts);
         }
-        //setPosts(posts.reverse());
         setData(data);
       } catch (error) {
         console.error("Error:", error);
@@ -43,10 +37,6 @@ const GroupDetail = () => {
     };
     fetchGroupAndPosts(groupId);
   }, [user, loading, error, history, groupId]);
-
-  /**
-   * TODO: refactor - reusability / duplicates
-   */
 
   const filteredPosts = posts
     .filter(

@@ -5,8 +5,12 @@ const DOMAIN_URL = DEFAULT_DOMAIN_URL;
 const BASE_URL = DOMAIN_URL + "/api/v1/";
 const BASE_USER_URL = BASE_URL + "user/";
 
-// a function to get a user
-
+/**
+ * This function is used to get a user from the database.
+ * It expects a user and returns the user's data.
+ * @param {*} user the current user.
+ * @returns An object containing the user's data.
+ */
 export const getUser = async (user) => {
   const USER_URL = BASE_USER_URL + user.uid;
   const accessToken = await user.getIdToken(true).then((idToken) => idToken);
@@ -28,8 +32,12 @@ export const getUser = async (user) => {
   }
 };
 
-// a function to update user settings
-
+/**
+ * A function used to update the current user's settings.
+ * The function expects an object containing the user's updated settings.
+ * @param {*} settings object containing the user's updated settings
+ * @returns true if a user's settings were successfully updated.
+ */
 export const updateSettings = async (settings) => {
     let user = auth.currentUser;
     const accessToken = await user.getIdToken(true).then((idToken) => idToken);
@@ -54,6 +62,12 @@ export const updateSettings = async (settings) => {
     }
 };
 
+/**
+ * A function used to get a user when given the user
+ * in link format. 
+ * @param {*} link 
+ * @returns An object containing the user data.
+ */
 export const getUserWithLink = async (link) => {
   const USER_URL = DOMAIN_URL + link;
   let user = auth.currentUser;
@@ -77,8 +91,11 @@ export const getUserWithLink = async (link) => {
 };
 
 
-// a function to get a user
-
+/**
+ * A function used to get a user when given the user's id
+ * @param {*} userId the user's id  
+ * @returns An object containing the user data.
+ */
 export const getUserUsingId = async (userId) => {
   const USER_URL = BASE_USER_URL + userId;
   const accessToken = await auth.currentUser.getIdToken(true).then((idToken) => idToken);

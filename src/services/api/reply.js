@@ -5,6 +5,13 @@ const DOMAIN_URL = DEFAULT_DOMAIN_URL;
 const BASE_URL = DOMAIN_URL + "/api/v1/";
 const BASE_REPLY_URL = BASE_URL + "reply/";
 
+/**
+ * A function used to get the replies to a post given 
+ * the post id.
+ * @param {*} postId 
+ * @returns a list of replies to a post object with the id
+ * postId.
+ */
 export const getRepliesToPost = async (postId) => {
   const accessToken = await auth.currentUser
     .getIdToken(true)
@@ -23,6 +30,12 @@ export const getRepliesToPost = async (postId) => {
   }
 };
 
+/**
+ * A function used to add a reply to a post with the given 
+ * post Id.
+ * @param {*} postId 
+ * @param {*} reply 
+ */
 export const createReply = async (postId, reply) => {
   const accessToken = await auth.currentUser
     .getIdToken(true)
@@ -40,6 +53,11 @@ export const createReply = async (postId, reply) => {
   if (!response.ok) throw new Error("Oops! Error creating reply.");
 };
 
+/**
+ * A function used to update a reply with the given replyId.
+ * @param {*} replyId 
+ * @param {*} reply 
+ */
 export const updateReply = async (replyId, reply) => {
     const accessToken = await auth.currentUser.getIdToken(true).then((idToken) => idToken);
     const REPLY_URL = BASE_REPLY_URL + replyId;

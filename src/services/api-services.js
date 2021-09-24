@@ -1,10 +1,20 @@
 import { auth } from "../firebase";
 import { DEFAULT_DOMAIN_URL } from "../resource/constants";
 
+/**
+ * A function used to retrieve an IdToken.
+ */
 const getIdToken = () => {
   auth.currentUser.getIdToken(true).then((idToken) => idToken);
 };
 
+
+/**
+ * A function used to add a user to postgres.
+ * @param {*} uid the user's id
+ * @param {*} username the user's username
+ * @param {*} photoURL a photoUrl
+ */
 const addUserToPostgres = async (
   uid,
   username,
@@ -31,6 +41,10 @@ const addUserToPostgres = async (
   return data;
 };
 
+/**
+ * Exporting functions to add a user to the database 
+ * and to get an IdToken. 
+ */
 export const apiServices = {
   addUserToPostgres,
   getIdToken,

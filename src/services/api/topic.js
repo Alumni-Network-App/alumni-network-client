@@ -7,7 +7,7 @@ const BASE_URL = DOMAIN_URL + "/api/v1/";
 const BASE_USER_URL = BASE_URL + "user/";
 
 /**
- * Get the topics
+ * A function used to get all topics in the database.
  * @returns A list of topic objects in the database
  */
 export const getTopics = async () => {
@@ -17,7 +17,12 @@ export const getTopics = async () => {
   return data;
 };
 
-// check if topic id exists in the database
+/**
+ * A function used to check if a topic is in the database
+ * give a specific topic id.
+ * @param {*} topicId 
+ * @returns true if it exists, else false.
+ */
 export const isTopicInDatabase = async (topicId) => {
   const response = await fetch(BASE_URL + "topic");
   const data = await response.json();
@@ -30,7 +35,8 @@ export const isTopicInDatabase = async (topicId) => {
 };
 
 /**
- * get a topic
+ * A function used to get a topic object given the topic id.
+ * @param topicId the topicId 
  * @returns A topic from the database
  */
 export const getTopic = async (topicId) => {
@@ -50,11 +56,15 @@ export const getTopic = async (topicId) => {
   }
 };
 
-// get a users topic
 /**
- * Get the topics that a user is in
+ * This function is used to get the data from the topics
+ * that the user is in. The function returns an empty list
+ * if no topics were found, otherwise it returns the data
+ * from all topics that a user has joined.   
+ * @param user the current user 
+ * @returns a list of user topics data if found, 
+ * otherwise an empty array. 
  */
-
 export const getUsersTopics = async (user) => {
   const data = await getUser(user);
   if (data.topicSubscriptions.length < 1) {
@@ -66,7 +76,10 @@ export const getUsersTopics = async (user) => {
 };
 
 /**
- * Get list of user topics
+ * A helper function used to get the list of topics 
+ * a user has joined. 
+ * @param user the current user 
+ * @returns a list of user topic data if found,
  */
 export const getUserTopicsList = async (user) => {
   const USER_URL = BASE_USER_URL + user.uid;
@@ -90,10 +103,12 @@ export const getUserTopicsList = async (user) => {
 };
 
 /**
- * Transform topic data in to objects with name and id
- * for usage in createPost when getting topics
+ * A helper function used to transform topic data in to 
+ * an object that is used to create new posts, i.e., a 
+ * topics id and a topics name. 
+ * @param data a list of topic objects 
+ * @returns a transformed list of user topic data
  */
-
 const processTopicData = (data) => {
   let dataTransform = [];
   for (let i = 0; i < data.length; ++i) {
@@ -105,8 +120,14 @@ const processTopicData = (data) => {
   return dataTransform;
 };
 
-// helper function to fetch multiple urls
-
+/**
+ * A function used to get topic data from multiple topics.
+ * This function is used when retreiving information regarding 
+ * more than one user topics at the same time.
+ * @param {*} user the user 
+ * @param {*} urls a list of the user's topic urls
+ * @returns 
+ */
 const fetchAll = async (user, urls) => {
   const accessToken = await user.getIdToken(true).then((idToken) => idToken);
   try {
@@ -132,7 +153,9 @@ const fetchAll = async (user, urls) => {
 };
 
 /**
- * Check if topic exists using name
+ * A function used to get a topic using a topic's name.
+ * @param {*} name the name of the topic
+ * @returns an object containing the topic data
  */
 export const getTopicUsingName = async (name) => {
   const TOPIC_URL = BASE_URL + "topic?name=" + name;
@@ -149,6 +172,12 @@ export const getTopicUsingName = async (name) => {
   }
 };
 
+/**
+ * A function used to add a user to a topic.
+ * It expects the id of the topic that the user 
+ * should be added to. 
+ * @param {*} topicId 
+ */
 export const addUserToTopic = async (topicId) => {
   const accessToken = await auth.currentUser
     .getIdToken(true)
@@ -171,8 +200,10 @@ export const addUserToTopic = async (topicId) => {
   }
 };
 
-// a function to create a new topic
-
+/**
+ * A function used to create a new topic.
+ * @param {*} topic a topic object containing the required fields.
+ */
 export const createNewTopic = async (topic) => {
   const accessToken = await auth.currentUser
     .getIdToken(true)
@@ -196,7 +227,13 @@ export const createNewTopic = async (topic) => {
   }
 };
 
-// add a new topic or subscribe to
+/**
+ * This function is used to add a user to a topic. If
+ * a topic already exists, the user will be added to the existing 
+ * topic. If not, the user will be the creator of and added to a new topic.
+ * @param {*} data the topic data required to create a new topic.
+ * @returns true if a user was succesfully added to a topic.
+ */
 export const addUsersTopic = async (data) => {
   const topic = await getTopicUsingName(data.name);
   if (topic.length > 0) {

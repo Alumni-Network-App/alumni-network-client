@@ -3,11 +3,13 @@ import { DEFAULT_DOMAIN_URL } from "../../resource/constants";
 
 const DOMAIN_URL = DEFAULT_DOMAIN_URL;
 const BASE_URL = DOMAIN_URL + "/api/v1/";
-// const BASE_USER_URL = BASE_URL + "user/";
+
 
 /**
- * Get posts for a specific group
- * @returns The group id for the specfic group
+ * Get a list of posts for a specific group given a group Id.
+ * @param {*} groupId the id of the group which contains the posts. 
+ * @returns A list of posts for the given group. Empty array if none
+ * are found. 
  */
 export const getGroupPosts = async (groupId) => {
   const accessToken = await auth.currentUser
@@ -36,8 +38,10 @@ export const getGroupPosts = async (groupId) => {
 };
 
 /**
- * Get posts for a specific topic
- * @returns The group id for the specfic group
+ * Get a list of posts for a specific topic given a topic Id.
+ * @param {*} topicId the id of the group which contains the posts. 
+ * @returns A list of posts for the given topic. Empty array if none
+ * are found. 
  */
 export const getTopicPosts = async (topicId) => {
   const accessToken = await auth.currentUser
@@ -66,7 +70,7 @@ export const getTopicPosts = async (topicId) => {
 };
 
 /**
- * Add a post
+ * Add a post to the database.
  * @param post - The post sent to the database
  */
 export const addPost = async (post) => {
@@ -91,11 +95,12 @@ export const addPost = async (post) => {
 };
 
 /**
- * Update posts
+ * This function is used to update a post. 
+ * It expects the newly updated content and the post id for
+ * the post that will be updated. 
  * @param {*} newlyUpdatedContent
  * @param {*} postId
  */
-
 export const updatePost = async (newlyUpdatedContent, postId) => {
   const accessToken = await auth.currentUser
     .getIdToken(true)

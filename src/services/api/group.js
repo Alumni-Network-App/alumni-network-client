@@ -6,7 +6,7 @@ const BASE_URL = DOMAIN_URL + "/api/v1/";
 const BASE_USER_URL = BASE_URL + "user/";
 
 /**
- * get them groups
+ * A function used to return a list of groups
  * @returns A list of group objects in the database
  */
 export const getGroups = async () => {
@@ -33,7 +33,13 @@ export const getGroups = async () => {
 };
 
 /**
- * Get the groups that a user is in
+ * This function is used to get the data from the groups
+ * that the user is in. The function returns an empty list
+ * if no groups were found, otherwise it returns the data
+ * from all groups that a user has joined.   
+ * @param user the current user 
+ * @returns a list of user group data if found, 
+ * otherwise an empty array. 
  */
 export const getUsersGroups = async (user) => {
   const data = await getUser(user);
@@ -46,7 +52,10 @@ export const getUsersGroups = async (user) => {
 };
 
 /**
- * Get list of user groups
+ * A helper function used to get the list of groups 
+ * a user has joined. 
+ * @param user the current user 
+ * @returns a list of user group data if found,
  */
 export const getUserGroupsList = async (user) => {
   const USER_URL = BASE_USER_URL + user.uid;
@@ -70,10 +79,12 @@ export const getUserGroupsList = async (user) => {
 };
 
 /**
- * Transform group data in to objects with name and id
- * for usage in createPost when getting groups
+ * A helper function used to transform group data in to 
+ * an object that is used to create new posts, i.e., a 
+ * groups id and a groups name. 
+ * @param data a list of group objects 
+ * @returns a transformed list of user group data
  */
-
 const processGroupData = (data) => {
   let dataTransform = [];
   for (let i = 0; i < data.length; ++i) {
@@ -85,8 +96,14 @@ const processGroupData = (data) => {
   return dataTransform;
 };
 
-// helper function to fetch multiple urls
-
+/**
+ * A function used to get group data from multiple groups.
+ * This function is used when retreiving information regarding 
+ * more than one user groups at the same time.
+ * @param {*} user the user 
+ * @param {*} urls a list of the user's group urls
+ * @returns 
+ */
 const fetchAll = async (user, urls) => {
   const accessToken = await user.getIdToken(true).then((idToken) => idToken);
   try {
@@ -113,8 +130,10 @@ const fetchAll = async (user, urls) => {
 };
 
 /**
- * get a group big boy
- * @returns A group from the database
+ * A function used to get a group when given 
+ * the group id. 
+ * @param {*} groupId the group id  
+ * @returns A group from the database with the specified id.
  */
 export const getGroup = async (groupId) => {
   const accessToken = await auth.currentUser
@@ -139,8 +158,12 @@ export const getGroup = async (groupId) => {
   }
 };
 
-// check if group exists
-// todo: check if page can be visited from current user
+/**
+ * A function used to check if a group is in the database.
+ * @param {*} groupId the group id for the group we are looking for.
+ * @param {*} user the current user.
+ * @returns true if a group exists, false if it does not. 
+ */
 export const isGroupInDatabase = async (groupId, user) => {
   const accessToken = await user.getIdToken(true).then((idToken) => idToken);
   const GROUP_URL = BASE_URL + "group";
@@ -169,7 +192,10 @@ export const isGroupInDatabase = async (groupId, user) => {
 };
 
 /**
- * Adds a user to the group using the specified group Id
+ * A function used to to add a user to a group. This function uses
+ * the group id. 
+ * @param {*} groupId the group id
+ * @returns true if a user is added successfully 
  */
 export const addUserToGroup = async (groupId) => {
   const accessToken = await auth.currentUser
@@ -203,6 +229,13 @@ export const addUserToGroup = async (groupId) => {
   }
 };
 
+/**
+ * This helper function is used to transform group objects, 
+ * such that the group's id is the value, and the group's name
+ * is the label 
+ * @param {*} data group data
+ * @returns a list of transformed group objects. 
+ */
 const processGroupDataValueLabel = (data) => {
   let dataTransform = [];
   for (let i = 0; i < data.length; ++i) {
@@ -215,42 +248,28 @@ const processGroupDataValueLabel = (data) => {
 };
 
 /**
- * Get joinable public groups user is not in
+ * This function gets a list of joinable groups for all users. 
+ * @returns a list of joinable groups, i.e., public groups
  */
 export const getJoinableGroups = async () => {
-
-  // try {
-  //   //const userGroups = await getUsersGroups(user);
-  //   const publicGroups = await getGroups().filter((x) => x.private === false);
-  //   const groups = processGroupDataValueLabel(publicGroups);
-  //   //  TODO: REMOVE duplicate groups
-  //   return groups;
-  // } catch (error) {
-  //   console.log(error);
-  // }
   try {
-    //const userGroups = await getUsersGroups(user);
     let publicGroups = [];
     publicGroups = await getGroups();
     publicGroups.filter((x) => x.private === false);
     const groups = processGroupDataValueLabel(publicGroups);
-    //  TODO: REMOVE duplicate groups
     return groups;
   } catch (error) {
     console.log(error);
   }
 };
 
-
-
-
 /**
- * Quick helper function to check if a user is already
- * in a group with the given group Id
+ * This function is used to check if a user is in a group.
+ * The group id is used, and a boolean is returned depending on 
+ * if the user is in the group or not. 
  * @param {*} groupId
- * @returns
+ * @returns true if a user is in a group, otherwise false
  */
-
 export const isUserInGroup = async (groupId) => {
   const user = auth.currentUser;
   const userGroups = await getUsersGroups(user);
@@ -262,10 +281,10 @@ export const isUserInGroup = async (groupId) => {
 };
 
 /**
- * * @author Hamza
- * @returns All public and private groups
+ * This function returns a list of all groups 
+ * in the database. 
+ * @returns A list of all groups 
  */
-
 export const getAllPublicAndPrivateGroups = async () => {
   const GROUP_URL = BASE_URL + "group/";
   const accessToken = await auth.currentUser
@@ -282,8 +301,6 @@ export const getAllPublicAndPrivateGroups = async () => {
       throw new Error("Something went wrong");
     } else {
       const data = await response.json();
-
-      //console.log("comes from my new method", data);
       return data;
     }
   } catch (error) {
