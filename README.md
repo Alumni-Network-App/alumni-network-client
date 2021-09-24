@@ -8,8 +8,8 @@ many times and in many different locations since the programme first began. Both
 to notify them of social events and gather data for quality assurance purposes. With that in mind, This application is developed to facilitate this kind of communication.
 
 ## Backend 
-The repository for the backend [can be found here](https://github.com/Alumni-Network-App/Alumni-network-backend2)
-
+The repository for the backend [can be found here](https://github.com/Alumni-Network-App/Alumni-network-backend2) <br>
+Check out our [API documentation](https://github.com/Alumni-Network-App/Alumni-network-backend2#api)
 ## Most recent deployment 
 This project can be reached here [Alumni-network](https://alumni-network-deluxe.herokuapp.com/)
 
