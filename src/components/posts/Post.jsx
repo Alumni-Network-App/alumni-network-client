@@ -42,7 +42,7 @@ const Post = ({ id, postTitle, content, createdAt, creator }) => {
 
   return (
     <div>
-      <div className="space-y-4 mt-12">
+      <div className="bg-white space-y-4 mt-12">
         <div className="flex">
           <div className="flex-shrink-0 mr-3">
             {image ? (
